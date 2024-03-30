@@ -1,0 +1,57 @@
+.product-list {
+    margin-top: 40px; /* Add margin to the top of the wishlist section */
+    margin-bottom: 40px;
+}
+
+/* Rest of your CSS remains the same */
+.product {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    border-top:  1px solid #ccc;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.product img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product-details h2 {
+    margin: 0;
+}
+
+.product-details p {
+    margin: 0;
+}
+
+.remove-button {
+    background-color: #ff3333;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Center-align the heading */
+.product-list h1 {
+    text-align: center;
+}
+
+/* Style for in stock availability */
+.availability .in-stock {
+    color: green;
+}
+
+/* Style for out of stock availability */
+.availability .out-of-stock {
+    color: red;
+}

@@ -71,6 +71,8 @@ body, ul {
 .icons {
     display: flex;
     align-items: center;
+    color: black;
+    background-color: black;
     
 }
 
