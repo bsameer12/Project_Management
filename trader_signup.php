@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trader Sign Up</title>
+    <link rel="icon" href="logo_ico.png" type="image/png">
     <link rel="stylesheet" href="without_session_navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="customer_signup.css">

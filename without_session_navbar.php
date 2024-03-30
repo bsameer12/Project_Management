@@ -5,7 +5,7 @@
                 <div class="nav-links">
                     <ul>
                         <li class="highlight"><a href="index.php">Home</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="about.php">About Us</a></li>
                         <li><a href="#">Contacts</a></li>
                         <li><a href="#">Category</a></li>
                     </ul>

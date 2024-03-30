@@ -71,9 +71,6 @@ body, ul {
 .icons {
     display: flex;
     align-items: center;
-    color: black;
-    background-color: black;
-    
 }
 
 .icon:hover{
@@ -236,3 +233,7 @@ body, ul {
 .submenu-profile ul li:hover a {
     color: #007bff; /* Blue text color on hover */
 }
+
+.icons .icon i {
+    color: black; /* Change the color to black */
+  }
