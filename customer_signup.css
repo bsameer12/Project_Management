@@ -1,0 +1,103 @@
+.sign-up-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.sign-up-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group input[type="file"] {
+    width: auto;
+}
+
+.form-group input[type="checkbox"] {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.forgot-password {
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #007bff;
+    display: inline-block;
+}
+
+.sign-in-link, .sign-up-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 200px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="tel"]:hover,
+input[type="date"]:hover,
+input[type="file"]:hover,
+textarea:hover,
+input[type="submit"]:hover {
+    border-color: #0056b3;
+    background-color: lightgray;
+}
+
+.action-links {
+    text-align: center; /* Center align the content */
+}
+
+.action-links a {
+    display: inline-block; /* Ensure the elements are displayed in line */
+}
+
+.form-group input[type="radio"] {
+    display: inline-block;
+    margin-right: 10px; /* Adjust spacing between radio buttons */
+}
+
+.sign-up-container:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+    border-color: blue;
+}

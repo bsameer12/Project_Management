@@ -1,0 +1,236 @@
+/* Reset some default browser styles */
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+.logo img {
+    height: 90px; /* Adjust height as needed */
+    width: 90px; /* Allow the width to adjust automatically */
+}
+
+.nav-links ul {
+    list-style: none;
+    display: flex;
+    font: bold;
+}
+
+.nav-links ul li:hover {
+    background-color: #f0f8ff; /* Light blue background color on hover */
+    font: bold;
+}
+
+.nav-links ul li a:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+.nav-links li {
+    margin-right: 1rem;
+}
+
+.nav-links li:last-child {
+    margin-right: 1rem;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333; /* Change color to match your design */
+    font: bold;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 0.4rem;
+    width: 100%;
+}
+
+.search button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    
+}
+
+.icon:hover{
+    background-color: #f0f8ff; /* Light blue background color on hover */
+    color: #007bff; /* Change text color on hover */
+}
+
+.icon {
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.menu-toggle {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+}
+
+.submenu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f8f9fa; /* Light background color */
+    padding: 0.5rem;
+    width: 100%;
+}
+/* Media queries for responsiveness */
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: row;
+        position: relative;
+    }
+
+    .logo {
+        order: 1; /* Move logo to the top for mobile devices */
+    }
+
+    .search {
+        order: 2; /* Move search bar after logo for mobile devices */
+        margin-top: 1rem; /* Adjust spacing */
+        margin-right: 1rem;
+    }
+
+    .icons {
+        order: 3; /* Move icons after search bar for mobile devices */
+        margin-top: 1rem; /* Adjust spacing */
+    }
+
+    .menu-toggle {
+        display: block; /* Show menu toggle icon for mobile devices */
+        font-size: 1.5rem;
+        color: #333; /* Change color to match your design */
+        order: 4; /* Move menu toggle icon after icons for mobile devices */
+        margin-top: 1rem; /* Adjust spacing */
+    }
+
+    .submenu {
+        display: none; /* Hide submenu by default for mobile devices */
+        order: 5; /* Move submenu after menu toggle icon for mobile devices */
+    }
+
+    .submenu.show {
+        display: block; /* Show submenu when toggled for mobile devices */
+    }
+
+    .submenu ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .submenu ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .submenu ul li a {
+        text-decoration: none;
+        color: #333; /* Change color to match your design */
+    }
+
+    .submenu ul li:hover {
+        background-color: #f0f8ff; /* Light blue background color on hover */
+    }
+
+    .submenu ul li.active {
+        background-color: #add8e6; /* Light blue background color for selected page */
+        font-weight: bold; /* Bold font for selected page */
+    }
+
+    .nav-links ul {
+        list-style: none;
+        display: none;
+    }
+    
+}
+
+.submenu ul li.highlight {
+    background-color: #add8e6; /* Light blue background color for highlighted page */
+    font-weight: bold; /* Bold font for highlighted page */
+}
+
+
+
+/* profile section */
+/* Add styles for the profile icon */
+.profile-icon {
+    position: relative;
+    margin-left: 1rem;
+    margin-right: 2rem;
+}
+
+.profile-icon .profile-image img {
+    width: 40px; /* Set the width of the profile image */
+    height: 40px; /* Set the height of the profile image */
+    border-radius: 50%; /* Make the image circular */
+}
+
+.profile-icon .username {
+    margin-left: 0.5rem;
+}
+
+/* Style for submenu */
+.submenu-profile {
+    position: absolute;
+    top: 100%; /* Position submenu below profile icon */
+    left: -10px; /* Adjust submenu positioning */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 999; /* Ensure submenu appears above other content */
+}
+
+.submenu-profile ul {
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+}
+
+.submenu-profile ul li {
+    padding: 0.5rem 1rem;
+}
+
+.submenu-profile ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+/* Show submenu on hover */
+.profile-icon:hover .submenu-profile {
+    display: block;
+}
+
+
+/* Hover effect for submenu items */
+.submenu-profile ul li:hover {
+    background-color: #add8e6; /* Light blue background color on hover */
+}
+
+/* Hover effect for submenu item text */
+.submenu-profile ul li:hover a {
+    color: #007bff; /* Blue text color on hover */
+}
