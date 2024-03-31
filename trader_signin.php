@@ -1,3 +1,9 @@
+<?php
+if(isset($_POST["submit"]))
+{
+    header("Location:email_verify.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +23,7 @@
     ?>
     <div class="sign-in-container">
     <h2>Trader Sign In</h2>
-    <form>
+    <form method="POST">
     <div class="form-group">
         <label for="email">Email or Username</label>
         <input type="text" id="email" name="email" placeholder="Enter your username" required>
@@ -30,11 +36,11 @@
         <label for="remember"><input type="checkbox" id="remember" name="remember" alt="Remember Me">Remember Me</label>
     </div>
     <div class="form-group">
-        <input type="submit" value="Sign In">
+        <input type="submit" value="Sign In" name="submit" id="submit">
     </div>
     </form>
     <div class="action-links">
-    <a href="#" class="forgot-password">Forgot Password?</a>
+    <a href="email_verify.php" class="forgot-password">Forgot Password?</a>
     <p>Wanna Be A Trader At HudderFoods? <a href="trader_signup.php" class="sign-up-link">Sign Up</a></p>
     <p>Are You A Customer? <a href="customer_signin.php" class="sign-up-link">Customer Sign In</a></p>
     </div>

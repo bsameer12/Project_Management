@@ -1,3 +1,9 @@
+<?php
+if(isset($_POST["submit"]))
+{
+    header("Location:email_verify.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +23,7 @@
     ?>
     <div class="sign-up-container">
     <h2>Customer Sign Up</h2>
-    <form>
+    <form method = "POST">
         <div class="form-group">
             <label for="first-name">First Name</label>
             <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
@@ -64,7 +70,7 @@
             <label for="terms"> <input type="checkbox" id="terms" name="terms" required> I agree to the Terms and Conditions</label>
         </div>
         <div class="form-group">
-            <input type="submit" value="Sign Up">
+            <input type="submit" value="Sign Up" name="submit" id="submit">
         </div>
     </form>
     <div class="action-links">
