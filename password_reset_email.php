@@ -26,7 +26,7 @@ if(isset($_POST["submit"]))
     ?>
     <div class="email-container">
         <h2>Verify Your Email</h2>
-        <p>A verification code has been sent to your email <strong>youremail@example.com</strong>.</p>
+        <p>A verification code has been sent to your email <strong>youremail@example.com</strong> . For resetting your password.</p>
         <form method="post">
             <label for="verification_code">Verification Code</label><br>
             <input type="text" id="verification_code" name="verification_code" required><br>
