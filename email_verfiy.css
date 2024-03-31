@@ -29,6 +29,14 @@ input[type="text"] {
     margin-top: 15px;
 }
 
+input[type="email"]{
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 input[type="submit"] {
     margin-top: 5px;
     background-color: #007bff;
@@ -57,4 +65,17 @@ input[type="submit"]:hover {
 
 .email-container input[type="text"]:hover {
     border-color: #007bff; /* Border color on hover */
+}
+
+label {
+    display:inline-block;
+    color: #333;
+    margin-top: 20px;
+}
+
+input[type="email"]:hover,
+input[type="email"]:focus {
+    background-color: #e0e0e0;
+    outline: none;
+    border-color: #007bff;
 }

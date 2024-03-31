@@ -41,7 +41,7 @@ if(isset($_POST["submit"]))
     </div>
     </form>
     <div class="action-links">
-    <a href="password_reset_email.php" class="forgot-password">Forgot Password?</a>
+    <a href="forgot_password.php" class="forgot-password">Forgot Password?</a>
     <p>New to HudderFoods? <a href="customer_signup.php" class="sign-up-link">Sign Up</a></p>
     <p>Are You A Trader? <a href="trader_signin.php" class="sign-up-link">Merchant Sign In</a></p>
     </div>
