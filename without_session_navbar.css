@@ -125,6 +125,7 @@ body, ul {
         color: #333; /* Change color to match your design */
         order: 4; /* Move menu toggle icon after icons for mobile devices */
         margin-top: 1rem; /* Adjust spacing */
+        z-index: 10000;
     }
 
     .submenu {
@@ -134,6 +135,7 @@ body, ul {
 
     .submenu.show {
         display: block; /* Show submenu when toggled for mobile devices */
+        z-index: 1000;
     }
 
     .submenu ul {
