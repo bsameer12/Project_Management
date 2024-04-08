@@ -1,0 +1,79 @@
+#contact-container {
+    width: 90%; /* Set initial width */
+    max-width: 600px;
+    margin: 50px auto 30px; /* 50px top margin, auto left and right margins, 30px bottom margin */
+    padding: 40px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    text-align: center; /* Align content centrally */
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Align items horizontally */
+}
+
+#contact-container h2 {
+    /* Existing styles */
+    margin-bottom: 20px; /* Add margin to separate from form */
+}
+
+@media screen and (max-width: 768px) {
+    #contact-container {
+        width: 80%; /* Adjust width for tablets */
+        
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #contact-container {
+        width: 80%; /* Adjust width for mobile devices */
+    }
+}
+
+#contact-container:hover {
+    border-color: #007bff;
+    background-color: #f0f0f0;
+}
+
+#contact-container .form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Align form labels to the left */
+    display: flex;
+    flex-direction: row; /* Arrange items horizontally */
+    align-items: center; /* Align items vertically */
+}
+
+#contact-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px; /* Add space between label and input */
+    flex: 0 0 30%; /* Set label width */
+    margin-right: 10px; /* Add space between label and input */
+    text-align: right; /* Align label text to the right */
+}
+
+#contact-container input[type="text"],
+#contact-container input[type="email"],
+#contact-container input[type="tel"],
+#contact-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    flex: 0 0 70%; /* Set input field width */
+}
+
+#contact-container input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#contact-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}

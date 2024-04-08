@@ -1,8 +1,15 @@
+.home{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 /* Define attributes for slider image section */
 .home .home-slider .slide {
   position: relative;
-  height: 90vh; /* Adjust height as needed */
-  background-size: cover;
+  height: 650px; /* Adjust height as needed */
+  width: 100%;
+  background-size:cover;
   background-position: center;
 }
 
@@ -43,6 +50,72 @@
   letter-spacing: .1rem;
 }
 
+.swiper-pagination {
+  display: none;
+  text-align: left;
+  margin-top: 0;
+}
+
+.swiper-pagination-bullet {
+  display: block;
+  margin: 10px 0; /* Adjust the margin as needed */
+}
+@media (max-width: 768px) {
+  .home .home-slider .slide {
+    height: 230px; /* Adjust height for smaller screens */
+    width: 100%; /* Set width to full viewport width */
+    background-size:center;
+    background-position:center;
+    position: relative;
+  }
+  .swiper-pagination {
+    display: none;
+    text-align: left;
+    margin-top: 0;
+  }
+
+  .swiper-pagination-bullet {
+    display: block;
+    margin: 10px 0; /* Adjust the margin as needed */
+  }
+  .home .home-slider .slide .content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+  }
+  
+  .home .home-slider .slide .content h3 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    color: black;
+  }
+  
+  .home .home-slider .slide .content p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: black;
+  }
+  
+  .home .home-slider .slide .content .btn {
+    font-size: 1.7rem;
+    color: black;
+    background: var(--black);
+    border-radius: .5rem;
+    padding: .8rem 3rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .home .home-slider .slide .content .btn:hover {
+    background: grey;
+    letter-spacing: .1rem;
+  }
+
+}
 /* Style for Add to Cart button */
 .btn {
   font-size: 1.7rem;
@@ -62,8 +135,8 @@
 
 /* Make images responsive */
 img {
-  width: 100%;
-  height: auto;
+  height:17rem;
+  margin:1rem 0;
 }
 
 .home{

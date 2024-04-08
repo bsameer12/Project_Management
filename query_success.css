@@ -1,0 +1,41 @@
+#response-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px auto 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    
+}
+
+#response-container .row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#response-container .icon {
+    color: #4caf50;
+    font-size: 48px;
+}
+
+#response-container .message p {
+    font-size: 18px;
+    margin: 0;
+}
+
+#response-container .button .return-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#response-container .button .return-button:hover {
+    background-color: #0056b3;
+}
