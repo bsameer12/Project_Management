@@ -10,9 +10,9 @@
         <div class="footer-links">
             <ul>
                 <li><a href="about.php">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="contactus.php">Contact Us</a></li>
                 <li><a href="#">Help Us</a></li>
-                <li><a href="#">FAQs</a></li>
+                <li><a href="faqs.php">FAQs</a></li>
             </ul>
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook"></i></a>
