@@ -27,7 +27,7 @@
                 </div>
                 <div class="icons">
                     <a href="wishlist.php" class="icon"><i class="fas fa-heart" ></i></a>
-                    <a class="icon"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="cart.php" class="icon"><i class="fas fa-shopping-cart"></i></a>
                     <div class="nav-links">
                         <ul>
                             <li><a href="customer_signin.php">Sign In</a></li>

@@ -1,0 +1,276 @@
+/* Flex container for the sections */
+.container_cat {
+    display: flex;
+    justify-content: space-between; /* Spacing between sections */
+    flex-wrap: wrap; /* Allow sections to wrap if needed */
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+/* Styles specific to the cart section */
+.cart-section {
+    background-color: #f0f0f0; /* Grey background color */
+    width: calc(50% - 10px); /* Set width for the cart container */
+    /* Subtracting 10px for the margin to create some space between the sections */
+    margin-right: 10px; /* Add some space between the sections */
+}
+
+/* Styles specific to the summary section */
+.summary-section {
+    background-color: #f0f0f0; /* Grey background color */
+    width: calc(50% - 10px); /* Set width for the summary container */
+    /* Subtracting 10px for the margin to create some space between the sections */
+    margin-left: 10px; /* Add some space between the sections */
+    height: fit-content;
+    
+
+}
+
+.product-item img {
+    margin-left: 5px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.products {
+    width: 100%;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Align items in one row */
+}
+
+.product-details {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.product-details h3 {
+    margin-right: 20px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.quantity button {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.quantity button:hover {
+    background-color: #0056b3;
+}
+
+.price {
+    margin-right: 20px;
+}
+
+.delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete:hover {
+    background-color: #c82333;
+}
+
+/* Media query for smaller devices */
+@media screen and (max-width: 768px) {
+    .container_cat {
+        margin-left: 0;
+        margin-right: 0;
+    }
+        
+    .summary-section {
+        width: 100%;
+        margin-right: 0;
+        margin-top: 20px;
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .cart-section {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .product-item img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .product-details h3 {
+        margin-right: 20px;
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .quantity button {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .delete {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .price {
+        margin-right: 10px;
+    }
+    
+}
+
+
+.summary-section .summary {
+    flex: 2;
+    margin-right: 20px;
+    margin-bottom: 20px; /* Add margin to separate from other elements */
+    margin-left: 20px;
+}
+
+.summary-section .discount,
+.summary-section .total,
+.summary-section .checkout {
+    flex-basis: 100%; /* Make each element occupy full width */
+    margin-bottom: 20px; /* Add margin to separate each element */
+    margin-left: 20px;
+}
+
+.summary-section h3 {
+    margin-bottom: 10px;
+}
+
+.summary-section input[type="text"],
+.summary-section button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 5px;
+}
+
+.summary-section input[type="text"]:focus,
+.summary-section button:hover {
+    border-color: #007bff;
+}
+
+.summary-section .checkout {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto; /* Center horizontally */
+    margin-bottom: 20px;
+
+}
+
+.summary-section .checkout:hover {
+    background-color: #218838;
+}
+
+/* Styling for the button */
+.summary-section button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue color */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.summary-section button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Styles for the cart heading */
+.cart-section h3 {
+    text-align: center; /* Center-align the text */
+}
+
+
+/* Styles for the summary heading */
+.summary-section .summary h3 {
+    text-align: center; /* Center-align the text */
+}
+
+/* Styles for the discount heading */
+.discount h3 {
+    text-align: center; /* Center-align the text */
+}
+
+/* Styles for the total heading */
+.total h3 {
+    text-align: center; /* Center-align the text */
+}
+
+/* Styles for the checkout button */
+.checkout {
+    display: block; /* Make it a block-level element */
+    margin: 0 auto; /* Center horizontally */
+    text-align: center; /* Center-align the text */
+}
+
+/* Style for the quantity input */
+#quantityInput {
+    width: 30px; /* Set width for the input field */
+    height: 20px; /* Set height for the input field */
+    text-align: center; /* Center-align text in the input field */
+}
