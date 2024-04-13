@@ -1,0 +1,500 @@
+/* General styles */
+.profile-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.left-side {
+    flex: 1;
+    padding-right: 20px;
+    border-right: 2px solid #ccc; /* Add a border to separate from right side */
+    height: 100%;
+}
+
+.right-side {
+    flex: 2;
+    margin-left: 5px;
+}
+
+.profile-picture {
+    margin-left: 20px;
+    margin-bottom: 10px; /* Add some space between picture and button */
+    text-align: center; /* Add this line */
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #ccc; /* Add border to profile picture */
+}
+
+/* Style for the upload button */
+.update-profile-btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition effect */
+    margin-left: auto; /* Add this line */
+    margin-right: auto; /* Add this line */
+    display: block; /* Add this line */
+}
+
+.update-profile-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Add zoom in effect on hover */
+}
+
+.navigation {
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.nav-btn {
+    display: block;
+    margin-bottom: 10px;
+    border: none; /* Remove the border */
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition effect */
+    background-color: 000;
+    width: 100%;
+}
+
+.nav-btn.active {
+    background-color: #0095ff;
+}
+
+.nav-btn:hover {
+    background-color: #3300ff;
+    transform: scale(1.05); /* Add zoom in effect on hover */
+}
+
+.personal-info {
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.personal-info h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font: bold;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.save-btn,
+.delete-account-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 30px;
+    text-align: center;
+    
+}
+
+.save-btn:hover,
+.delete-account-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-account-btn {
+    background-color: #ff3333;
+}
+
+/* Hide the dummy tables by default */
+.my-orders-table,
+.my-reviews-table {
+    display: none;
+}
+
+.my-orders-table h2,
+.my-reviews-table h2 {
+    text-align: center;
+}
+
+/* Style for the dummy tables */
+.my-orders-table table,
+.my-reviews-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.my-orders-table table th,
+.my-reviews-table table th,
+.my-orders-table table td,
+.my-reviews-table table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.my-orders-table table th,
+.my-reviews-table table th {
+    background-color: #00eaff;
+    font-weight: bold;
+    text-align: left;
+}
+
+.my-orders-table table tbody tr:nth-child(even),
+.my-reviews-table table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Show the dummy tables when clicked */
+.my-orders.active,
+.my-reviews.active {
+    display: block;
+}
+
+/* Show the active content section */
+.active {
+    display: block !important;
+}
+
+
+/* Hide the personal information section by default */
+.personal-info {
+    display: none;
+}
+
+/* Show the personal information section when active */
+.nav-btn.active ~ .right-side .personal-info {
+    display: block;
+}
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 768px) {
+    .profile-container {
+        flex-direction: column; /* Change to column layout for smaller screens */
+    }
+
+    .left-side {
+        order: 1; /* Move left side to the bottom */
+        border-right: none;
+        border-bottom: 2px solid #000000; /* Add a border to separate from right side */
+    }
+
+    .right-side {
+        order: 2; /* Move right side to the top */
+        margin-top: 20px;
+
+    }
+
+    left-side {
+        display: flex;
+        align-items: center;
+    }
+    
+    .profile-picture {
+        margin-right: 10px; /* Add some spacing between profile picture and button */
+    }
+    
+    .navigation {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Add gap between buttons */
+    }
+    
+    .nav-btn {
+        flex: 1; /* Make buttons fill the available space equally */
+    }
+}
+
+
+.table-controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Center vertically */
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+#rows-per-page {
+    margin-right: 10px;
+}
+
+#search {
+    margin-left: auto; /* Push to the right side */
+}
+
+.my-orders-table table,
+.my-reviews-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-orders-table th,
+.my-reviews-table th {
+    background-color: rgba(0, 0, 0, 0.1); /* Light blur color */
+    text-align: center;
+}
+
+.my-orders-table td,
+.my-reviews-table td {
+    text-align: center;
+}
+
+.pagination {
+    bottom: 10px;
+    left: 10px; /* Align to the left side of the screen */
+    margin-top: 10px;
+}
+
+#prev-page,
+#next-page {
+    background-color: #007bff; /* Blue color */
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+#prev-page:hover,
+#next-page:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#order_table_length {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Center vertically */
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#order_table_fliter {
+    margin-left: auto; /* Push to the right side */
+    margin-bottom: 10px;
+
+}
+
+#order_table_info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Center vertically */
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#order_table_paginate{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* Center vertically */
+    margin-bottom: 10px;
+    margin-left: auto; /* Push to the right side */
+    margin-top: 10px;
+}
+
+
+
+#review_table_length {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Center vertically */
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#review_table_fliter {
+    margin-left: auto; /* Push to the right side */
+
+}
+
+#review_table_info{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#review_table_paginate{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    margin-left: auto; /* Push to the right side */
+    margin-top: 10px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    #order_table_paginate,
+    #order_table_info {
+        font-size: 9px; /* Decrease font size for mobile devices */
+        font-weight: bold; /* Set font weight to bold */
+    }
+
+    #order_table_filter > label > input[type=search]{
+        width: 70%;
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    #order_table_filter > label{
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    #order_table_length > label > select{
+        width: 45%;
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    #order_table_length > label{
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    /* Reset margins */
+    #order_table_paginate,
+    #order_table_info,
+    #order_table_filter,
+    #order_table_length {
+        margin: 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    /* Set flex direction for elements to display in a row */
+    #order_table_paginate,
+    #order_table_info,
+    #order_table_filter,
+    #order_table_length {
+        display:inline;
+    }
+
+    #order_table_paginate{
+        width: 60%;
+    }
+
+    #order_table_length{
+        float: inline-start;
+    }
+
+    #order_table_filter {
+        float: inline-end;
+    }
+
+    #order_table_info{
+        float: inline-start;
+    }
+
+    #order_table_paginate{
+        float: inline-end;
+    }
+
+    #review_table_paginate,
+    #review_table_info {
+        font-size: 9px; /* Decrease font size for mobile devices */
+        font-weight: bold; /* Set font weight to bold */
+    }
+
+    #review_table_filter > label > input[type=search]{
+        width: 70%;
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    #review_table_filter > label{
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    #review_table_length > label > select{
+        width: 45%;
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    #review_table_length > label{
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    /* Reset margins */
+    #review_table_paginate,
+    #review_table_info,
+    #review_table_filter,
+    #review_table_length {
+        margin: 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    /* Set flex direction for elements to display in a row */
+    #review_table_paginate,
+    #review_table_info,
+    #review_table_filter,
+    #review_table_length {
+        display:inline;
+    }
+
+    #review_table_paginate{
+        width: 60%;
+    }
+
+    #review_table_length{
+        float: inline-start;
+    }
+
+    #review_table_filter {
+        float: inline-end;
+    }
+
+    #review_table_info{
+        float: inline-start;
+    }
+
+    #review_table_paginate{
+        float: inline-end;
+    }
+
+}
