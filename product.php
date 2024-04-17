@@ -290,5 +290,6 @@
     ?>
     <script src="product.js"> </script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="without_session_navbar.js"> </script>
 </body>
 </html>

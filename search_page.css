@@ -1,0 +1,186 @@
+/* styles.css */
+.container_search {
+    display: flex;
+}
+
+.left-sidebar {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    max-width: 20%
+}
+
+.left-sidebar h2,
+.left-sidebar h3 {
+    margin-top: 0;
+}
+
+.right-content {
+    flex: 2;
+    padding: 20px;
+}
+
+.top-section,
+.bottom-section {
+    margin-bottom: 20px;
+}
+
+.sort-form label,
+.filter-form label {
+    display: block;
+}
+
+.sort-form select,
+.filter-form select {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-form input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Additional styles for responsiveness */
+@media screen and (max-width: 768px) {
+    .container_search {
+        flex-direction: row;
+    }
+    .left-sidebar
+    {
+        border-right: 1px solid #ccc;
+        width: 40%;
+    }
+
+    .container_search .top-section {
+        display: flex;
+        justify-content:flex-start;
+        align-items:flex-start;
+        flex-direction: column;
+    }
+    
+    .container_search .top-section p {
+        align-self: flex-start; /* or 'align-self: flex-end;' for right alignment */
+    }
+    
+    
+    .container_search .top-section form {
+        margin: 0; /* Reset margin for the form */
+        align-self: flex-start;
+    }
+
+    
+    
+    
+}
+
+
+.sort-form {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.sort-form label {
+    margin-right: 10px; /* Adjust as needed */
+}
+
+#sort-by{
+    width: 90%;
+}
+
+
+
+.product-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    
+}
+
+.product-card {
+    width: 200px; /* Adjust width as needed */
+    margin: 25px;
+    
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+}
+
+.total-reviews {
+    margin-left: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.wishlist-btn {
+    flex: 1;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    max-width: 30px;
+    margin-left: 10px;
+    align-content: center;
+    margin-right: 10px;
+}
+
+.add-to-cart-btn:hover,
+.wishlist-btn:hover {
+    background-color: #0056b3;
+}
+
+.add-to-cart-btn{
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.product-name {
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.container_search .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container_search .top-section p {
+    margin: 0; /* Reset margin for the paragraph */
+}
+
+.container_search .top-section form {
+    margin: 0; /* Reset margin for the form */
+}
+
