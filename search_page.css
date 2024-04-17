@@ -184,3 +184,30 @@
     margin: 0; /* Reset margin for the form */
 }
 
+#price_container {
+    display: flex;
+    align-items: center;
+}
+
+#original_price {
+    font-size: 20px; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+    text-decoration: line-through; /* Cross out the original price */
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+#discount {
+    font-size: 12px; /* Adjust font size as needed */
+    color: #ff0000; /* Adjust text color as needed */
+    margin-right: 7px; /* Adjust margin as needed */
+    margin-left: 0;
+    margin-bottom: 1;
+}
+
+#discount_price {
+    font-size: 20px; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+    margin-top: 7px;
+    font-weight: bold;
+}
