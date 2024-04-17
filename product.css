@@ -1,0 +1,372 @@
+#product_container {
+    margin: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#product_images,
+#product_details {
+    flex: 1;
+}
+
+#product_images {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#main_image_container {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center horizontally */
+    display: block; /* Ensure the image fills the container */
+}
+
+#main_image {
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+#thumbnail_images {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center; /* Center horizontally */
+}
+
+.thumbnail_container {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px; /* Add a little margin between thumbnail images */
+}
+
+.thumbnail_container img {
+    width: 100%;
+    cursor: pointer;
+}
+
+#product_details {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+#price_container {
+    display: flex;
+    align-items: center;
+}
+
+#original_price {
+    font-size: 20px; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+    text-decoration: line-through; /* Cross out the original price */
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+#discount {
+    font-size: 12px; /* Adjust font size as needed */
+    color: #ff0000; /* Adjust text color as needed */
+    margin-right: 7px; /* Adjust margin as needed */
+    margin-left: 0;
+    margin-bottom: 1;
+}
+
+#discount_price {
+    font-size: 20px; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+    margin-top: 7px;
+    font-weight: bold;
+}
+
+
+#actions {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#quantity {
+    display: flex;
+    align-items: center;
+}
+
+#quantity_input {
+    width: 25px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px; /* Adjust the border-radius value as needed */
+    border: 1px solid #ccc; /* Add border style if needed */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.fa-heart {
+    font-size: 14px;
+}
+
+#add_to_wishlist {
+    margin-left: 25px;
+}
+
+#add_to_cart {
+    margin-top: 25px;
+}
+
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    #product_container {
+        flex-direction: column;
+    }
+
+    #product_images,
+    #product_details {
+        width: 100%; /* Take up full width */
+    }
+}
+#product_info_container {
+    max-width: 800px; /* Adjust max width as needed */
+    margin: 20px auto; /* Center the container */
+    padding: 20px;
+    margin-top: 25px;
+}
+
+#product_navbar {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.nav_btn {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px; /* Adjust spacing between buttons */
+    color: black;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.nav_btn:hover {
+    background-color: grey; /* Highlight effect on hover */
+    color: white;
+}
+
+.nav_btn.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.product_info {
+    display: none;
+}
+
+.product_info.active {
+    display: block;
+}
+
+
+/* Flex layout for customer comment */
+.comment-container {
+    overflow: hidden; /* Hide overflow content */
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 30px;
+}
+
+.comment-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Add margin between comments */
+    overflow-x: hidden; /* Hide horizontal overflow */
+    
+
+}
+
+/* Style the profile image */
+.customer-profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px; /* Add margin between image and text */
+}
+
+/* Container for customer details */
+.customer-details {
+    flex-grow: 1; /* Allow it to grow to fill the available space */
+    overflow: hidden; /* Hide overflow content */
+}
+
+/* Style customer name */
+.customer-details h3 {
+    margin: 0; /* Remove default margin */
+    margin-bottom: 5px; /* Add margin below name */
+    font-weight: bold; /* Make name bold */
+    font-size: 16px; /* Set font size for name */
+}
+
+/* Style rating */
+.rating {
+    display: flex;
+    margin-bottom: 5px; /* Add margin below rating */
+    flex-direction: column;
+}
+
+.rating p {
+    margin: 0;
+    margin-right: 10px; /* Add margin between name and stars */
+    font-weight: bold;
+}
+
+/* Style the stars */
+.stars {
+    color: #ffd700;
+    margin-right: 5px; /* Add margin between stars and rating text */
+}
+
+/* Style the rating text */
+.rating-text {
+    font-size: 14px;
+    color: #333; /* Adjust text color as needed */
+    margin-right: 10px; /* Add margin between rating and comment text */
+}
+
+/* Style the comment text */
+.comment-text p {
+    margin: 0; /* Remove default margin */
+    font-size: 14px; /* Set font size for comment text */
+}
+
+/* Actions container */
+.actions {
+    margin-top: 10px; /* Add margin above actions */
+}
+
+/* Style like and reply buttons */
+.like-btn, .reply-btn {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style reply form */
+.reply-form {
+    margin-top: 10px; /* Add margin above form */
+}
+
+/* Style reply form input fields */
+.reply-form input[type="text"] {
+    width: calc(100% - 90px); /* Adjust width of input field */
+    padding: 5px; /* Adjust padding */
+    margin-right: 10px; /* Add margin between input field and submit button */
+}
+
+/* Style reply form submit button */
+.reply-form input[type="submit"] {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+
+#other_products_container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.product-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.product-card {
+    width: 200px; /* Adjust width as needed */
+    margin: 10px;
+    
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+}
+
+.total-reviews {
+    margin-left: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.wishlist-btn {
+    flex: 1;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    max-width: 30px;
+    margin-left: 10px;
+    align-content: center;
+    margin-right: 10px;
+}
+
+.add-to-cart-btn:hover,
+.wishlist-btn:hover {
+    background-color: #0056b3;
+}
+
+.add-to-cart-btn{
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.product-name {
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    margin-top: 10px;
+}
