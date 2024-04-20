@@ -1,0 +1,45 @@
+
+.confirmation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.confirmation-header {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.confirmation-icon {
+    font-size: 2rem;
+}
+
+.confirmation-title {
+    margin-left: 0.5rem;
+}
+
+.confirmation-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.return-home {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.return-home-link {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.return-home-link:hover {
+    background-color: #0056b3;
+}

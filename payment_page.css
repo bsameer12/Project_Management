@@ -1,0 +1,52 @@
+.container_pay {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#order-summary-title {
+    margin-top: 50px;
+}
+
+.order-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.detail {
+    margin-bottom: 10px;
+}
+
+.detail-title {
+    font-weight: bold;
+}
+
+.payment-section {
+    margin-top: 50px;
+}
+
+#payment-title {
+    margin-bottom: 20px;
+}
+
+#payment-button {
+    background-color: #0070ba;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 20%;
+    height: 2%;
+}
+
+#payment-button:hover {
+    background-color: #005187;
+}
+
+#payment-button img {
+    max-width: 80%;
+    max-height: 80%;
+}
