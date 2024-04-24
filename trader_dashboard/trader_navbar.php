@@ -1,19 +1,21 @@
-<div class="sidebar">
-  <div class="logo">
-    <img src="../logo.png" alt="Logo">
-  </div>
-  <div class="profile">
-    <div class="profile-info">
-      <img src="../profile.jpg" alt="Profile Icon">
-      <span class="username">Trader Name</span>
+<nav class="navbar">
+    <a href="#" class="logo"><img src="../logo.png" alt="logo" class="logo-image"></a>
+    <h1 class="heading">Trader Dashboard</h1>
+    <div class="user-info">
+      <span class="welcome">Welcome,</span>
+      <span class="trader-name">Trader Name</span>
+      <img src="../profile.jpg" alt="Profile Image" class="profile-image">
+      <div class="dropdown">
+        <ul>
+        <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a href="#"><i class="fas fa-lock"></i> Change Password</a></li>
+        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="dropdown">
-    <div class="dropdown-menu">
-        <a href="#"><i class="fas fa-user"></i><span class="dropdown-text"> Profile</span></a>
-        <a href="#"><i class="fas fa-key"></i><span class="dropdown-text"> Change Password</span></a>
-    </div>
-</div>
-</div>
+  </nav>
+
+  <div class="sidebar">
   <div class="navbar-buttons">
     <button class="navbar-button"><i class="fas fa-tachometer-alt"></i> <span class="button-text">Dashboard</span></button>
     <button class="navbar-button"><i class="fas fa-box"></i> <span class="button-text">Products</span></button>

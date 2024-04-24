@@ -1,70 +1,103 @@
-/* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 200px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-}
-
-.logo {
-    display: flex;
-    align-items: start;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     
+    /* Navbar styles */
+    .navbar {
+        width: 100%;
+        background-color: #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    
+    .logo {
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+    }
 
-}
+    .logo-image{
+        width: 85px;
+        height: 85px;
+    }
+    
+    .heading {
+        color: white;
+        font-size: 24px;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+    
+    .welcome,
+    .trader-name {
+        color: white;
+        margin-right: 10px;
+    }
+    
+    .profile-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    
+    .dropdown {
+        position: relative;
+    }
+    
+    .dropdown ul {
+        position: absolute;
+        top: 100%;
+        right: 10px;;
+        background-color: #555;
+        padding: 10px;
+        display: none;
+        width: max-content; /* Set width to fit content */
+        white-space: nowrap; /* Prevent wrapping */
+        top: calc(100% + 25px); /* Adjust spacing between dropdown and user info */
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for a floating effect */
+    }
+    
+    .dropdown ul li {
+        list-style: none;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    
+    .dropdown ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px; /* Add padding for better clickability */
+    }
+    
+    .dropdown.visible ul {
+        display: block;
+    }
 
+    .dropdown ul li a:hover {
+        background-color: #777; /* Change background color on hover */
+        width: 100%;
+    }
 
-.logo img {
-    width: 100px; /* Adjust size as needed */
-}
-
-
-.profile {
-    margin-top: auto;
-}
-
-.profile-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.profile img {
-    width: 30px; /* Adjust size as needed */
-    border-radius: 50%; /* for rounded profile picture */
-    margin-right: 10px;
-}
-
-.username {
-    font-weight: bold;
-}
-
-.dropdown-toggle {
-    cursor: pointer;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #333;
-    display: none;
-}
-
-.dropdown-menu a {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-}
-
-
-
-/* Responsive Styles */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 14%;
+        height: 100%;
+        width: 200px;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+    }
+    /* Responsive Styles */
 @media only screen and (max-width: 768px) {
     .sidebar {
         width: 100%;
@@ -98,7 +131,7 @@
 
 /* Collapse sidebar and navbar buttons when sidebar is collapsed */
 .sidebar.collapsed {
-    width: 80px; /* Adjust as needed */
+    width: 60px; /* Adjust as needed */
 }
 
 
@@ -108,7 +141,7 @@
 
 .sidebar-toggle {
     position: absolute;
-    top: 10px;
+    top: 4px;
     right: 10px;
     padding: 10px;
     background: none;
@@ -122,70 +155,6 @@
 /* Add hover effect for navbar buttons */
 .navbar-button:hover {
     background-color: #444;
-}
-
-/* Show trader name when sidebar is collapsed */
-.sidebar.collapsed .profile-info {
-    display: block;
-}
-
-/* Profile dropdown styles */
-.dropdown {
-    position: relative;
-    display: none;
-}
-
-.dropdown.active {
-    display: block;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #333;
-    display: none;
-}
-
-.dropdown-menu a {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-}
-
-.dropdown-menu a:hover {
-    background-color: #444;
-}
-
-/* Ensure dropdown menu is displayed */
-.dropdown.active .dropdown-menu {
-    display: flex;
-    flex-direction: column; /* Align dropdown items vertically */
-    position: relative; /* Remove absolute positioning */
-    top: 0; /* Reset top position */
-    left: 0; /* Reset left position */
-    width: 100%; /* Make dropdown menu full width */
-    margin-top: 10px; /* Add some space */
-    background-color: #333;
-}
-
-.dropdown-menu a {
-    color: #fff;
-    text-decoration: none;
-    display: flex; /* Align items horizontally */
-    align-items: center; /* Center items vertically */
-    padding: 10px;
-}
-
-.dropdown-menu a:hover {
-    background-color: #444;
-}
-
-
-/* Add space between dropdown icon and text */
-.dropdown-menu a i {
-    margin-right: 5px; /* Adjust as needed */
 }
 
 /* Hide text in collapsed mode */
