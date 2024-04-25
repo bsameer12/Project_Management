@@ -90,7 +90,7 @@
     .sidebar {
         position: fixed;
         left: 0;
-        top: 14%;
+        top: 109px;
         height: 100%;
         width: 200px;
         background-color: #333;
@@ -100,7 +100,7 @@
     /* Responsive Styles */
 @media only screen and (max-width: 768px) {
     .sidebar {
-        width: 100%;
+        width: 40%;
         padding: 20px;
     }
 
@@ -169,4 +169,44 @@
 /* Show only icons when sidebar is collapsed */
 .sidebar.collapsed .dropdown-menu a .dropdown-text {
     display: none;
+}
+
+/* Media query for mobile devices */
+@media only screen and (max-width: 768px){
+    .navbar {
+        padding: 5px; /* Decrease padding for better visibility */
+        flex-direction: row; /* Stack items vertically */
+    }
+
+    .user-info {
+        margin-top: 10px; /* Add space between logo and user info */
+    }
+
+    .profile-image {
+        margin-right: 0; /* Remove right margin for profile image */
+    }
+
+    .logo-image{
+        width: 50px;
+        height: 50px;
+    }
+
+    .sidebar {
+        top: 63px;
+    }
+
+    .heading {
+        font-size: 15px;
+    }
+
+    .welcome,
+    .trader-name {
+        font-size: 10px;
+        margin-right: 0;
+    }
+
+    .trader-name {
+        margin-right: 5px;
+
+    }
 }
