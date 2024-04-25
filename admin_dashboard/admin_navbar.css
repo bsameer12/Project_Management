@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar styles */
+.navbar {
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position:fixed;
+    top: 0;
+    z-index: 1000; /* Set a high z-index value */
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.logo-image{
+    width: 85px;
+    height: 85px;
+}
+
+.heading {
+    color: white;
+    font-size: 24px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.welcome,
+.trader-name {
+    color: white;
+    margin-right: 10px;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dropdown {
+    position: relative;
+    z-index: 12001;
+}
+
+.dropdown ul {
+    position: absolute;
+    top: 100%;
+    right: 10px;;
+    background-color: #555;
+    padding: 10px;
+    display: none;
+    width: max-content; /* Set width to fit content */
+    white-space: nowrap; /* Prevent wrapping */
+    top: calc(100% + 25px); /* Adjust spacing between dropdown and user info */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for a floating effect */
+}
+
+.dropdown ul li {
+    list-style: none;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.dropdown ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px; /* Add padding for better clickability */
+}
+
+.dropdown.visible ul {
+    display: block;
+}
+
+.dropdown ul li a:hover {
+    background-color: #777; /* Change background color on hover */
+    width: 100%;
+}
+
+.sidebar {
+    position:fixed;
+    left: 0;
+    top: 109px;
+    height: 90%;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    overflow-y: auto; /* Make the sidebar scrollable vertically */
+}
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+.sidebar {
+    width: 40%;
+    padding: 20px;
+    bottom: auto;
+}
+
+.content {
+    margin-left: 0;
+}
+}
+
+
+
+.navbar-button {
+display: block;
+width: 100%; /* Make each button full width */
+padding: 10px 0; /* Add padding */
+text-align: left; /* Align text to the left */
+background: none; /* Remove background */
+border: none; /* Remove border */
+color: #fff;
+font-size: 16px;
+margin-bottom: 20px; /* Add margin between buttons */
+z-index: 100000;
+}
+
+body > div.sidebar.collapsed > div > button:nth-child(14){
+    margin-bottom: 50%;
+}
+
+.navbar-button i {
+margin-right: 10px; /* Add space between icon and text */
+}
+
+/* Collapse sidebar and navbar buttons when sidebar is collapsed */
+.sidebar.collapsed {
+width: 60px; /* Adjust as needed */
+}
+
+
+.navbar-buttons.collapsed .navbar-button i {
+margin-right: 0;
+}
+
+.sidebar-toggle {
+position: absolute;
+top: 4px;
+right: 10px;
+padding: 10px;
+background: none;
+border: none;
+cursor: pointer;
+color: #fff;
+z-index: 1000;
+}
+
+
+/* Add hover effect for navbar buttons */
+.navbar-button:hover {
+background-color: #444;
+}
+
+/* Hide text in collapsed mode */
+.navbar-buttons.collapsed .button-text {
+display: none;
+}
+
+.sidebar.collapsed .navbar-button i {
+margin-right: 0; /* Remove space between icon and text */
+}
+
+/* Show only icons when sidebar is collapsed */
+.sidebar.collapsed .dropdown-menu a .dropdown-text {
+display: none;
+}
+
+/* Media query for mobile devices */
+@media only screen and (max-width: 768px){
+.navbar {
+    padding: 5px; /* Decrease padding for better visibility */
+    flex-direction: row; /* Stack items vertically */
+}
+
+.user-info {
+    margin-top: 10px; /* Add space between logo and user info */
+}
+
+.profile-image {
+    margin-right: 0; /* Remove right margin for profile image */
+}
+
+.logo-image{
+    width: 50px;
+    height: 50px;
+}
+
+.sidebar {
+    top: 63px;
+}
+
+.heading {
+    font-size: 15px;
+}
+
+.welcome,
+.trader-name {
+    font-size: 10px;
+    margin-right: 0;
+}
+
+.trader-name {
+    margin-right: 5px;
+
+}
+}

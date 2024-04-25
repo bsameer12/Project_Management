@@ -12,6 +12,9 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
+        position:fixed;
+        top: 0;
+        z-index: 1000; /* Set a high z-index value */
     }
     
     .logo {
@@ -50,6 +53,7 @@
     
     .dropdown {
         position: relative;
+        z-index: 12001;
     }
     
     .dropdown ul {
@@ -88,7 +92,7 @@
     }
 
     .sidebar {
-        position: fixed;
+        position:fixed;
         left: 0;
         top: 109px;
         height: 100%;
@@ -123,6 +127,7 @@
     color: #fff;
     font-size: 16px;
     margin-bottom: 20px; /* Add margin between buttons */
+    z-index: 100000;
 }
 
 .navbar-button i {
