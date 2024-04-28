@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review</title>
+    <title>Orders</title>
     <link rel="icon" href="../logo.png" type="image/png">
     <link rel="stylesheet" href="trader_navbar.css">
     <link rel="stylesheet" href="trader_products.css">
@@ -22,7 +22,7 @@
     <?php
         include("trader_navbar.php");
     ?>
-    <h1 class="page-title">Reviews</h1>
+    <h1 class="page-title">Orders Details</h1>
     <div class="product-container">
     <div class="sort-container">
             <form id="sortForm">
@@ -38,17 +38,16 @@
             </form>
         </div>
     </div>
-    
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
         <tr> 
-                    <th> ID </th> 
-                    <th> User Profile </th>
-                    <th> User Name </th>
-                    <th> User Rating </th>
-                    <th> User Review </th>
-                    <th> User Reply </th>
+                    <th> Order ID </th> 
+                    <th> Total Amount </th>
+                    <th> Order Date</th>
+                    <th> Customer Id </th>
+                    <th> Pick Up Date </th>
+                    <th> Status</th>
                     <!-- Add more headers for product details -->
                     <th> Actions </th> 
         </tr>
@@ -57,12 +56,12 @@
         
             <tr>
             <td> 1001 </td>
-            <td><img src='../profile.jpg' alt='Product Image' style='width:50px;height:50px;'></td>
-            <td> Sameer Basnet</td>
-            <td>4.5</td>
-            <td>Good Product</td>
-            <td>tHANK YOU</td>
-            <td> <a href=trader_qa.php?id=$id&action=edit> Reply </a> </td>
+            <td>15000</td>
+            <td> 2024-04-28</td>
+            <td>1223</td>
+            <td>2025-03-04</td>
+            <td>Ready to be delivered!!!</td>
+            <td> <a href=admin_edit_poroduct.php?id=$id&action=edit> View </a></td>
             </tr>
         </tbody>
         </table>
@@ -77,19 +76,6 @@
         let table = new DataTable('#myTable', {
         responsive: true,
         });
-        window.onload = function() {
-        var sortSelect = document.getElementById("sort");
-        var selectedValue = localStorage.getItem("selectedSortValue");
-        if (selectedValue) {
-            sortSelect.value = selectedValue;
-        }
-    };
-
-    function submitForm() {
-        var sortSelect = document.getElementById("sort");
-        localStorage.setItem("selectedSortValue", sortSelect.value);
-        document.getElementById("sortForm").submit();
-    }
     </script>
 </body>
 </html>
