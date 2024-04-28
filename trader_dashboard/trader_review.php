@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>Review</title>
     <link rel="icon" href="../logo.png" type="image/png">
     <link rel="stylesheet" href="trader_navbar.css">
     <link rel="stylesheet" href="trader_products.css">
@@ -37,62 +37,18 @@
                 </select>
             </form>
         </div>
-        <div class="search-container">
-            <button class="create-new-btn" onclick="openForm()">Add Product</button>
-        </div>
     </div>
-    <div class="form-popup" id="productForm">
-    <div class="form-container">
-        <h2>Product Registration Form</h2>
-        <span class="close" onclick="closeForm()">&times;</span>
-        <div class="profile-circle" id="productImagePreview"></div>
-        <form id="productForms" name="productForms" action="" enctype="multipart/form-data" method="POST">
-            <!-- Add fields for product details -->
-            <div class="row">
-                <div class="col">
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName" name="productName" required>
-                </div>
-                <div class="col">
-                    <label for="category">Category:</label>
-                    <select id="category" name="category" required>
-                        <option value="Pizza">Pizza</option>
-                        <option value="Momo">Momo</option>
-                        <option value="Drinks">Drinks</option>
-                        <option value="Tea">Tea</option>
-                        <option value="Coffee">Coffee</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <!-- Add more fields as needed -->
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="price" required>
-                </div>
-                <div class="col">
-                    <label for="productImage">Upload Product Image:</label>
-                    <input type="file" id="productImage" name="productImage" accept="image/*" onchange="previewProductImage()" required>
-                </div>
-            </div>
-                <input type="submit" id="submit_product" name="submit_product" value="Add Product" class="form-buttons" style="background-color: #4CAF50; color: white; text-align: center; ">
-        </form>
-    </div>
-</div>
-</div>
-</div>
-
-
+    
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
         <tr> 
                     <th> ID </th> 
-                    <th> Image </th>
-                    <th> Product Name </th>
-                    <th> Category </th>
-                    <th> Price </th>
+                    <th> User Profile </th>
+                    <th> User Name </th>
+                    <th> User Rating </th>
+                    <th> User Review </th>
+                    <th> User Reply </th>
                     <!-- Add more headers for product details -->
                     <th> Actions </th> 
         </tr>
@@ -101,11 +57,12 @@
         
             <tr>
             <td> 1001 </td>
-            <td><img src='../caviber_image.jpg' alt='Product Image' style='width:50px;height:50px;'></td>
-            <td> Hello</td>
-            <td>fghhjffg</td>
-            <td>10000</td>
-            <td> <a href=admin_edit_poroduct.php?id=$id&action=edit> Edit </a> | <a href=deleteproduct.php?id=$id&action=delete> Delete </a> </td>
+            <td><img src='../profile.jpg' alt='Product Image' style='width:50px;height:50px;'></td>
+            <td> Sameer Basnet</td>
+            <td>4.5</td>
+            <td>Good Product</td>
+            <td>tHANK YOU</td>
+            <td> <a href=trader_qa.php?id=$id&action=edit> Reply </a> </td>
             </tr>
         </tbody>
         </table>
