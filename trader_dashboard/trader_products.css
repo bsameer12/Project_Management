@@ -1,0 +1,361 @@
+.page-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-top: 10%;
+}
+
+/* Adjust left-section margin when sidebar is not collapsed */
+.sidebar.collapsed ~ .page-title {
+    margin-left: 65px; /* Adjust the margin when sidebar is not collapsed */
+    
+}
+
+/* Adjust left-section margin when sidebar is not collapsed */
+.sidebar:not(.collapsed) ~ .page-title {
+    margin-left: 190px; /* Adjust the margin when sidebar is not collapsed */
+}
+
+
+/* Styling for the product container */
+.product-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-top: 30px; /* Adjust the margin as needed */
+    margin-bottom: 10px;
+    display: flex;
+    margin-right: auto;
+    justify-content: space-between;
+    
+}
+
+.body > div.product-container > div.sort-container{
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+.product-container .sort-container label {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    
+}
+
+/* Styling for the sort dropdown */
+#sort {
+    padding: 8px; /* Adjust padding as needed */
+    border: 2px solid #ccc; /* Default border color */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover effect */
+#sort:hover {
+    border-color: #007bff; /* Border color change on hover */
+    background-color: #f0f0f0; /* Background color change on hover */
+}
+
+.sidebar.collapsed ~ .product-container{
+    margin-left: 100px;
+}
+.sidebar.collapsed ~ .user-details-container{
+    margin-left: 100px;
+}
+.sidebar:not(.collapsed) ~ .product-container{
+    margin-left: 220px;
+
+}
+.sidebar:not(.collapsed) ~ .user-details-container{
+    margin-left: 220px;
+}
+
+/* Styling for the add product button */
+.create-new-btn {
+    justify-content: flex-end; /* Aligns items to the end of the container */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.create-new-btn:hover {
+    background-color: #45a049;
+}
+
+/* Styling for the user details container */
+.user-details-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin-top: 10px; /* Adjust the margin as needed */
+}
+
+/* Styling for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Styling for profile circle */
+.profile-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+/* Hide the form by default */
+#productForm {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 9999; /* Ensure it's above all content */
+}
+
+/* Style the form container */
+#productForm .form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #007bff; /* Highlight border color */
+}
+
+/* Style the close button */
+#productForm .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Style the form fields */
+#productForm label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#productForm input[type="text"],
+#productForm input[type="number"],
+#productForm select,
+#productForm input[type="file"] {
+    width: calc(100% - 10px); /* Subtracting padding */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+/* Highlight input field on hover */
+#productForm input[type="text"]:hover,
+#productForm input[type="number"]:hover,
+#productForm select:hover,
+#productForm input[type="file"]:hover {
+    border-color: #007bff;
+}
+
+/* Center the submit button */
+#productForm #submit_product {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+/* Highlight submit button on hover */
+#productForm #submit_product:hover {
+    background-color: #0056b3;
+}
+
+/* Adjust layout for mobile devices */
+@media screen and (max-width: 600px) {
+    #productForm .col {
+        width: 100%; /* One column on mobile */
+    }
+}
+
+#myTable_filter{
+    top: 0;
+    float: inline-end;
+    margin-bottom: 20px;
+}
+
+
+#myTable_length{
+    top: 0;
+    bottom: 0;
+    float: inline-start;
+    margin-bottom: 20px;
+}
+
+#myTable_info{
+    top: 0;
+    bottom: 0;
+    float: inline-start;
+    margin-top: 20px;
+}
+
+#myTable_paginate{
+    top: 0;
+    bottom: 0;
+    float: inline-end;
+    margin-top: 20px;
+}
+
+/* Style for the previous button */
+#myTable_previous {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    border: none;
+    padding: 8px 16px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    margin-right: 5px;
+}
+
+/* Hover effect */
+#myTable_previous:hover {
+    background-color: #0056b3; /* Darker background color on hover */
+}
+
+/* Style for the next button */
+#myTable_next {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    border: none;
+    padding: 8px 16px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    margin-left: 5px;
+}
+
+/* Hover effect */
+#myTable_next:hover {
+    background-color: #0056b3; /* Darker background color on hover */
+}
+
+#myTable_paginate > span{
+    border: 1px solid black;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    padding: 8px 16px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+#myTable_info {
+    font-weight: bold; /* Make the text bold */
+}
+
+#myTable_filter > label{
+    font-weight: bold;
+}
+
+/* Style for the filter input */
+#myTable_filter > label > input[type=search] {
+    padding: 8px; /* Adjust padding as needed */
+    border: 2px solid #ccc; /* Default border color */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    margin-left: 5px;
+}
+
+/* Highlight border color on focus */
+#myTable_filter > label > input[type=search]:focus {
+    border-color: #007bff; /* Highlight border color on focus */
+}
+
+/* Change background color on hover */
+#myTable_filter > label > input[type=search]:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+}
+
+
+/* Style for the length dropdown */
+#myTable_length > label > select {
+    padding: 8px; /* Adjust padding as needed */
+    border: 2px solid #ccc; /* Default border color */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+}
+
+/* Highlight border color on focus */
+#myTable_length > label > select:focus {
+    border-color: #007bff; /* Highlight border color on focus */
+}
+
+/* Change background color on hover */
+#myTable_length > label > select:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+}
+
+#myTable_length > label{
+    font-weight: bold;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 767px) {
+    .product-container {
+        width: 500px; /* Set maximum width to 800px for mobile devices */
+        overflow-x: hidden;
+    }
+    .user-details-container {
+        width: 500px; /* Set maximum width to 800px for mobile devices */
+        overflow-x: hidden;
+    }
+    .page-title {
+        margin-top: 25%;
+    }
+    .sidebar.collapsed ~ .product-container{
+        margin-left: 80px;
+    }
+    .sidebar.collapsed ~ .user-details-container{
+        margin-left: 80px;
+    }
+    .sidebar:not(.collapsed) ~ .product-container{
+        margin-left: 190px;
+
+    }
+    .sidebar:not(.collapsed) ~ .user-details-container{
+        margin-left: 190px;
+        
+    }
+    .sidebar:not(.collapsed){
+        width: 170px;
+    }
+    table {
+        width: 90%;
+    }
+}
