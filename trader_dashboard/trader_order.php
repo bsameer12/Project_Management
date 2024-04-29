@@ -61,7 +61,7 @@
             <td>1223</td>
             <td>2025-03-04</td>
             <td>Ready to be delivered!!!</td>
-            <td> <a href=admin_edit_poroduct.php?id=$id&action=edit> View </a></td>
+            <td> <a href=trader_view_order.php?id=$id&action=edit> View </a></td>
             </tr>
         </tbody>
         </table>
