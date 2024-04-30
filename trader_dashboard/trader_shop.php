@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-row">
                     <input type="submit" id="saveChangesBtn" class="submit-btn" value="Save Changes">
-                    <button id="cancelBtn" class="cancel-btn">Cancel</button>
+                    <button id="cancelBtn" class="cancel-btn" onclick="window.location.href='trader_dashboard.php' ; return false;">Cancel</button>
                 </div>
             </form>
         </div>

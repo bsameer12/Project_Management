@@ -105,7 +105,7 @@
             <td> Hello</td>
             <td>fghhjffg</td>
             <td>10000</td>
-            <td> <a href=admin_edit_poroduct.php?id=$id&action=edit> Edit </a> | <a href=deleteproduct.php?id=$id&action=delete> Delete </a> </td>
+            <td> <a href=trader_product_view.php?id=$id&action=edit> Edit </a> | <a href=deleteproduct.php?id=$id&action=delete> Delete </a> </td>
             </tr>
         </tbody>
         </table>
