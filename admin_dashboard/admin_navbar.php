@@ -1,5 +1,5 @@
     <nav class="navbar">
-        <a href="#" class="logo"><img src="../logo.png" alt="logo" class="logo-image"></a>
+        <a href="admin_dashboard.php" class="logo"><img src="../logo.png" alt="logo" class="logo-image"></a>
         <h1 class="heading">Admin Dashboard</h1>
         <div class="user-info">
                 <span class="welcome">Welcome,</span>
@@ -7,8 +7,8 @@
                 <img src="../profile.jpg" alt="Profile Image" class="profile-image">
                 <div class="dropdown">
                     <ul>
-                        <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="fas fa-lock"></i> Change Password</a></li>
+                        <li><a href="admin_profile.php"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a href="admin_change_password.php"><i class="fas fa-lock"></i> Change Password</a></li>
                         <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </div>
