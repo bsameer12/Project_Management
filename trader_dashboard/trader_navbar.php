@@ -7,7 +7,7 @@
       <img src="../profile.jpg" alt="Profile Image" class="profile-image">
       <div class="dropdown">
         <ul>
-        <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a href="trader_profile.php"><i class="fas fa-user"></i> Profile</a></li>
         <li><a href="#"><i class="fas fa-lock"></i> Change Password</a></li>
         <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
