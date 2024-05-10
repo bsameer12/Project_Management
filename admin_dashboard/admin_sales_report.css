@@ -1,0 +1,234 @@
+.page-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-top: 10%;
+}
+
+/* Adjust left-section margin when sidebar is not collapsed */
+.sidebar.collapsed ~ .page-title {
+    margin-left: 65px; /* Adjust the margin when sidebar is not collapsed */
+    
+}
+
+/* Adjust left-section margin when sidebar is not collapsed */
+.sidebar:not(.collapsed) ~ .page-title {
+    margin-left: 190px; /* Adjust the margin when sidebar is not collapsed */
+}
+
+
+/* Styling for the product container */
+.product-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-top: 30px; /* Adjust the margin as needed */
+    margin-bottom: 10px;
+    display: flex;
+    margin-right: auto;
+    justify-content: space-between;
+    
+}
+
+.body > div.product-container > div.sort-container{
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+.product-container .sort-container label {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    
+}
+
+/* Styling for the sort dropdown */
+#sort {
+    padding: 8px; /* Adjust padding as needed */
+    border: 2px solid #ccc; /* Default border color */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover effect */
+#sort:hover {
+    border-color: #007bff; /* Border color change on hover */
+    background-color: #f0f0f0; /* Background color change on hover */
+}
+
+.sidebar.collapsed ~ .product-container{
+    margin-left: 100px;
+}
+.sidebar.collapsed ~ .user-details-container{
+    margin-left: 100px;
+}
+.sidebar:not(.collapsed) ~ .product-container{
+    margin-left: 220px;
+
+}
+.sidebar:not(.collapsed) ~ .user-details-container{
+    margin-left: 220px;
+}
+
+/* Styling for the add product button */
+.create-new-btn {
+    justify-content: flex-end; /* Aligns items to the end of the container */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.create-new-btn:hover {
+    background-color: #45a049;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    transition: margin-right 0.3s ease; /* Add transition for smooth animation */
+    margin: 20px;
+    padding: 20px;
+    margin-top: 0px;
+}
+
+.salesBarGraph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+canvas#salesBarGraph {
+    max-width: 50%; /* Ensure the graph doesn't exceed the container width */
+}
+
+
+
+.sidebar.collapsed ~ .salesBarGraph-container  {
+    margin-left: 20px;
+}
+.sidebar:not(.collapsed) ~ .salesBarGraph-container {
+    margin-left: 135px;
+
+}
+
+.sales-heading {
+    text-align: center;
+}
+
+.graph-section, .cards-section {
+    width: 50%;
+}
+
+.bar-section {
+    margin-bottom: 20px;
+    margin-left: 55px;
+    width: 49%;
+    margin-right: 20px;
+}
+
+.sales-graph-section{
+    margin-bottom: 20px;
+    margin-left: 75px;
+    width: 100%;
+    margin-right: 20px;
+}
+
+.graph-section {
+    margin-bottom: 20px;
+    margin-left: 55px;
+    margin-right: 10px;
+}
+
+.cards-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: calc(50% - 10px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.card .icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333; /* Icon color */
+}
+
+.card:hover .icon {
+    color: #007bff; /* Icon color on hover */
+}
+
+.card .text {
+    font-size: 16px;
+    color: #333; /* Text color */
+}
+
+.card:hover .text {
+    color: #007bff; /* Text color on hover */
+}
+
+.card .number {
+    font-weight: bold;
+    color: #007bff; /* Number color */
+}
+
+.sidebar.collapsed ~ .container  {
+    margin-left: 20px;
+}
+.sidebar:not(.collapsed) ~ .container {
+    margin-left: 155px;
+
+}
+
+
+
+body > div.container > div.graph-section > select{
+    align-content: right;
+}
+
+@media only screen and (max-width: 768px){
+    .container {
+        flex-direction: column;
+    }
+
+    .graph-section, .cards-section {
+        width: 90%;
+    }
+
+    .cards-section {
+        margin-left: 59px;
+    }
+
+    .sidebar:not(.collapsed) + .container {
+        margin-left: 140px; /* Adjust the margin when sidebar is not collapsed */
+        width: 60%;
+    }
+
+    .sidebar:not(.collapsed) + .graph-section{
+        height: 500px;
+    }
+    .sidebar.collapsed ~ .salesBarGraph-container  {
+        margin-left: 20px;
+    }
+    .sidebar:not(.collapsed) ~ .salesBarGraph-container {
+        margin-left: 135px;
+    
+    }
+}

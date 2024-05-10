@@ -17,16 +17,16 @@
 
     <div class="sidebar">
         <div class="navbar-buttons">
-            <button class="navbar-button"><i class="fas fa-tachometer-alt"></i> <span class="button-text">Dashboard</span></button>
-            <button class="navbar-button"><i class="fas fa-shopping-cart"></i> <span class="button-text">Customers</span></button>
-            <button class="navbar-button"><i class="fas fa-users"></i> <span class="button-text">Traders</span></button>
-            <button class="navbar-button"><i class="fas fa-store"></i> <span class="button-text">Shops</span></button>
-            <button class="navbar-button"><i class="fas fa-star"></i> <span class="button-text">Ratings and Reviews</span></button>
-            <button class="navbar-button"><i class="fas fa-box-open"></i> <span class="button-text">Products</span></button>
-            <button class="navbar-button"><i class="fas fa-check-circle"></i> <span class="button-text">Trader Verification</span></button>
-            <button class="navbar-button"><i class="fas fa-check-square"></i> <span class="button-text">Product Verification</span></button>
-            <button class="navbar-button"><i class="fas fa-chart-line"></i> <span class="button-text">Sales Report</span></button>
-            <button class="navbar-button"><i class="fas fa-chart-bar"></i> <span class="button-text">Order Report</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_dashboard.php' ; return false;"><i class="fas fa-tachometer-alt"></i> <span class="button-text">Dashboard</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_customer.php' ; return false;"><i class="fas fa-shopping-cart"></i> <span class="button-text">Customers</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_trader.php' ; return false;"><i class="fas fa-users"></i> <span class="button-text">Traders</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_shop_detail.php' ; return false;"><i class="fas fa-store"></i> <span class="button-text">Shops</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_review_rating.php' ; return false;"><i class="fas fa-star"></i> <span class="button-text">Ratings and Reviews</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_product.php' ; return false;"><i class="fas fa-box-open"></i> <span class="button-text">Products</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_trader_verification.php' ; return false;"><i class="fas fa-check-circle"></i> <span class="button-text">Trader Verification</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_product_verification.php' ; return false;"><i class="fas fa-check-square"></i> <span class="button-text">Product Verification</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_sales_report.php' ; return false;"><i class="fas fa-chart-line"></i> <span class="button-text">Sales Report</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_orders_report.php' ; return false;"><i class="fas fa-chart-bar"></i> <span class="button-text">Order Report</span></button>
             <button class="navbar-button"><i class="fas fa-file-invoice"></i> <span class="button-text">Invoices</span></button>
             <button class="navbar-button"><i class="fas fa-dollar-sign"></i> <span class="button-text">Sales</span></button>
             <button class="navbar-button"><i class="fas fa-shopping-bag"></i> <span class="button-text">Orders</span></button>

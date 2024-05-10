@@ -1,0 +1,128 @@
+.product-details-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-div {
+    width: 45%;
+    margin-right: 20px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.right-div {
+    width: 45%;
+    margin-top: 100px;
+}
+
+.product-picture {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-details-form {
+    text-align: left;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-btn,
+.cancel-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+}
+
+.submit-btn:hover,
+.cancel-btn:hover {
+    background-color: #0056b3;
+}
+
+.container-heading {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+.sidebar.collapsed ~ .product-details-container{
+    margin-left: 160px;
+}
+.sidebar:not(.collapsed) ~ .product-details-container{
+    margin-left: 320px;
+
+}
+
+.sidebar.collapsed ~ .container-heading{
+    margin-left: 160px;
+}
+.sidebar:not(.collapsed) ~ .container-heading{
+    margin-left: 320px;
+}
+
+@media screen and (max-width: 600px) {
+    .product-details-container {
+        flex-direction: column;
+    }
+
+    .left-div {
+        width: 100%;
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .right-div {
+        width: 100%;
+    }
+    .container-heading {
+        margin-top: 20%;
+    }
+    .sidebar.collapsed ~ .product-details-container{
+        margin-left: 45px;
+    }
+    .sidebar:not(.collapsed) ~ .product-details-container{
+        margin-left: 160px;
+    
+    }
+    
+    .sidebar.collapsed ~ .container-heading{
+        margin-left: 45px;
+    }
+    .sidebar:not(.collapsed) ~ .container-heading{
+        margin-left: 140px;
+    
+    }
+    
+    
+}
