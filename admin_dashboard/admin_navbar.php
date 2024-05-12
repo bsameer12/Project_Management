@@ -27,9 +27,8 @@
             <button class="navbar-button" onclick="window.location.href='admin_product_verification.php' ; return false;"><i class="fas fa-check-square"></i> <span class="button-text">Product Verification</span></button>
             <button class="navbar-button" onclick="window.location.href='admin_sales_report.php' ; return false;"><i class="fas fa-chart-line"></i> <span class="button-text">Sales Report</span></button>
             <button class="navbar-button" onclick="window.location.href='admin_orders_report.php' ; return false;"><i class="fas fa-chart-bar"></i> <span class="button-text">Order Report</span></button>
-            <button class="navbar-button"><i class="fas fa-file-invoice"></i> <span class="button-text">Invoices</span></button>
-            <button class="navbar-button"><i class="fas fa-dollar-sign"></i> <span class="button-text">Sales</span></button>
-            <button class="navbar-button"><i class="fas fa-shopping-bag"></i> <span class="button-text">Orders</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_invoice.php' ; return false;"><i class="fas fa-file-invoice"></i> <span class="button-text">Invoices</span></button>
+            <button class="navbar-button" onclick="window.location.href='admin_orders.php' ; return false;"><i class="fas fa-shopping-bag"></i> <span class="button-text">Orders</span></button>
             <button class="navbar-button"><i class="fas fa-sign-out-alt"></i> <span class="button-text">Logout</span></button>
             <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
         </div>

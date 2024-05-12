@@ -1,0 +1,216 @@
+.order-form-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    margin-top: 5%;
+}
+
+.order-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-row {
+    flex: 1 1 100%; /* Take full width of the container */
+    display: flex;
+}
+
+.form-column {
+    flex: 1; /* Equal width for each column */
+    margin-right: 10px; /* Add some space between columns */
+}
+
+/* Adjust margin for the last column */
+.form-column:last-child {
+    margin-right: 0;
+}
+
+.form-label {
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+}
+
+.form-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-table-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.payment-form-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.payment-form {
+    text-align: center;
+}
+
+.form-row {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.form-input {
+    width: calc(100% - 170px); /* Adjust width based on label width */
+    padding: 8px;
+    border: none;
+}
+
+.logo_detail {
+    display: block;
+    margin: 0 auto 5px; /* Center the logo horizontally and add margin below */
+    max-width: 200px; /* Adjust max-width as needed */
+    height: auto;
+}
+
+.return-to-orders-container {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.return-to-orders-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.return-to-orders-btn:hover {
+    background-color: #0056b3;
+}
+
+.sidebar.collapsed ~ .order-form-container  {
+    margin-left: 100px;
+}
+.sidebar:not(.collapsed) ~ .order-form-container  {
+    margin-left: 290px;
+
+}
+
+.sidebar.collapsed ~ .product-table-container  {
+    margin-left: 100px;
+}
+.sidebar:not(.collapsed) ~ .product-table-container   {
+    margin-left: 290px;
+
+}
+.sidebar.collapsed ~ .payment-form-container  {
+    margin-left: 100px;
+}
+.sidebar:not(.collapsed) ~ .payment-form-container {
+    margin-left: 290px;
+
+}
+
+.sidebar.collapsed ~ .return-to-orders-container  {
+    margin-left: 100px;
+}
+.sidebar:not(.collapsed) ~ .return-to-orders-container{
+    margin-left: 290px;
+
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar.collapsed ~ .order-form-container  {
+        margin-left: 60px;
+    }
+    .sidebar:not(.collapsed) ~ .order-form-container  {
+        margin-left: 160px;
+    
+    }
+    
+    .sidebar.collapsed ~ .product-table-container  {
+        margin-left: 60px;
+    }
+    .sidebar:not(.collapsed) ~ .product-table-container   {
+        margin-left: 160px;
+    
+    }
+    .sidebar.collapsed ~ .payment-form-container  {
+        margin-left: 60px;
+    }
+    .sidebar:not(.collapsed) ~ .payment-form-container {
+        margin-left: 160px;
+    
+    }
+    
+    .sidebar.collapsed ~ .return-to-orders-container  {
+        margin-left: 100px;
+    }
+    .sidebar:not(.collapsed) ~ .return-to-orders-container{
+        margin-left: 290px;
+    
+    }
+    .order-form-container{
+        width: 500px;
+    }
+    .product-table-container{
+        width: 400px;
+    }
+    .payment-form-container {
+        width: 500px;
+    }
+    .return-to-orders-container{
+        width: 500px;
+    }
+    .product-table{
+        width: 70%;
+    }
+    .form-column{
+        margin-right: 10px;
+    }
+    .form-label {
+        width: 50px;
+        font-size: 10px;
+        margin-right: 5px;
+    }
+    .form-input {
+        width: calc(100% - 70px); /* Adjust width based on label width */
+        padding: 8px;
+        border: none;
+    }
+}
