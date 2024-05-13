@@ -1,3 +1,43 @@
+<?php
+
+if(isset($_GET["user_id"]) && isset($_GET["email"])){
+    $email_id = $_GET["email"];
+    $user_id = $_GET["user_id"];
+    if(isset($_POST["verify"])){
+        $code = $_POST["verification_code"];
+        include("connection/connection.php");
+        // Prepare the SQL statement
+            $sql = "SELECT VERIFICATION_CODE
+            FROM CUSTOMER
+            WHERE USER_ID = :userid";
+
+            // Prepare the OCI statement
+            $stmt = oci_parse($conn, $sql);
+
+            // Bind the userid parameter
+            oci_bind_by_name($stmt, ':userid', $user_id);
+
+            // Execute the statement
+            oci_execute($stmt);
+
+            // Fetch the result (assuming only one verification code per user_id)
+            if ($row = oci_fetch_assoc($stmt)) {
+            $verification_code = $row['VERIFICATION_CODE'];
+            if($verification_code == $code){
+                header("Location:index.php");
+            }
+            else{
+                $verification_error = "Your verfication Code is not matching. Please try again!!!";
+            }
+            
+            } 
+
+            // Free the statement and close the connection
+            oci_free_statement($stmt);
+            oci_close($conn);
+                }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +59,16 @@
     ?>
     <div class="email-container">
         <h2>Verify Your Email</h2>
-        <p>A verification code has been sent to your email <strong>youremail@example.com</strong>.</p>
-        <form action="verify.php" method="post">
+        <p>A verification code has been sent to your email <strong><?php echo  $email_id; ?> </strong>.</p>
+        <form action="" method="post" name="email_verify" id="email_verify" enctype="multipart/form-data">
             <label for="verification_code">Verification Code</label><br>
+            <?php
+            if (!empty($verification_error)) {
+                    echo "<p style='color: red;'>$verification_error</p>";
+                }
+                ?>
             <input type="text" id="verification_code" name="verification_code" required><br>
-            <input type="submit" value="Verify">
+            <input type="submit" value="Verify" id="verify" name="verify">
         </form>
     </div>
     <?php

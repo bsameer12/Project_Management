@@ -168,7 +168,7 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
                 require("PHPMailer-master/email.php");
                 $full_name = $first_name . " " . $last_name;
                 sendVerificationEmail($email, $verification_code,$full_name );
-                header("Location:email_verify.php?user_id=$userid");
+                header("Location:email_verify.php?user_id=$user_id&email=$email");
             } else {
                 $error = oci_error($stmt);
                 echo "Error inserting row: " . $error['message'];
@@ -209,7 +209,6 @@ else{
             <label for="first-name">First Name</label>
             <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
             <?php
-            echo $first_name;
             if (!empty($first_name_error)) {
                     echo "<p style='color: red;'>$first_name_error</p>";
                 }
@@ -229,7 +228,6 @@ else{
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
             <?php
-            echo $email;
             if (!empty($email_error)) {
                     echo "<p style='color: red;'>$email_error</p>";
                 }
