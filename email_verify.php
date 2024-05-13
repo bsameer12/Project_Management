@@ -24,18 +24,37 @@ if(isset($_GET["user_id"]) && isset($_GET["email"])){
             if ($row = oci_fetch_assoc($stmt)) {
             $verification_code = $row['VERIFICATION_CODE'];
             if($verification_code == $code){
-                header("Location:index.php");
-            }
+                // Prepare the SQL statement
+                            $sql = "UPDATE CUSTOMER 
+                            SET VERIFIED_CUSTOMER = :verified_customer
+                            WHERE USER_ID = :userid";
+
+                            // Prepare the OCI statement
+                            $stmt = oci_parse($conn, $sql);
+
+                            $verified_customer = 1; // Assuming you want to set VERIFIED_CUSTOMER to 1
+
+                            // Bind the parameters
+                            oci_bind_by_name($stmt, ':verified_customer', $verified_customer); // Here is the first issue
+                            oci_bind_by_name($stmt, ':userid', $user_id); // Here is the second issue
+
+                            // Execute the statement
+                            if (oci_execute($stmt)) {
+                            header("Location: index.php");
+                            exit; // Ensure script stops execution after redirection
+                            } else {
+                            $error = oci_error($stmt);
+                            echo "Error updating row: " . $error['message'];
+                            }
+            }   
             else{
                 $verification_error = "Your verfication Code is not matching. Please try again!!!";
-            }
-            
             } 
-
             // Free the statement and close the connection
             oci_free_statement($stmt);
             oci_close($conn);
                 }
+            }
 }
 ?>
 <!DOCTYPE html>
