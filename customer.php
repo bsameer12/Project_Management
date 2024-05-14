@@ -163,8 +163,6 @@ include("connection/connection.php");
 
                                         // Execute the SQL statement
                                         if (oci_execute($stmt_update_date)) {
-                                        // Close the connection
-                                        oci_close($conn);
                                         // Reload the page
                                         header("Location: ".$_SERVER['PHP_SELF']);
                                         exit();
