@@ -9,18 +9,20 @@ if(isset($_POST["reset"])){
     $confirm_password  = sanitizePassword($_POST["confirm-password"]);
     // Input Validation
     require("input_validation\input_validation.php");
+    // Validate password
     $password_error = "";
-    if(validatePassword($_POST["new-password"]) === false){
-        $input_validation_passed = false;
+    if (validatePassword($_POST["new-password"]) === "false") {
         $password_error = "Password must contain at least six characters including one lowercase letter, one uppercase letter, and one digit.";
+        $input_validation_passed = false;
     }
 
+    // Validate confirm password
     $reenter_password_error = "";
-    if(validateConfirmPassword($_POST["new-password"], $_POST["confirm-password"]) === false){
-        $input_validation_passed = false;
+    if (validateConfirmPassword($_POST["new-password"], $_POST["confirm-password"]) === "false") {
         $reenter_password_error = "Password Didn't matched";
+        $input_validation_passed = false;
     }
-    if($input_validation_passed == "true"){
+    if($input_validation_passed){
         // Prepare the SQL statement for updating the password
             $sql_update_password = "UPDATE HUDDER_USER 
             SET user_password = :user_password 
@@ -30,8 +32,8 @@ if(isset($_POST["reset"])){
             $stmt_update_password = oci_parse($conn, $sql_update_password);
 
             // Bind parameters
-            oci_bind_by_name($stmt_update_password, ':user_password', $new_password);
-            oci_bind_by_name($stmt_update_password, ':user_id', $email);
+            oci_bind_by_name($stmt_update_password, ':user_password', $password);
+            oci_bind_by_name($stmt_update_password, ':user_id', $user_id);
 
             // Execute the SQL statement
             if (!oci_execute($stmt_update_password)) {
@@ -89,6 +91,7 @@ if(isset($_POST["reset"])){
             <div class="form-group">
                 <label for="confirm-password">Re-enter Password</label>
                 <input type="password" id="confirm-password" name="confirm-password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number">
+                <?php
                 if (!empty($reenter_password_error)) {
                     echo "<p style='color: red;'>$reenter_password_error</p>";
                 }
