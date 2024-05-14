@@ -15,7 +15,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+        include("session/session.php");
+        include("session_navbar.php");
     ?>
     <div class="pickup-slot-container">
     <h2>Select a Pickup Slot</h2>

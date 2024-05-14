@@ -15,7 +15,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+         require("navbar_switching.php");
+         includeNavbarBasedOnSession();
     ?>
     <div class="container_search">
         <div class="left-sidebar">

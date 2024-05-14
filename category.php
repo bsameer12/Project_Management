@@ -16,7 +16,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+         require("navbar_switching.php");
+         includeNavbarBasedOnSession();
     ?>
     <section class="category-section" id="category-section">
     <h2>Categories</h2>

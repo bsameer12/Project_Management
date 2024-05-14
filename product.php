@@ -15,7 +15,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+        require("navbar_switching.php");
+        includeNavbarBasedOnSession();
     ?>
     <div id="product_container">
     <div id="product_images">

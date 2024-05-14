@@ -16,7 +16,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+        include("session/session.php");
+        include("session_navbar.php");
     ?>
     <div class="profile-container">
     <!-- Left side -->

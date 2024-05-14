@@ -15,10 +15,10 @@
                 <div class="logo"><img src="logo.png"></div>
                 <div class="nav-links">
                     <ul>
-                        <li class="highlight"><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contacts</a></li>
-                        <li><a href="#">Category</a></li>
+                        <li class="highlight"><a href="index.php">Home</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contactus.php">Contacts</a></li>
+                        <li><a href="category.php">Category</a></li>
                     </ul>
                 </div>
                 <div class="search">
@@ -28,10 +28,10 @@
                 <div class="menu-toggle"><i class="fas fa-bars"></i></div>
                 <div class="submenu">
                     <ul>
-                        <li class="highlight"><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Sign In</a></li>
+                        <li class="highlight"><a href="index.php">Home</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contactus.php">Contact Us</a></li>
+                        <li><a href="category.php">Category</a></li>
                         
                     </ul>
                 </div>
@@ -40,13 +40,13 @@
                     <div class="icon"><i class="fas fa-shopping-cart"></i></div>
                     <div class="profile-icon">
                         <div class="profile-image">
-                            <img src="profile.jpg" alt="Sameer Basnet">
+                            <img src="profile_image/<?php echo $_SESSION["picture"]; ?>" alt="<?php echo $_SESSION["name"] ; ?>">
                         </div>
                         <div class="submenu-profile">
                             <ul>
-                                <li><a href="#">Profile</a></li>
+                                <li><a href="customer.php">Profile</a></li>
                                 <li><a href="change_password.php">Change Password</a></li>
-                                <li><a href="#">Logout</a></li>
+                                <li><a href="session/logout.php">Logout</a></li>
                             </ul>
                         </div>
                     </div>

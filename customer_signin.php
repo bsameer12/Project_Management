@@ -38,7 +38,7 @@ if(isset($_POST["sign_in"]))
                 $passwords = $row['USER_PASSWORD'];
                 $profile_picture = $row['USER_PROFILE_PICTURE'];
                 $user_role = $row['USER_TYPE'];
-                if($password == $passwords && $user_role == "customer"){
+                if($password == $passwords && $user_role = "customer"){
                     if($remember == 1){
                             setcookie("email",$email,time()+60*60*24*30,"/");
                             setcookie("password",$pass,time()+60*60*24*30,"/");

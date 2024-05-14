@@ -15,8 +15,10 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+    require("navbar_switching.php");
+    includeNavbarBasedOnSession();
     ?>
+    
     <!-- Slider Section -->
     <section class="home" id="home">
         <div class="swiper-container home-slider">
