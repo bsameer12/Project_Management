@@ -267,7 +267,7 @@ include("connection/connection.php");
         <div class="form-row">
             <div class="input-group">
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address" required value="<?php echo $user_address ; ?>" pattern="[A-Za-z0-9,-]" title="Please enter alphanumeric characters, comma, or hyphen only"S>
+                <input type="text" id="address" name="address" required value="<?php echo $user_address ; ?>" pattern="[A-Za-z0-9,-]" title="Please enter alphanumeric characters, comma, or hyphen only">
                 <?php
             if (!empty($address_error)) {
                     echo "<p style='color: red;'>$address_error</p>";
