@@ -1,15 +1,18 @@
+<?php
+include("trader_session.php");
+?>
 <nav class="navbar">
     <a href="trader_dashboard.php" class="logo"><img src="../logo.png" alt="logo" class="logo-image"></a>
     <h1 class="heading">Trader Dashboard</h1>
     <div class="user-info">
       <span class="welcome">Welcome,</span>
-      <span class="trader-name">Trader Name</span>
-      <img src="../profile.jpg" alt="Profile Image" class="profile-image">
+      <span class="trader-name"><?php echo $_SESSION["name"]; ?></span>
+      <img src="../profile_image/<?php echo $_SESSION["picture"]; ?>" alt="Profile Image" class="profile-image">
       <div class="dropdown">
         <ul>
         <li><a href="trader_profile.php"><i class="fas fa-user"></i> Profile</a></li>
         <li><a href="trader_change_password.php"><i class="fas fa-lock"></i> Change Password</a></li>
-        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <li><a href="../session/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
       </div>
     </div>
