@@ -15,7 +15,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+         require("navbar_switching.php");
+         includeNavbarBasedOnSession();
     ?>
     <section id="wishlist" class="product-list">
         <h1>My Wishlist</h1> <!-- Adding the heading for the wishlist -->

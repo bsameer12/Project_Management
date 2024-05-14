@@ -36,8 +36,8 @@
                     </ul>
                 </div>
                 <div class="icons">
-                    <div class="icon"><i class="fas fa-heart"></i></div>
-                    <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+                    <a href="wishlist.php" class="icon"><i class="fas fa-heart" ></i></a>
+                    <a href="cart.php" class="icon"><i class="fas fa-shopping-cart"></i></a>
                     <div class="profile-icon">
                         <div class="profile-image">
                             <img src="profile_image/<?php echo $_SESSION["picture"]; ?>" alt="<?php echo $_SESSION["name"] ; ?>">
