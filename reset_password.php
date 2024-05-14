@@ -10,13 +10,13 @@ if(isset($_POST["reset"])){
     // Input Validation
     require("input_validation\input_validation.php");
     $password_error = "";
-    if(validatePassword(isset($_POST["new-password"])) == false){
+    if(validatePassword($_POST["new-password"]) === false){
         $input_validation_passed = false;
         $password_error = "Password must contain at least six characters including one lowercase letter, one uppercase letter, and one digit.";
     }
 
     $reenter_password_error = "";
-    if(validateConfirmPassword(isset($_POST["new-password"]), isset($_POST["confirm-password"])) == false){
+    if(validateConfirmPassword($_POST["new-password"], $_POST["confirm-password"]) === false){
         $input_validation_passed = false;
         $reenter_password_error = "Password Didn't matched";
     }
@@ -79,7 +79,7 @@ if(isset($_POST["reset"])){
         <form method="post" action="" method="post" name="reset-password" id="reset-password" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="new-password">New Password</label>
-                <input type="password" id="new-password" name="new-password" required>
+                <input type="password" id="new-password" name="new-password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number">
                 <?php
             if (!empty($password_error)) {
                     echo "<p style='color: red;'>$password_error</p>";
@@ -88,7 +88,7 @@ if(isset($_POST["reset"])){
             </div>
             <div class="form-group">
                 <label for="confirm-password">Re-enter Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
+                <input type="password" id="confirm-password" name="confirm-password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number">
                 if (!empty($reenter_password_error)) {
                     echo "<p style='color: red;'>$reenter_password_error</p>";
                 }

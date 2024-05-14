@@ -59,7 +59,7 @@ function validateContactNumber($contact_number)
 // Function to validate password
 function validatePassword($password)
 {
-    return !empty($password) && strlen($password) >= 6 && preg_match("/^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$/", $password) ? "true" : "false";
+    return !empty($password) && strlen($password) >= 6 && preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/", $password) ? "true" : "false";
 }
 
 // Function to validate confirm password
@@ -86,7 +86,7 @@ function validateDateOfBirth($dateOfBirth)
 function validateGender($gender)
 {
     // Check if gender is not empty and is either 'Male', 'Female', or 'Other'
-    return !empty($gender) && in_array($gender, ['Male', 'Female', 'Other']) ? "true" : "false";
+    return !empty($gender) && in_array($gender, ['male', 'female', 'other']) ? "true" : "false";
 }
 
 // Function to validate company registration number
@@ -96,10 +96,26 @@ function validateCompanyRegistrationNo($registrationNo)
     return !empty($registrationNo) && ctype_alnum($registrationNo) ? "true" : "false";
 }
 
+// Function to validate shop name
+function validateShopName($shopName)
+{
+    // Check if the shop name is not empty and consists of alphanumeric characters, comma, hyphen, or space
+    return !empty($shopName) && preg_match("/^[A-Za-z0-9, -]+$/", $shopName) ? "true" : "false";
+}
+
+
 // Function to validate shop description
 function validateShopDescription($description)
 {
     // Check if the shop description is not empty
     return !empty($description) ? "true" : "false";
 }
+
+// Function to validate category
+function validateCategory($category)
+{
+    // Check if the category is not empty
+    return !empty($category);
+}
+
 ?>

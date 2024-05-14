@@ -1,13 +1,14 @@
 <?php
-if(isset($_GET["userid"]) && isset($_GET["email"])){
+
+if(isset($_GET["user_id"]) && isset($_GET["email"])){
     $email_id = $_GET["email"];
-    $user_id = $_GET["userid"];
+    $user_id = $_GET["user_id"];
     if(isset($_POST["verify"])){
         $code = $_POST["verification_code"];
         include("connection/connection.php");
         // Prepare the SQL statement
             $sql = "SELECT VERIFICATION_CODE
-            FROM CUSTOMER
+            FROM TRADER
             WHERE USER_ID = :userid";
 
             // Prepare the OCI statement
@@ -24,8 +25,8 @@ if(isset($_GET["userid"]) && isset($_GET["email"])){
             $verification_code = $row['VERIFICATION_CODE'];
             if($verification_code == $code){
                 // Prepare the SQL statement
-                            $sql = "UPDATE CUSTOMER 
-                            SET VERIFIED_CUSTOMER = :verified_customer
+                            $sql = "UPDATE TRADER 
+                            SET VERIFICATION_STATUS = :verified_customer
                             WHERE USER_ID = :userid";
 
                             // Prepare the OCI statement
@@ -39,7 +40,7 @@ if(isset($_GET["userid"]) && isset($_GET["email"])){
 
                             // Execute the statement
                             if (oci_execute($stmt)) {
-                            header("Location: reset_password.php?userid=$user_id");
+                            header("Location: index.php");
                             exit; // Ensure script stops execution after redirection
                             } else {
                             $error = oci_error($stmt);
@@ -55,7 +56,6 @@ if(isset($_GET["userid"]) && isset($_GET["email"])){
                 }
             }
 }
-?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,11 +78,16 @@ if(isset($_GET["userid"]) && isset($_GET["email"])){
     ?>
     <div class="email-container">
         <h2>Verify Your Email</h2>
-        <p>A verification code has been sent to your email <strong><?php echo $email_id; ?></strong> . For resetting your password.</p>
+        <p>A verification code has been sent to your email <strong><?php echo  $email_id; ?> </strong>.</p>
         <form action="" method="post" name="email_verify" id="email_verify" enctype="multipart/form-data">
             <label for="verification_code">Verification Code</label><br>
-            <input type="text" id="verification_code" name="verification_code" required pattern="[0-9]" title="Please enter only numeric characters"><br>
-            <input type="submit" value="Verify" name="verify" id="verify">
+            <?php
+            if (!empty($verification_error)) {
+                    echo "<p style='color: red;'>$verification_error</p>";
+                }
+                ?>
+            <input type="text" id="verification_code" name="verification_code" required pattern="[0-9]+" title="Please enter only numeric characters">><br>
+            <input type="submit" value="Verify" id="verify" name="verify">
         </form>
     </div>
     <?php

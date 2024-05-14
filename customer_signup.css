@@ -44,6 +44,18 @@
     margin-right: 5px;
 }
 
+.form-group input[type="select"] {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 80%;
+}
+
 .forgot-password {
     text-align: center;
     font-size: 14px;
@@ -101,3 +113,41 @@ input[type="submit"]:hover {
     background-color: #f0f0f0; /* Change background color on hover */
     border-color: blue;
 }
+
+/* Style the select element */
+select {
+    width: 100%; /* Set width to 100% */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Style the select element on hover */
+select:hover {
+    border-color: #999;
+}
+
+/* Style the select element when focused */
+select:focus {
+    border-color: #333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Style the select options */
+select option {
+    padding: 10px;
+}
+
+/* Style the select options on hover */
+select option:hover {
+    background-color: #f0f0f0;
+}
+
+#trader_signup > div:nth-child(12) {
+    width: 100%;
+    background-color: #f0f0f0;
+    /* Add more styles as needed */
+  }

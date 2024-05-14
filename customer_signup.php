@@ -13,78 +13,101 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
 {
     // Input Sanizatization 
     require("input_validation\input_sanitization.php");
-    $first_name =  sanitizeFirstName($_POST["first-name"]);
-    $last_name = sanitizeLastName($_POST["last-name"]);
-    $email = sanitizeEmail($_POST["email"]);
-    $password = sanitizePassword($_POST["password"]);
-    $confirm_password  = sanitizePassword($_POST["confirm-password"]);
-    $dob = sanitizeDOB($_POST["dob"]);
-    $gender = sanitizeGender($_POST["gender"]);
-    $address = sanitizeAddress($_POST["address"]);
-    $contact_number = sanitizeContactNumber($_POST["contact"]);
+    // Check if $_POST["first-name"] exists before sanitizing
+    $first_name = isset($_POST["first-name"]) ? sanitizeFirstName($_POST["first-name"]) : "";
+
+    // Check if $_POST["last-name"] exists before sanitizing
+    $last_name = isset($_POST["last-name"]) ? sanitizeLastName($_POST["last-name"]) : "";
+
+    // Check if $_POST["email"] exists before sanitizing
+    $email = isset($_POST["email"]) ? sanitizeEmail($_POST["email"]) : "";
+
+    // Check if $_POST["password"] exists before sanitizing
+    $password = isset($_POST["password"]) ? sanitizePassword($_POST["password"]) : "";
+
+    // Check if $_POST["confirm-password"] exists before sanitizing
+    $confirm_password = isset($_POST["confirm-password"]) ? sanitizePassword($_POST["confirm-password"]) : "";
+
+    // Check if $_POST["dob"] exists before sanitizing
+    $dob = isset($_POST["dob"]) ? sanitizeDOB($_POST["dob"]) : "";
+
+    // Check if $_POST["gender"] exists before sanitizing
+    $gender = isset($_POST["gender"]) ? sanitizeGender($_POST["gender"]) : "";
+
+    // Check if $_POST["address"] exists before sanitizing
+    $address = isset($_POST["address"]) ? sanitizeAddress($_POST["address"]) : "";
+
+    // Check if $_POST["contact"] exists before sanitizing
+    $contact_number = isset($_POST["contact"]) ? sanitizeContactNumber($_POST["contact"]) : "";
+
+
 
 
     // Input Validation
     require("input_validation\input_validation.php");
     $email_error = "";
-    // Check if email exists
-        if (emailExists($email) === "false") {
-            $input_validation_passed = true;
-        } else {
+        // Check if email exists
+        if (emailExists($email) === "true") {
             $email_error = "Email Already Exists!!!";
-            // No need to set $input_validation_passed to false here, it's already initialized to false by default
             $input_validation_passed = false;
         }
-   
 
+        // Validate first name
+        $first_name_error = "";
+        if (validateFirstName($first_name) === "false") {
+            $first_name_error = "Please Enter a Correct First Name";
+            $input_validation_passed = false;
+        }
 
-    $first_name_error = "";
-    if(validateFirstName($first_name) == false){
-        $input_validation_passed = false;
-        $first_name_error = "Please Enter a Correct First Name";
-    }
+        // Validate last name
+        $last_name_error = "";
+        if (validateLastName($last_name) === "false") {
+            $last_name_error = "Please Enter a Correct Last Name";
+            $input_validation_passed = false;
+        }
 
-    $last_name_error = "";
-    if(validateLastName($last_name) == false){
-        $input_validation_passed = false;
-        $last_name_error = "Please Enter a Correct Last Name";
-    }
+        // Validate address
+        $address_error = "";
+        if (validateAddress($address) === "false") {
+            $address_error = "Please Enter Your Address";
+            $input_validation_passed = false;
+        }
 
-    $address_error ="";
-    if(validateAddress($address) == false){
-        $input_validation_passed = false;
-        $address_error = "Please Enter Your Address";
-    }
+        // Validate contact number
+        $contact_no_error = "";
+        if (validateContactNumber($contact_number) === "false") {
+            $contact_no_error = "Please Provide a Contact number";
+            $input_validation_passed = false;
+        }
 
-    $contact_no_error = "";
-    if(validateContactNumber($contact_number) == false){
-        $input_validation_passed = false;
-        $contact_no_error = "Please Provide a Contact number";
-    }
+        // Validate password
+        $password_error = "";
+        if (validatePassword($_POST["password"]) === "false") {
+            $password_error = "Password must contain at least six characters including one lowercase letter, one uppercase letter, and one digit.";
+            $input_validation_passed = false;
+        }
 
-    $password_error = "";
-    if(validatePassword(isset($_POST["password"])) == false){
-        $input_validation_passed = false;
-        $password_error = "Password must contain at least six characters including one lowercase letter, one uppercase letter, and one digit.";
-    }
+        // Validate confirm password
+        $reenter_password_error = "";
+        if (validateConfirmPassword($_POST["password"], $_POST["confirm-password"]) === "false") {
+            $reenter_password_error = "Password Didn't matched";
+            $input_validation_passed = false;
+        }
 
-    $reenter_password_error = "";
-    if(validateConfirmPassword(isset($_POST["password"]), isset($_POST["confirm-password"])) == false){
-        $input_validation_passed = false;
-        $reenter_password_error = "Password Didn't matched";
-    }
+        // Validate date of birth
+        $dob_error = "";
+        if (validateDateOfBirth($dob) === "false") {
+            $dob_error = "Please Enter Your Date Of Birth.";
+            $input_validation_passed = false;
+        }
 
-    $dob_error = "";
-    if(validateDateOfBirth($dob) == false){
-        $input_validation_passed = false;
-        $dob_error = "Please Enter Your Date Of Birth.";
-    }
+        // Validate gender
+        $gender_error = "";
+        if (validateGender($gender) === "false") {
+            $gender_error = "Please Select Your Gender.";
+            $input_validation_passed = false;
+        }
 
-    $gender_error = "";
-    if(validateGender($gender) == false){
-        $input_validation_passed = false;
-        $gender_error = "Please Select Your Gender.";
-    }
 
     $profile_upload_error="";
     require("input_validation\image_upload.php");
@@ -207,7 +230,7 @@ else{
     <form method = "POST" id="customer_signup" name="customer_signup" action="" enctype="multipart/form-data" >
         <div class="form-group">
             <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
+            <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required pattern="[A-Za-z]+" title="Please enter only alphabetic characters">
             <?php
             if (!empty($first_name_error)) {
                     echo "<p style='color: red;'>$first_name_error</p>";
@@ -216,7 +239,7 @@ else{
         </div>
         <div class="form-group">
             <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+            <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required pattern="[A-Za-z]+" title="Please enter only alphabetic characters">
             <?php
             if (!empty($last_name_error)) {
                     echo "<p style='color: red;'>$last_name_error</p>";
@@ -236,7 +259,7 @@ else{
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number">
             <?php
             if (!empty($password_error)) {
                     echo "<p style='color: red;'>$password_error</p>";
@@ -245,7 +268,7 @@ else{
         </div>
         <div class="form-group">
             <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number" required>
             <?php
             if (!empty($reenter_password_error)) {
                     echo "<p style='color: red;'>$reenter_password_error</p>";
@@ -263,7 +286,7 @@ else{
         </div>
         <div class="form-group">
             <label>Gender</label><br>
-            <label for="male" style="display: inline-block; margin-right: 10px; "> <input type="radio" id="male" name="gender" value="male"> Male</label>
+            <label for="male" style="display: inline-block; margin-right: 10px; "> <input type="radio" id="male" name="gender" value="male" required> Male</label>
             <label for="female" style="display: inline-block; margin-right: 10px; "><input type="radio" id="female" name="gender" value="female"> Female</label>
             <label for="other" style="display: inline-block; margin-right: 10px; "><input type="radio" id="other" name="gender" value="other"> Other</label>
             <?php
@@ -274,7 +297,7 @@ else{
         </div>
         <div class="form-group">
             <label for="contact">Contact Number</label>
-            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required pattern="[0-9]+" title="Please enter only numeric characters">
             <?php
             if (!empty($contact_no_error)) {
                     echo "<p style='color: red;'>$contact_no_error</p>";
@@ -283,7 +306,7 @@ else{
         </div>
         <div class="form-group">
             <label for="address">Address</label>
-            <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
+            <textarea id="address" name="address" placeholder="Enter your address" required  pattern="[A-Za-z0-9,-]" title="Please enter alphanumeric characters, comma, or hyphen only"></textarea>
             <?php
             if (!empty($address_error)) {
                     echo "<p style='color: red;'>$address_error</p>";
@@ -292,7 +315,7 @@ else{
         </div>
         <div class="form-group">
             <label for="profile-pic">Profile Picture</label>
-            <input type="file" id="profile-pic" name="profile-pic" accept="image/*">
+            <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required>
             <?php
             if (!empty($profile_upload_error)) {
                     echo "<p style='color: red;'>$profile_upload_error</p>";
