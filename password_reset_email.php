@@ -81,7 +81,7 @@ if(isset($_GET["userid"]) && isset($_GET["email"])){
         <p>A verification code has been sent to your email <strong><?php echo $email_id; ?></strong> . For resetting your password.</p>
         <form action="" method="post" name="email_verify" id="email_verify" enctype="multipart/form-data">
             <label for="verification_code">Verification Code</label><br>
-            <input type="text" id="verification_code" name="verification_code" required pattern="[0-9]" title="Please enter only numeric characters"><br>
+            <input type="text" id="verification_code" name="verification_code" required pattern="[0-9]+" title="Please enter only numeric characters"><br>
             <input type="submit" value="Verify" name="verify" id="verify">
         </form>
     </div>
