@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Error Reporting If any error ocuurs
 error_reporting(E_ALL);
 ini_set('display_errors',1);
@@ -7,17 +8,6 @@ $input_validation_passed = true;
 if(isset($_POST["query"])){
      // Input Sanizatization 
      require("input_validation/input_sanitization.php");
-     // Check if $_POST["first-name"] exists before sanitizing
-     $first_name = isset($_POST["first-name"]) ? sanitizeFirstName($_POST["first-name"]) : "";
- 
-     // Check if $_POST["last-name"] exists before sanitizing
-     $last_name = isset($_POST["last-name"]) ? sanitizeLastName($_POST["last-name"]) : "";
- 
-     // Check if $_POST["email"] exists before sanitizing
-     $email = isset($_POST["email"]) ? sanitizeEmail($_POST["email"]) : "";
-
-      // Check if $_POST["contact"] exists before sanitizing
-    $contact_number = isset($_POST["phone"]) ? sanitizeContactNumber($_POST["phone"]) : "";
 
      // Check if $_POST["shop-name"] Exists before sanitizing 
     $subject = isset($_POST["subject"]) ? sanitizeShopName($_POST["subject"]) : "";
@@ -27,27 +17,6 @@ if(isset($_POST["query"])){
 
     // Input Validation
     require("input_validation/input_validation.php");
-     // Validate first name
-     $first_name_error = "";
-     if (validateFirstName($first_name) === "false") {
-         $first_name_error = "Please Enter a Correct First Name";
-         $input_validation_passed = false;
-     }
-
-     // Validate last name
-     $last_name_error = "";
-     if (validateLastName($last_name) === "false") {
-         $last_name_error = "Please Enter a Correct Last Name";
-         $input_validation_passed = false;
-     }
-
-     // Validate contact number
-     $contact_no_error = "";
-     if (validateContactNumber($contact_number) === "false") {
-         $contact_no_error = "Please Provide a Contact number";
-         $input_validation_passed = false;
-     }
-
      // Validate shop name
      $shop_name_error = "";
      if (validateShopName($subject) === "false") {
@@ -63,7 +32,33 @@ if(isset($_POST["query"])){
       }
 
       if ($input_validation_passed) {
+
         include("connection/connection.php");
+        $user_id = $_SESSION["userid"];
+        // Prepare the SQL statement
+            $sql_select_user = "SELECT FIRST_NAME, LAST_NAME, USER_EMAIL, USER_CONTACT_NO 
+            FROM hudder_user 
+            WHERE USER_ID = :user_id";
+
+            // Prepare the OCI statement
+            $stmt_select_user = oci_parse($conn, $sql_select_user);
+
+            // Bind parameters
+            oci_bind_by_name($stmt_select_user, ':user_id', $user_id);
+
+            // Execute the OCI statement
+            if (oci_execute($stmt_select_user)) {
+            // Fetch the result
+            $row = oci_fetch_assoc($stmt_select_user);
+
+            // Check if a row was returned
+            if ($row) {
+            // Access the values
+            $first_name = $row['FIRST_NAME'];
+            $last_name = $row['LAST_NAME'];
+            $email = $row['USER_EMAIL'];
+            $contact_number = $row['USER_CONTACT_NO'];
+
         // Prepare the SQL statement for inserting data into the contactus table
             $sql_insert_contactus = "INSERT INTO contactus (FIRST_NAME, LAST_NAME, EMAIL, CONTACT_NO, SUBJECT, MESSAGE) 
             VALUES (:first_name, :last_name, :email, :contact_no, :subject, :message) RETURNING QUERY_ID INTO :query_id";
@@ -91,8 +86,16 @@ if(isset($_POST["query"])){
 
             // Free the statement and close the connection
             oci_free_statement($stmt_insert_contactus);
-            oci_close($conn);
+        }else {
+            $error = oci_error($stmt_select_user);
+            echo "Error executing query: " . $error['message'];
+        }
+        
+        // Free the statement
+        oci_free_statement($stmt_select_user);
+        oci_close($conn);
       }
+    }
       else{
         $general_error = "Query Submisiion Unsuccessful!";
       }
@@ -121,7 +124,7 @@ if(isset($_POST["query"])){
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+        include("session_navbar.php");
     ?>
     <div id="contact-container" class="container">
     <h2>Contact Us</h2>
@@ -131,38 +134,6 @@ if(isset($_POST["query"])){
             }
             ?>
     <form action="" method="POST" id="contactus" name="contactus">
-            <div class='form-group'>
-            <label for='first-name'>First Name</label>
-            <input type='text' id='first-name' name='first-name' placeholder='Enter your first name' required>
-            <?php
-            if (!empty($first_name_error)) {
-                    echo "<p style='color: red;'>$first_name_error</p>";
-                }
-                ?>
-            </div>
-            <div class='form-group'>
-            <label for='last-name'>Lasst Name</label>
-            <input type='text' id='last-name' name='last-name' placeholder='Enter your last name' required>
-            <?php
-            if (!empty($last_name_error)) {
-                echo "<p style='color: red;'>$last_name_error</p>";
-            }
-            ?>
-            </div>
-        <div class='form-group'>
-            <label for='email'>Email</label>
-            <input type='email' id='email' name='email' placeholder='Enter your email' required>
-        </div>
-        <div class='form-group'>
-            <label for='phone'>Contact No.</label>
-            <input type='tel' id='phone' name='phone' placeholder='Enter your phone number' required>
-            <?php
-            if (!empty($contact_no_error)) {
-                echo "<p style='color: red;'>$contact_no_error</p>";
-            }
-            ?>
-        </div>
-
         <div class="form-group">
             <label for="subject">Subject</label>
             <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>

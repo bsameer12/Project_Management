@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trader Dashboard</title>
-    <link rel="icon" href="logo_ico.png" type="image/png">
+    <link rel="icon" href="../logo.png" type="image/png">
     <link rel="stylesheet" href="trader_navbar.css">
     <link rel="stylesheet" href="trader_dashboard.css">
     <!-- swiper css file web -->

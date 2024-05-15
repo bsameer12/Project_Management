@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HudderFoods - Home</title>
-    <link rel="stylesheet" href="without_session_navbar.css">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body>
-    <header>
+ <header>
         <nav>
             <div class="container">
                 <div class="logo"><img src="logo.png"></div>
@@ -17,7 +6,7 @@
                     <ul>
                         <li class="highlight"><a href="index.php">Home</a></li>
                         <li><a href="about.php">About Us</a></li>
-                        <li><a href="contactus.php">Contacts</a></li>
+                        <li><a href="session_contactus.php">Contacts</a></li>
                         <li><a href="category.php">Category</a></li>
                     </ul>
                 </div>
@@ -54,14 +43,4 @@
             </div>
         </nav>
     </header>
-
-    <!-- Main content goes here -->
-
-    <footer>
-        <!-- Footer content goes here -->
-    </footer>
-
-    <script src="without_session_navbar.js"></script>
-</body>
-</html>
 
