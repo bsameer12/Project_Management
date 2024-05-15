@@ -127,7 +127,7 @@ if(isset($_POST["change"])){
             <li>At least one number</li>
             <li>At least one special character</li>
         </ul>
-        <form method="post" action="" method="post" name="reset-password" id="reset-password" enctype="multipart/form-data">
+        <form method="post" action="" name="reset-password" id="reset-password" enctype="multipart/form-data">
         <div class="form-group">
                 <label for="current-password">Current Password</label>
                 <input type="password" id="current-password" name="current-password" required>

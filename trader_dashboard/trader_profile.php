@@ -193,7 +193,7 @@ include("../connection/connection.php");
             </div>
             <div class="form-row">
                 <label for="address" class="form-label">Address:</label>
-                <textarea id="address" name="address" class="form-textarea" rows="4" placeholder="Enter address" required  pattern="[A-Za-z0-9,-]" title="Please enter alphanumeric characters, comma, or hyphen only"> <?php echo $user_address ; ?></textarea>
+                <textarea id="address" name="address" class="form-textarea" rows="4" placeholder="Enter address" required  pattern="[A-Za-z0-9,-]" title="Please enter alphanumeric characters, comma, or hyphen only"><?php echo $user_address; ?></textarea>
                 <?php
             if (!empty($address_error)) {
                     echo "<p style='color: red;'>$address_error</p>";
