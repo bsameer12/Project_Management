@@ -3,6 +3,7 @@ session_start();
 // Error Reporting If any error ocuurs
 error_reporting(E_ALL);
 ini_set('display_errors',1);
+$user_id = $_SESSION["userid"];
 // Variable for Input_validation 
 $input_validation_passed = true;
 if(isset($_POST["submit_product"])){
@@ -307,9 +308,12 @@ if(isset($_POST["submit_product"])){
             <?php
                 include("../connection/connection.php");
                     // If sort option is not set, fetch data without sorting
-                    $sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_QUANTITY, IS_DISABLED, CATEGORY_ID, PRODUCT_PICTURE FROM product";
+                    $sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_QUANTITY, IS_DISABLED, CATEGORY_ID, PRODUCT_PICTURE FROM product Where USER_ID = :userID ";
                 // Parse the SQL statement
                 $stmt = oci_parse($conn, $sql);
+
+                // Bind parameters
+                oci_bind_by_name($stmt, ':userID', $user_id);
 
                 // Execute the SQL statement
                 oci_execute($stmt);
@@ -325,7 +329,7 @@ if(isset($_POST["submit_product"])){
                         echo "<td>" . $row['PRODUCT_QUANTITY'] . "</td>";
                         echo "<td>" . ($row['IS_DISABLED'] == 1 ? 'Enabled' : 'Disabled') . "</td>";
                         echo "<td>" . $row['PRODUCT_DESCRIPTION'] . "</td>";
-                        echo "<td> <a href=trader_product_view.php?id=". $row['PRODUCT_ID'] . "&action=edit> Edit </a> | <a href=deleteproduct.php?id=" . $row['PRODUCT_ID'] . "&action=delete> Delete </a> </td>";
+                        echo "<td> <a href=trader_product_view.php?id=". $row['PRODUCT_ID'] . "&userid=" . $user_id . "&action=edit> Edit </a> | <a href=deleteproduct.php?id=" . $row['PRODUCT_ID'] . "&action=delete> Delete </a> </td>";
                         echo "</tr>";
                 }
                 // Free statement resources
