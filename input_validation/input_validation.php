@@ -118,4 +118,26 @@ function validateCategory($category)
     return !empty($category);
 }
 
+// Function to validate product name for uniqueness
+function productNameExists($productName)
+{
+    // Establishing a connection to the database
+    $conn = oci_connect('HudderFoods', 'Root123#', '//localhost/xe');
+    // OCI prepared statement to check for duplicate product name
+    $sql_query = "SELECT * FROM product_table WHERE product_name = :productName";
+    $stmt = oci_parse($conn, $sql_query);
+    oci_bind_by_name($stmt, ":productName", $productName);
+    oci_execute($stmt);
+
+    // Fetching the count of rows returned
+    $productNameCount = oci_fetch_all($stmt, $res);
+
+    // Freeing the statement and closing the connection
+    oci_free_statement($stmt);
+    oci_close($conn);
+
+    // Return "true" if product name exists, "false" otherwise
+    return $productNameCount > 0 ? true : false;
+}
+
 ?>

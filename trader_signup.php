@@ -144,7 +144,7 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
          // Validate Shop Descripyion
          $shop_description_error = "";
          if (validateShopDescription($shop_description) === "false") {
-             $validateShopDescription = "Please Enter Your Comapany Registration Number Correctly.";
+             $shop_description_error = "Please Enter Your Comapany Registration Number Correctly.";
              $input_validation_passed = false;
          }
 
