@@ -218,7 +218,7 @@ include("connection/connection.php");
                             // Otherwise, render the button with the onclick event
                             echo "<button class='add-to-cart-btn' onclick='addToCart(" . $row['PRODUCT_ID'] . "," . $userId . ", \"" . $Search_text . "\")'>Add to Cart</button>";
                         }                        
-                            echo"<a href='add_to_wishlist.php?produt_id=" . $row['PRODUCT_ID'] . "&user_id=" . $userId ."' class='wishlist-btn'><i class='fas fa-heart'></i></a>";
+                            echo"<a href='add_to_wishlist.php?produt_id=" . $row['PRODUCT_ID'] . "&user_id=" . $userId ."&searchtext=" . $Search_text ."' class='wishlist-btn'><i class='fas fa-heart'></i></a>";
                         echo"</div>";
                     echo"</div>";
                 echo"</div>";
