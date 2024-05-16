@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Hide the notice about an active session
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 function includeNavbarBasedOnSession() {
     if(isset($_SESSION["userid"]) && isset($_SESSION["accesstime"])) {
         include("session_navbar.php");

@@ -1,5 +1,6 @@
 <?php
 // Set the variable $userId based on $_SESSION["userid"]
+session_start();
 $userId = isset($_SESSION["userid"]) ? $_SESSION["userid"] : 0;
 include("connection/connection.php");
     $Search_text = $_GET["value"];
@@ -215,7 +216,7 @@ include("connection/connection.php");
                             echo "<button class='add-to-cart-btn' disabled>Add to Cart</button>";
                         } else {
                             // Otherwise, render the button with the onclick event
-                            echo "<button class='add-to-cart-btn' onclick='addToCart(" . $row['PRODUCT_ID'] . "," . $userId .")'>Add to Cart</button>";
+                            echo "<button class='add-to-cart-btn' onclick='addToCart(" . $row['PRODUCT_ID'] . "," . $userId . ", \"" . $Search_text . "\")'>Add to Cart</button>";
                         }                        
                             echo"<a href='add_to_wishlist.php?produt_id=" . $row['PRODUCT_ID'] . "&user_id=" . $userId ."' class='wishlist-btn'><i class='fas fa-heart'></i></a>";
                         echo"</div>";
@@ -294,9 +295,9 @@ include("connection/connection.php");
         window.location.reload();
     });
 
-    function addToCart(productId, userId) {
-        // Redirect to add_to_cart.php with the productId and userId parameters
-        window.location.href = 'add_to_cart.php?productid=' + productId + '&userid=' + userId;
+    function addToCart(productId, userId, searchText) {
+        // Redirect to add_to_cart.php with the productId, userId, and searchText parameters
+        window.location.href = 'add_to_cart.php?productid=' + productId + '&userid=' + userId + '&searchtext=' + searchText;
     }
 </script>
 
