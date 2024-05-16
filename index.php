@@ -20,7 +20,7 @@
     ?>
     
     <!-- Slider Section -->
-    <section class="home" id="home">
+    <section class="home" id="home"  style="overflow-x: hidden;">
         <div class="swiper-container home-slider">
             <div class="swiper-wrapper">
                 <!-- First slide -->
@@ -240,7 +240,7 @@
     </div>
     </div>
 
-    <section class="home" id="home">
+    <section class="home" id="home" style="overflow-x: hidden;">
         <div class="swiper-container home-slider">
             <div class="swiper-wrapper">
                 <!-- First slide -->
@@ -257,7 +257,7 @@
     </section>
 
     <!-- review section starts here -->
-<section class="review" id="review">
+<section class="review" id="review" style="overflow-x: hidden;">
      <!-- Adding heading to section  -->
     <h3 class="sub-heading"> customer's review </h3>
     <h1 class="heading"> what they say </h1>
@@ -368,7 +368,7 @@
 <!-- review section ends here -->
 
 <!-- review section starts here -->
-<section class="review" id="review">
+<section class="review" id="review" style="overflow-x: hidden;">
      <!-- Adding heading to section  -->
     <h1 class="heading"> Meet Our Traders </h1>
     <div class="swiper-container review-slider">

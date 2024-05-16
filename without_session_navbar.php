@@ -1,4 +1,14 @@
-    <header>
+ <?php
+ if(isset($_POST["search"])){
+     // Input Sanizatization 
+     require("input_validation\input_sanitization.php");
+    $search_text = isset($_POST["searchText"]) ? sanitizeFirstName($_POST["searchText"]) : "";;
+    header("Location: search_page.php?value=" . urlencode($search_text)); // URL encode the search text
+    exit();
+
+ }
+ ?>
+ <header>
         <nav>
             <div class="container">
                 <a href="index.php" class="logo"><img src="logo.png"></a>
@@ -11,8 +21,10 @@
                     </ul>
                 </div>
                 <div class="search">
-                    <input type="text" placeholder="Search...">
-                    <button type="submit">Search</button>
+                <form method="POST" action="" namme="search_form" id="search_form">
+                    <input type="text" name="searchText" placeholder="Search..." id="searchText" required>
+                    <input type="submit" value="Search" name="search" id="search">
+                </form>
                 </div>
                 <div class="menu-toggle"><i class="fas fa-bars"></i></div>
                 <div class="submenu">

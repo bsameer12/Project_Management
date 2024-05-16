@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
             clickable: true,
         },
         loop: true,
+        slidesPerView: 1, // Limit the number of visible slides
     });
 });
 

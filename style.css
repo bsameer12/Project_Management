@@ -1,3 +1,11 @@
+.home {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.swiper-slide {
+  width: 100%; /* Ensure each slide takes up the full width of the container */
+}
+
 .home{
   margin-top: 10px;
   margin-bottom: 10px;
@@ -358,3 +366,9 @@ img {
 }
 
 
+/* CSS for mobile devices */
+@media only screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+}
