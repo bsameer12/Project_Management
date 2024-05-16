@@ -22,7 +22,7 @@
                 </div>
                 <div class="search">
                 <form method="POST" action="" namme="search_form" id="search_form">
-                    <input type="text" name="searchText" placeholder="Search..." id="searchText" required>
+                    <input type="text" name="searchText" placeholder="<?php if(isset($search_text)){echo $search_text ; } else { echo "Search...";}?>" id="searchText" required>
                     <input type="submit" value="Search" name="search" id="search">
                 </form>
                 </div>
