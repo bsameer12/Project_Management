@@ -80,7 +80,23 @@
                         oci_execute($stmtCreateCart);
                     }
 
-                    // Check if the cart item already exists
+                    // SQL to count NO_OF_PRODUCTS in CART_ITEM
+                    $sqlCountProducts = "SELECT SUM(no_of_products) AS total_products FROM cart_item WHERE cart_id = :cart_id";
+                    $stmtCountProducts = oci_parse($conn, $sqlCountProducts);
+                    oci_bind_by_name($stmtCountProducts, ':cart_id', $cart_id);
+                    oci_execute($stmtCountProducts);
+                    $rowCountProducts = oci_fetch_assoc($stmtCountProducts);
+
+                    // Check if the query was successful
+                    if ($rowCountProducts) {
+                        // Get the total number of products
+                        $totalProducts = $rowCountProducts['TOTAL_PRODUCTS'];
+
+                        // Check if total products is less than or equal to 15
+                        if ($totalProducts < 15) {
+                            // Add products to the cart
+                            // Your code here
+                            // Check if the cart item already exists
                     $sqlCartItemCheck = "SELECT * FROM cart_item WHERE cart_id = :cart_id AND product_id = :product_id";
                     $stmtCartItemCheck = oci_parse($conn, $sqlCartItemCheck);
                     oci_bind_by_name($stmtCartItemCheck, ':cart_id', $cart_id);
@@ -109,6 +125,19 @@
 
                     }
 
+                        } else {
+                            // Set variable with "Cart Is full and cannot add to cart alert"
+                            $cartFullAlert = "Cart Is full and cannot add to cart alert";
+                        }
+                    } else {
+                        // Handle error if the query fails
+                        echo "Error in counting products.";
+                    }
+
+                    // Free statement resources
+                    oci_free_statement($stmtCountProducts);
+
+                    
                     
                    
                 } else {
@@ -128,7 +157,13 @@
             oci_close($conn);
 
         //Redirect to search_page.php
+        if (!empty($search_text)) {
         header("Location:search_page.php?value=$search_text");
         exit();
+        }
+        else{
+            header("Location:index.php");
+        exit();
+        }
 
     ?>

@@ -21,14 +21,28 @@ document.addEventListener("DOMContentLoaded", function() {
         spaceBetween: 30,
         centeredSlides: true,
         autoplay: {
-            delay: 7500,
-            disableOnInteraction: false,
+            delay: 5500,
+            disableOnInteraction: true,
         },
         pagination: {
             el: ".swiper-pagination",
             clickable: true,
         },
         loop: true,
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            640: {
+            slidesPerView: 1,
+            },
+            768: {
+            slidesPerView: 1,
+            },
+            1024: {
+            slidesPerView: 1,
+            },
+        },
     });
 
     // defining swiper for review swction
@@ -36,8 +50,8 @@ var swiper = new Swiper(".review-slider", {
     spaceBetween: 20,
     centeredSlides: true,
     autoplay: {
-        delay: 7500,
-        disableOnInteraction: false,
+        delay: 5500,
+        disableOnInteraction: true,
     },
     loop:true,
     breakpoints: {
@@ -45,13 +59,13 @@ var swiper = new Swiper(".review-slider", {
             slidesPerView: 1,
         },
         640: {
-        slidesPerView: 2,
+        slidesPerView: 1,
         },
         768: {
-        slidesPerView: 2,
+        slidesPerView: 1,
         },
         1024: {
-        slidesPerView: 3,
+        slidesPerView: 1,
         },
     },
     });
