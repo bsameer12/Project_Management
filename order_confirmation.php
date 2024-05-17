@@ -1,3 +1,6 @@
+<?php
+$order_id = $_GET["order_id"];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +27,7 @@
             <h1 class="confirmation-title">Ordered Confirmed</h1>
         </div>
         <div class="confirmation-message">
-            <h2>Your order has been confirmed and your order number is <strong id="order-number">0387392938</strong>.</h2>
+            <h2>Your order has been confirmed and your order number is <strong id="order-number"><?php echo $order_id; ?></strong>.</h2>
         </div>
         <div class="return-home">
             <a href="index.html" class="return-home-link">Return to Home</a>

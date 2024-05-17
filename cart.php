@@ -2,6 +2,7 @@
 require("session/session.php");
 $user_id = $_SESSION["userid"];
 
+
 // Include the database connection
 include("connection/connection.php");
 
@@ -78,6 +79,12 @@ if ($row) {
 }
 
 oci_close($conn);
+// Check if the checkout button is clicked
+if(isset($_POST['checkout'])) {
+    // Redirect to checkout page with customerid and cartid parameters
+    header("Location: check_out.php?customerid=$customer_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price");
+    exit; // Stop further execution
+}
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +146,9 @@ oci_close($conn);
                 <p>Discount: &pound;0.00</p>
                 <p>Final total: &pound;<?php echo number_format($total_price, 2); ?></p>
             </div>
-            <button class="checkout">Checkout</button>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <button type="submit" name="checkout" class="checkout">Checkout</button>
+    </form>
         </section>
     </div>
     <?php include("footer.php"); ?>
