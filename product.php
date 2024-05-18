@@ -292,13 +292,17 @@ oci_free_statement($stmt);
                     <div id="discount_price"><?php echo '€' . number_format($product['PRODUCT_PRICE'], 2); ?></div>
                 </div>
                 <div class="button-container">
-                    <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="add-to-cart-btn">add to cart</a> 
-                    <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+                    <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">add to cart</a> 
+                    <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
                 </div>
             </div>
         </div>
-        <?php endforeach; ?>
-</div>
+        <?php
+         endforeach;
+
+?>
+        
+    </div>
 </div>
     <?php
         include("footer.php");
@@ -306,5 +310,17 @@ oci_free_statement($stmt);
     <script src="product.js"> </script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="without_session_navbar.js"> </script>
+    <script>
+        // JavaScript
+function addToCart(productId, userId, searchText) {
+    // Redirect to add_to_cart.php with the productId, userId, and searchText parameters
+    window.location.href = 'add_to_cart.php?productid=' + productId + '&userid=' + userId + '&searchtext=' + searchText;
+}
+
+function addToWishlist(productId, userId, searchText) {
+    // Redirect to add_to_wishlist.php with the productId, userId, and searchText parameters
+    window.location.href = 'add_to_wishlist.php?produt_id=' + productId + '&user_id=' + userId + '&searchtext=' + searchText;
+}
+</script>
 </body>
 </html>
