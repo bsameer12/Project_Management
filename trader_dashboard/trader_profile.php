@@ -73,10 +73,10 @@ include("../connection/connection.php");
                                     $contact_no_error = "Please Provide a Contact number";
                                     $input_validation_passed = false;
                                 }
-
+                            
                             $profile_upload_error="";
                             if(isset($_POST["profilePicture"])){
-                            require("input_validation\image_upload.php");
+                            require("../input_validation/image_upload.php");
                             $result = uploadImage("profile_image/", "profilePicture");
                                 // Check the result
                                 if ($result["success"] === 1) {

@@ -317,7 +317,7 @@ oci_close($conn);
 </head>
 <body>
     <?php
-        //include("trader_navbar.php");
+        include("trader_navbar.php");
     ?>
     <div class="container">
         <div class="graph-section">
