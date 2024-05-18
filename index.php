@@ -363,7 +363,8 @@ oci_close($conn);
             <?php $product = $products_review[$index]; ?>
     <div class="box-container">
         <!-- creating first item  box   -->
-        <div class="box">
+        <div class="box"  onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
+
             <!-- favicon code for heart icon --> <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="fas fa-heart"></a>
             <!-- linking image -->
             <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
@@ -504,6 +505,10 @@ oci_close($conn);
         console.log('Adding to cart:', productId, userId, searchText);
         // Redirect to add_to_cart.php with the parameters
          window.location.href = 'add_to_cart.php?productid=' + productId + '&userid=' + userId + '&searchtext=' + searchText;
+    }
+    function redirectToProductPage(productId) {
+        // Redirect to the product page with the specific product ID
+        window.location.href = "product.php?productId=" + productId;
     }
 </script>
 </body>

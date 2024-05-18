@@ -157,6 +157,11 @@
             oci_close($conn);
 
         //Redirect to search_page.php
+        if(!empty($search_text) && $search_text == "p")
+    {
+        header("Location:product.php?productId=$product_id");
+            exit();
+    }
         if (!empty($search_text)) {
         header("Location:search_page.php?value=$search_text");
         exit();
