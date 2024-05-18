@@ -149,6 +149,102 @@ if (oci_execute($selectProductsStmt)) {
 
 // Free statement resources
 oci_free_statement($selectProductsStmt);
+
+// Prepare the SQL statement to get the required data
+$sql = "SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE, 
+               AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE
+        FROM product p
+        LEFT JOIN review r ON p.PRODUCT_ID = r.PRODUCT_ID
+        WHERE p.IS_DISABLED = 0
+        GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE";
+
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$products_review = array();
+
+// Fetch the results
+while ($row = oci_fetch_assoc($stmt)) {
+    $products_review[] = $row;
+}
+
+// Free statement resources
+oci_free_statement($stmt);
+
+// Randomly select 6 products from the array
+$selected_indices = array_rand($products_review, min(6, count($products_review)));
+
+// Ensure $selected_indices is an array if only one product is returned
+if (!is_array($selected_indices)) {
+    $selected_indices = array($selected_indices);
+}
+
+
+// Prepare the SQL statement to get the review data
+$sql = "SELECT 
+            r.REVIEW_SCORE, 
+            r.FEEDBACK, 
+            h.FIRST_NAME || ' ' || h.LAST_NAME AS NAME, 
+            h.USER_PROFILE_PICTURE 
+        FROM 
+            REVIEW r 
+        JOIN 
+            HUDDER_USER h ON r.USER_ID = h.USER_ID 
+        WHERE 
+            r.REVIEW_PROCIDED = 1";
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$user_review = array();
+
+// Fetch the results
+while ($row = oci_fetch_assoc($stmt)) {
+    $user_review[] = $row;
+}
+
+// Free statement resources
+oci_free_statement($stmt);
+
+// Prepare the SQL statement to get the trader's information
+$sql = "SELECT 
+            u.FIRST_NAME || ' ' || u.LAST_NAME AS NAME, 
+            u.USER_PROFILE_PICTURE,
+            s.SHOP_DESCRIPTION
+        FROM 
+            HUDDER_USER u 
+        JOIN 
+            SHOP s ON u.USER_ID = s.USER_ID 
+        WHERE 
+            u.USER_TYPE = 'trader'";
+
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$trader_shop = array();
+
+// Fetch the results
+while ($row = oci_fetch_assoc($stmt)) {
+    $trader_shop[] = $row;
+}
+
+// Free statement resources
+oci_free_statement($stmt);
+
+// Close the connection
+oci_close($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -263,180 +359,35 @@ oci_free_statement($selectProductsStmt);
     <section class="dishes" id="dishes">
     <!-- heading context section  -->
     <h1 class="heading"> Features Products </h1>
+    <?php foreach ($selected_indices as $index): ?>
+            <?php $product = $products_review[$index]; ?>
     <div class="box-container">
         <!-- creating first item  box   -->
         <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
+            <!-- favicon code for heart icon --> <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="fas fa-heart"></a>
             <!-- linking image -->
-            <img src="caviber_image.jpg" alt="">
+            <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
             <!-- item name -->
-            <h3>Caviber</h3>
+            <h3><?php echo $product['PRODUCT_NAME']; ?></h3>
             <!-- favicon code for star logo -->
             <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
+            <?php
+                    $rating = round($product['AVG_REVIEW_SCORE']);
+                    for ($i = 0; $i < 5; $i++) {
+                        if ($i < $rating) {
+                            echo '<i class="fas fa-star"></i>';
+                        } else {
+                            echo '<i class="far fa-star"></i>';
+                        }
+                    }
+                    ?>
             </div>
             <!-- item price -->
-            <span>$ 26.77</span><br>
+            <span>$ <?php echo number_format($product['PRODUCT_PRICE'], 2); ?></span><br>
             <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
+            <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="btn">add to cart</a> 
         </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="chese_image.jpg" alt="">
-            <!-- item name -->
-            <h3>Cheese</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="chese_image.jpg" alt="">
-            <!-- item name -->
-            <h3>Itlian Cheeese</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="chese_image.jpg" alt="">
-            <!-- item name -->
-            <h3>Japnese Cheese</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="pork_image.jpeg" alt="">
-            <!-- item name -->
-            <h3>Pork Stake</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="pork_image.jpeg" alt="">
-            <!-- item name -->
-            <h3>Indian Pork Stake</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="pork_image.jpeg" alt="">
-            <!-- item name -->
-            <h3>African Pork Stake</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="pork_image.jpeg" alt="">
-            <!-- item name -->
-            <h3>American Pork Stake</h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-        <div class="box">
-            <!-- favicon code for heart icon --> <a href="#" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="pork_image.jpeg" alt="">
-            <!-- favicon code for star logo -->
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <!-- item name -->
-            <h3>Asian Pork Stake</h3>
-            <!-- item price -->
-            <span>$ 26.77</span><br>
-            <!-- creating add to cart button -->
-            <a href="#" class="btn">add to cart</a> 
-        </div>
-    </div>
+        <?php endforeach; ?>
     </section>
 
     <div class="container_dash">
@@ -473,102 +424,36 @@ oci_free_statement($selectProductsStmt);
 
         <div class="swiper-wrapper">
             <!-- creating first comment box with slider effect   -->
-            <div class="swiper-slide slide">
-                <!-- favicon code for quote at right icon   -->
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <!-- linking images   -->
-                    <img src="profile.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Sabin Khanal</h3>
-                        <div class="stars">
-                            <!-- favicon code for star icon   -->
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- comments questions   -->
-                <p>Really nice place to hangout..</p>
-            </div>
+            <?php
+            foreach ($user_review as $review) {
+                ?>
             <!-- creating second box with same code as first comment box  -->
             <div class="swiper-slide slide">
                 <i class="fas fa-quote-right"></i>
                 <div class="user">
-                    <img src="profile.jpg" alt="">
+                    <img src="profile_image/<?php echo $review['USER_PROFILE_PICTURE'] ; ?>" alt="<?php echo $review['NAME']; ?>">
                     <div class="user-info">
-                        <h3>Shishir Acharya</h3>
+                        <h3><?php echo $review['NAME']; ?></h3>
                         <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                        <?php
+                    $rating = round($review['REVIEW_SCORE']);
+                    for ($i = 0; $i < 5; $i++) {
+                        if ($i < $rating) {
+                            echo '<i class="fas fa-star"></i>';
+                        } else {
+                            echo '<i class="far fa-star"></i>';
+                        }
+                    }
+                    ?>
                         </div>
                     </div>
                 </div>
-                <p>Good place for a meeting. With good service</p>
+                <p><?php echo $review['FEEDBACK']; ?></p>
             </div>
-            <!-- creating third box with same code as first comment box  -->
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="profile.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Chadani Thapa</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>its nice place</p>
+            <?php
+            }
+            ?>
             </div>
-            <!-- creating fourth box with same code as first comment box  -->
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="profile.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Subu Basnet</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Good & vintage entertainment, delicious food, reasonable price menu too must visit</p>
-            </div>
-            <!-- creating fifth box with same code as first comment box  -->
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="profile.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Riya Shah</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Good & vintage entertainment.</p>
-            </div>
-
-
-        </div>
 
     </div>
     
@@ -583,53 +468,23 @@ oci_free_statement($selectProductsStmt);
 
         <div class="swiper-wrapper">
             <!-- creating first comment box with slider effect   -->
+            <?php foreach ($trader_shop as $shop): ?>
             <div class="swiper-slide slide">
                 <!-- favicon code for quote at right icon   -->
                 <div class="user">
                     <!-- linking images   -->
-                    <img src="chese_image.jpg" alt="">
+                    <img src="profile_image/<?php echo $shop['USER_PROFILE_PICTURE']; ?>" alt="<?php echo $shop['NAME']; ?>">
                     <div class="user-info">
-                        <h3>Cheesy World</h3>
+                        <h3><?php echo $shop['NAME']; ?></h3>
                     </div>
                 </div>
                 <!-- comments questions   -->
-                <p>Itlian cheese</p>
+                <p><?php echo $shop['SHOP_DESCRIPTION']; ?></p>
             </div>
-            <!-- creating second box with same code as first comment box  -->
-            <div class="swiper-slide slide">
-                <div class="user">
-                    <img src="pork_image.jpeg" alt="">
-                    <div class="user-info">
-                        <h3>Butcher</h3>
-                    </div>
-                </div>
-                <p>Golden stack</p>
-            </div>
-            <!-- creating third box with same code as first comment box  -->
-            <div class="swiper-slide slide">
-                <div class="user">
-                    <img src="caviber_image.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Caviber World</h3>
-                    </div>
-                </div>
-                <p>Best Place to get aunthetic Caviber</p>
-            </div>
-            <!-- creating third box with same code as first comment box  -->
-            <div class="swiper-slide slide">
-            <div class="user">
-                    <!-- linking images   -->
-                    <img src="chese_image.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Cheesy World</h3>
-                    </div>
-                </div>
-                <!-- comments questions   -->
-                <p>Itlian cheese</p>
-            </div>
-        </div>
+            <?php endforeach; ?>
+            
     </div>
-    
+            </div>
 </section>
 <!-- review section ends here -->
 

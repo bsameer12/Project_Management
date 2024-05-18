@@ -4,6 +4,7 @@
     ini_set('display_errors', 1);
     require("session/session.php");
 
+
     // Get parameters from URL
     $user_id = isset($_GET["user_id"]) ? $_GET["user_id"] : null;
     $product_id = isset($_GET["produt_id"]) ? $_GET["produt_id"] : null;
@@ -60,25 +61,38 @@
             oci_execute($stmtCreateWishlist);
         }
 
-        // Check if the wishlist item already exists
-        $sqlWishlistItemCheck = "SELECT * FROM WISHLIST_ITEM WHERE WISHLIST_ID = :wishlist_id AND PRODUCT_ID = :product_id";
-        $stmtWishlistItemCheck = oci_parse($conn, $sqlWishlistItemCheck);
-        oci_bind_by_name($stmtWishlistItemCheck, ':wishlist_id', $wishlist_id);
-        oci_bind_by_name($stmtWishlistItemCheck, ':product_id', $product_id);
-        oci_execute($stmtWishlistItemCheck);
+        // Check if the number of items in WISHLIST_ITEM for this customer exceeds 10
+            $wishlistCheckSql = "SELECT COUNT(*) AS TOTAL_ITEMS FROM WISHLIST_ITEM WHERE WISHLIST_ID = (SELECT WISHLIST_ID FROM WISHLIST WHERE CUSTOMER_ID = :customer_id)";
+            $wishlistCheckStmt = oci_parse($conn, $wishlistCheckSql);
+            oci_bind_by_name($wishlistCheckStmt, ':customer_id', $customer_id);
+            oci_execute($wishlistCheckStmt);
+            $wishlistCheckRow = oci_fetch_assoc($wishlistCheckStmt);
 
-        if ($rowWishlistItemCheck = oci_fetch_assoc($stmtWishlistItemCheck)) {
-            // Wishlist item already exists, do nothing
-            oci_free_statement($stmtWishlistItemCheck);
-        } else {
-            // Wishlist item does not exist, insert a new record
-            $sqlInsertItem = "INSERT INTO WISHLIST_ITEM (WISHLIST_ID, PRODUCT_ID) VALUES (:wishlist_id, :product_id)";
-            $stmtInsertItem = oci_parse($conn, $sqlInsertItem);
-            oci_bind_by_name($stmtInsertItem, ':wishlist_id', $wishlist_id);
-            oci_bind_by_name($stmtInsertItem, ':product_id', $product_id);
-            oci_execute($stmtInsertItem);
-            oci_free_statement($stmtInsertItem);
-        }
+            if ($wishlistCheckRow && $wishlistCheckRow['TOTAL_ITEMS'] > 10) {
+                // Set an alert message
+                $wishlistAlert = "Wishlist is full, please remove some items.";
+            } else {
+
+                        // Check if the wishlist item already exists
+                        $sqlWishlistItemCheck = "SELECT * FROM WISHLIST_ITEM WHERE WISHLIST_ID = :wishlist_id AND PRODUCT_ID = :product_id";
+                        $stmtWishlistItemCheck = oci_parse($conn, $sqlWishlistItemCheck);
+                        oci_bind_by_name($stmtWishlistItemCheck, ':wishlist_id', $wishlist_id);
+                        oci_bind_by_name($stmtWishlistItemCheck, ':product_id', $product_id);
+                        oci_execute($stmtWishlistItemCheck);
+
+                        if ($rowWishlistItemCheck = oci_fetch_assoc($stmtWishlistItemCheck)) {
+                            // Wishlist item already exists, do nothing
+                            oci_free_statement($stmtWishlistItemCheck);
+                        } else {
+                            // Wishlist item does not exist, insert a new record
+                            $sqlInsertItem = "INSERT INTO WISHLIST_ITEM (WISHLIST_ID, PRODUCT_ID) VALUES (:wishlist_id, :product_id)";
+                            $stmtInsertItem = oci_parse($conn, $sqlInsertItem);
+                            oci_bind_by_name($stmtInsertItem, ':wishlist_id', $wishlist_id);
+                            oci_bind_by_name($stmtInsertItem, ':product_id', $product_id);
+                            oci_execute($stmtInsertItem);
+                            oci_free_statement($stmtInsertItem);
+                        }
+                    }
 
     } else {
         echo "No results found for customer id";
@@ -91,6 +105,11 @@
     oci_close($conn);
 
     // Redirect to search_page.php
-    header("Location:search_page.php?value=$search_text");
-    exit();
+    if (!empty($search_text)) {
+            header("Location:search_page.php?value=$search_text");
+            exit();
+    }
+    else{
+        header("Location:index.php");
+    }
 ?>
