@@ -1,9 +1,36 @@
+<?php
+// Initialize connection and other necessary variables
+include("../connection/connection.php");
+// Construct the SQL statement
+$sql = "SELECT * FROM HUDDER_USER WHERE USER_TYPE ='trader'";
+
+// Prepare the statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$users = array();
+
+// Fetch the results into the array
+while ($row = oci_fetch_assoc($stmt)) {
+    $users[] = $row;
+}
+
+// Free the statement
+oci_free_statement($stmt);
+
+// Close the connection
+oci_close($conn);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trader Details</title>
+    <title>Customers</title>
     <link rel="icon" href="../logo.png" type="image/png">
     <link rel="stylesheet" href="admin_navbar.css">
     <link rel="stylesheet" href="admin_customer.css">
@@ -23,46 +50,40 @@
         include("admin_navbar.php");
     ?>
     <h1 class="page-title">Trader Details</h1>
-    <div class="product-container">
-    <div class="sort-container">
-            <form id="sortForm">
-                <label for="sort">Sort:</label>
-                <select id="sort" onchange="submitForm()">
-                    <option value="new_to_old">New to Old</option>
-                    <option value="old_to_new">Old to New</option>
-                    <option value="alpha_asc">Alphabetically Increasing</option>
-                    <option value="alpha_desc">Alphabetically Decreasing</option>
-                    <option value="price_high_low">Price High to Low</option>
-                    <option value="price_low_high">Price Low to High</option>
-                </select>
-            </form>
-        </div>
-    </div>
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
         <tr> 
-                    <th> Order ID </th> 
-                    <th> Total Amount </th>
-                    <th> Order Date</th>
-                    <th> Customer Id </th>
-                    <th> Pick Up Date </th>
-                    <th> Status</th>
+                    <th> Customer ID </th> 
+                    <th> Profile Picture  </th>
+                    <th> Name</th>
+                    <th> Address </th>
+                    <th> Email </th>
+                    <th> Contact</th>
+                    <th> Age </th>
+                    <th> Gender </th>
                     <!-- Add more headers for product details -->
                     <th> Actions </th> 
         </tr>
         </thead>
         <tbody>
         
+        <?php foreach ($users as $user): ?>
             <tr>
-            <td> 1001 </td>
-            <td>15000</td>
-            <td> 2024-04-28</td>
-            <td>1223</td>
-            <td>2025-03-04</td>
-            <td>Ready to be delivered!!!</td>
-            <td> <a href=admin_view_trader.php?id=$id&action=edit > View </a> | <a href=admin_view_trader.php?id=$id&action=edit > Delete </a></td>
+                <td><?php echo $user['USER_ID']; ?></td>
+                <td><img src='../profile_image/<?php echo $user['USER_PROFILE_PICTURE']; ?>' alt='Product Image' style='width:50px;height:50px;'></td>
+                <td><?php echo $user['FIRST_NAME'] . ' ' . $user['LAST_NAME']; ?></td>
+                <td><?php echo $user['USER_ADDRESS']; ?></td>
+                <td><?php echo $user['USER_EMAIL']; ?></td>
+                <td><?php echo $user['USER_CONTACT_NO']; ?></td>
+                <td><?php echo $user['USER_AGE']; ?></td>
+                <td><?php echo $user['USER_GENDER']; ?></td>
+                <td>
+                    <a href="admin_view_customer.php?id=<?php echo $user['USER_ID']; ?>&action=edit">View</a> | 
+                    <a href="admin_delete_customer.php?id=<?php echo $user['USER_ID']; ?>&action=delete">Delete</a>
+                </td>
             </tr>
+        <?php endforeach; ?>
         </tbody>
         </table>
     </div>

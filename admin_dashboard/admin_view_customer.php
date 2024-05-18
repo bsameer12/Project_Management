@@ -156,7 +156,7 @@ include("../connection/connection.php");
 </head>
 <body>
     <?php
-        //include("admin_navbar.php");
+        include("admin_navbar.php");
     ?>
    <div class="container-heading">
         <h2 class="container-heading">Customer Profile  Details</h2>
