@@ -1,3 +1,41 @@
+<?php
+// Initialize connection and other necessary variables
+require("trader_session.php");
+include("../connection/connection.php");
+
+// Initialize variables for placeholders
+$trader_user_id = $_SESSION["userid"];
+
+// Construct the SQL statement to select ORDER_TIME from ORDER_PRODUCT table
+$sql_order_time = "SELECT DISTINCT TO_CHAR(OP.ORDER_TIME, 'YYYY-MM-DD\"T\"HH24:MI:SS') AS ORDER_TIME
+FROM ORDER_PRODUCT OP
+JOIN ORDER_DETAILS OD ON OP.ORDER_PRODUCT_ID = OD.ORDER_PRODUCT_ID
+WHERE OD.TRADER_USER_ID = :trader_user_id";
+
+
+// Prepare the statement
+$stmt_order_time = oci_parse($conn, $sql_order_time);
+
+// Bind the parameters
+oci_bind_by_name($stmt_order_time, ':trader_user_id', $trader_user_id);
+
+// Execute the statement
+oci_execute($stmt_order_time);
+
+// Fetch the data into an array
+$order_times = array();
+while ($row = oci_fetch_assoc($stmt_order_time)) {
+    $order_times[] = $row['ORDER_TIME'];
+}
+
+// Free the statement
+oci_free_statement($stmt_order_time);
+
+// Close the connection
+oci_close($conn);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -247,8 +285,142 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include Chart.js Plugin Annotations -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
-    <script src="trader_dashboard.js"></script>
     
     <script src="trader_navbar.js"> </script>
+    <script>
+    window.onload = function () {
+        var ctx = document.getElementById('orderGraph').getContext('2d');
+        var myChart;
+
+        // Fetch PHP data as a JavaScript array
+        var orderTimes = <?php echo json_encode($order_times); ?>;
+
+        // Function to create and update the chart
+        function createOrUpdateChart(labels, data) {
+            if (myChart) {
+                myChart.destroy(); // Clear previous chart
+            }
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Order Number vs Time',
+                        data: data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to update chart data based on selected date range and fetched order times
+        function updateChartData(selectedValue) {
+            var labels = [];
+            var data = [];
+
+            var now = new Date();
+            var oneDayAgo = new Date(now);
+            oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+            var sevenDaysAgo = new Date(now);
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            var thirtyDaysAgo = new Date(now);
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+            function fillMissingDays(startDate, endDate) {
+                var date = new Date(startDate);
+                var dates = [];
+                while (date <= endDate) {
+                    dates.push(new Date(date));
+                    date.setDate(date.getDate() + 1);
+                }
+                return dates;
+            }
+
+            if (selectedValue === 1) {
+                // For 1 Day
+                var hoursCount = Array(24).fill(0);
+                orderTimes.forEach(function (time) {
+                    var date = new Date(time);
+                    if (date >= oneDayAgo) {
+                        var hour = date.getHours();
+                        hoursCount[hour]++;
+                    }
+                });
+                labels = hoursCount.map((_, i) => i + ':00');
+                data = hoursCount;
+            } else if (selectedValue === 7) {
+                // For 7 Days
+                var daysCount = {};
+                orderTimes.forEach(function (time) {
+                    var date = new Date(time);
+                    if (date >= sevenDaysAgo) {
+                        var dateString = date.toISOString().split('T')[0];
+                        if (!daysCount[dateString]) {
+                            daysCount[dateString] = 0;
+                        }
+                        daysCount[dateString]++;
+                    }
+                });
+
+                var allDates = fillMissingDays(sevenDaysAgo, now);
+                labels = allDates.map(date => date.toISOString().split('T')[0]);
+                data = labels.map(date => daysCount[date] || 0);
+            } else if (selectedValue === 30) {
+                // For 30 Days
+                var daysCount = {};
+                orderTimes.forEach(function (time) {
+                    var date = new Date(time);
+                    if (date >= thirtyDaysAgo) {
+                        var dateString = date.toISOString().split('T')[0];
+                        if (!daysCount[dateString]) {
+                            daysCount[dateString] = 0;
+                        }
+                        daysCount[dateString]++;
+                    }
+                });
+
+                var allDates = fillMissingDays(thirtyDaysAgo, now);
+                labels = allDates.map(date => date.toISOString().split('T')[0]);
+                data = labels.map(date => daysCount[date] || 0);
+            }
+
+            createOrUpdateChart(labels, data);
+        }
+
+        // Call updateChartData function with default value 1 to display data for 1 Day
+        updateChartData(1);
+
+        // Create a select dropdown for date range selection
+        var dateRangeSelect = document.createElement('select');
+        dateRangeSelect.innerHTML = `
+            <option value="1" selected>1 Day</option>
+            <option value="7">7 Days</option>
+            <option value="30">30 Days</option>
+        `;
+        dateRangeSelect.addEventListener('change', function () {
+            var selectedValue = parseInt(dateRangeSelect.value);
+            updateChartData(selectedValue);
+        });
+
+        // Append the select dropdown to the .graph-section element
+        var graphSection = document.querySelector('.graph-section');
+        graphSection.appendChild(dateRangeSelect);
+    };
+</script>
+
 </body>
 </html>
