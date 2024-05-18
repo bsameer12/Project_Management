@@ -150,7 +150,7 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
 
 
     $profile_upload_error="";
-    require("input_validation\image_upload.php");
+    require("input_validation/image_upload.php");
     $result = uploadImage("profile_image/", "profile-pic");
         // Check the result
         if ($result["success"] === 1) {
