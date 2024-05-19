@@ -324,10 +324,5 @@ if(isset($_POST["saveChangesBtn"])){
 </div>
     
 <script src="admin_navbar.js"></script>
-<script>
-        let table = new DataTable('#myTable', {
-        responsive: true,
-        });
-        </script>
 </body>
 </html>
