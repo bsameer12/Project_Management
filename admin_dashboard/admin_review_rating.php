@@ -1,3 +1,42 @@
+<?php
+include("../connection/connection.php");
+
+
+// SQL query to fetch review and user details
+$sql = "
+SELECT 
+    R.REVIEW_ID, 
+    R.REVIEW_DATE, 
+    R.REVIEW_SCORE, 
+    R.FEEDBACK, 
+    R.PRODUCT_ID, 
+    U.FIRST_NAME || ' ' || U.LAST_NAME AS NAME, 
+    U.USER_PROFILE_PICTURE,
+    P.PRODUCT_NAME
+FROM 
+    REVIEW R
+JOIN 
+    HUDDER_USER U ON R.USER_ID = U.USER_ID
+JOIN 
+    PRODUCT P ON R.PRODUCT_ID = P.PRODUCT_ID
+WHERE 
+    R.REVIEW_PROCIDED = 1
+";
+// Prepare and execute the statement
+$stmt = oci_parse($conn, $sql);
+oci_execute($stmt);
+
+// Fetch all results into an array
+$reviews = [];
+while ($row = oci_fetch_assoc($stmt)) {
+    $reviews[] = $row;
+}
+
+// Free the statement and close the connection
+oci_free_statement($stmt);
+oci_close($conn);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,47 +62,35 @@
         include("admin_navbar.php");
     ?>
     <h1 class="page-title">Reviews</h1>
-    <div class="product-container">
-    <div class="sort-container">
-            <form id="sortForm">
-                <label for="sort">Sort:</label>
-                <select id="sort" onchange="submitForm()">
-                    <option value="new_to_old">New to Old</option>
-                    <option value="old_to_new">Old to New</option>
-                    <option value="alpha_asc">Alphabetically Increasing</option>
-                    <option value="alpha_desc">Alphabetically Decreasing</option>
-                    <option value="price_high_low">Price High to Low</option>
-                    <option value="price_low_high">Price Low to High</option>
-                </select>
-            </form>
-        </div>
-    </div>
     
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
         <tr> 
-                    <th> ID </th> 
+                    <th> Review ID </th> 
                     <th> User Profile </th>
                     <th> User Name </th>
                     <th> User Rating </th>
                     <th> User Review </th>
-                    <th> User Reply </th>
+                    <th> Review Date </th>
+                    <th> Revied Product</th>
                     <!-- Add more headers for product details -->
                     <th> Actions </th> 
         </tr>
         </thead>
         <tbody>
-        
-            <tr>
-            <td> 1001 </td>
-            <td><img src='../profile.jpg' alt='Product Image' style='width:50px;height:50px;'></td>
-            <td> Sameer Basnet</td>
-            <td>4.5</td>
-            <td>Good Product</td>
-            <td>tHANK YOU</td>
-            <td> <a href=admin_qa.php?id=$id&action=edit> Reply </a> </td>
-            </tr>
+            <?php foreach ($reviews as $review): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($review['REVIEW_ID']); ?></td>
+                    <td><img src="../profile_image/<?php echo htmlspecialchars($review['USER_PROFILE_PICTURE']); ?>" alt="User Profile" style='width:50px;height:50px;'></td>
+                    <td><?php echo htmlspecialchars($review['NAME']); ?></td>
+                    <td><?php echo htmlspecialchars($review['REVIEW_SCORE']); ?></td>
+                    <td><?php echo htmlspecialchars($review['FEEDBACK']); ?></td>
+                    <td><?php echo htmlspecialchars($review['REVIEW_DATE']); ?></td>
+                    <td><?php echo htmlspecialchars($review['PRODUCT_NAME']); ?></td>
+                    <td><a href="admin_delete_review.php?id=<?php echo htmlspecialchars($review['REVIEW_ID']); ?>&action=delete">Delete</a></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
         </table>
     </div>

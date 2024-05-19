@@ -74,7 +74,7 @@ if(isset($_POST["saveChangesBtn"])){
       }
 
       require("../input_validation/image_upload.php");
-      if(isset($_POST["shop-logo"])){
+      if(isset($_FILES["shop-logo"])){
       $shop_profile_upload_error="";
       $result2 = uploadImage("../shop_profile_image/", "shop-logo");
           // Check the result
