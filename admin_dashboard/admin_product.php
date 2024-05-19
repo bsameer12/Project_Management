@@ -1,3 +1,80 @@
+<?php
+include("../connection/connection.php");
+
+// Handle IS_DISABLED form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateForm'])) {
+    $product_id = $_POST['product_id'];
+    $is_disabled = $_POST['is_disabled'];
+
+    // Prepare the SQL statement to update the IS_DISABLED field
+    $sql = "UPDATE PRODUCT SET IS_DISABLED = :is_disabled WHERE PRODUCT_ID = :product_id";
+
+    // Prepare the statement
+    $stmt = oci_parse($conn, $sql);
+
+    // Bind the parameters
+    oci_bind_by_name($stmt, ':is_disabled', $is_disabled);
+    oci_bind_by_name($stmt, ':product_id', $product_id);
+
+    // Execute the statement
+    $success = oci_execute($stmt);
+
+    // Free the statement
+    oci_free_statement($stmt);
+
+    // Reload the page on success
+    if ($success) {
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
+    }
+}
+
+// Handle ADMIN_VERIFIED form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['verifyForm'])) {
+    $product_id = $_POST['product_id'];
+    $admin_verified = $_POST['admin_verified'];
+
+    // Prepare the SQL statement to update the ADMIN_VERIFIED field
+    $sql = "UPDATE PRODUCT SET ADMIN_VERIFIED = :admin_verified WHERE PRODUCT_ID = :product_id";
+
+    // Prepare the statement
+    $stmt = oci_parse($conn, $sql);
+
+    // Bind the parameters
+    oci_bind_by_name($stmt, ':admin_verified', $admin_verified);
+    oci_bind_by_name($stmt, ':product_id', $product_id);
+
+    // Execute the statement
+    $success = oci_execute($stmt);
+
+    // Free the statement
+    oci_free_statement($stmt);
+
+    // Reload the page on success
+    if ($success) {
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
+    }
+}
+
+// Fetch product details
+$sql = "SELECT P.*, U.FIRST_NAME || ' ' || U.LAST_NAME AS NAME 
+        FROM PRODUCT P
+        JOIN HUDDER_USER U ON P.USER_ID = U.USER_ID";
+
+$stmt = oci_parse($conn, $sql);
+oci_execute($stmt);
+
+$products = [];
+while ($row = oci_fetch_assoc($stmt)) {
+    $products[] = $row;
+}
+
+oci_free_statement($stmt);
+oci_close($conn);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,87 +100,67 @@
         include("admin_navbar.php");
     ?>
     <h1 class="page-title">Product Details</h1>
-    <div class="product-container">
-    <div class="sort-container">
-            <form id="sortForm">
-                <label for="sort">Sort:</label>
-                <select id="sort" onchange="submitForm()">
-                    <option value="new_to_old">New to Old</option>
-                    <option value="old_to_new">Old to New</option>
-                    <option value="alpha_asc">Alphabetically Increasing</option>
-                    <option value="alpha_desc">Alphabetically Decreasing</option>
-                    <option value="price_high_low">Price High to Low</option>
-                    <option value="price_low_high">Price Low to High</option>
-                </select>
-            </form>
-        </div>
-    </div>
-    <div class="form-popup" id="productForm">
-    <div class="form-container">
-        <h2>Product Registration Form</h2>
-        <span class="close" onclick="closeForm()">&times;</span>
-        <div class="profile-circle" id="productImagePreview"></div>
-        <form id="productForms" name="productForms" action="" enctype="multipart/form-data" method="POST">
-            <!-- Add fields for product details -->
-            <div class="row">
-                <div class="col">
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName" name="productName" required>
-                </div>
-                <div class="col">
-                    <label for="category">Category:</label>
-                    <select id="category" name="category" required>
-                        <option value="Pizza">Pizza</option>
-                        <option value="Momo">Momo</option>
-                        <option value="Drinks">Drinks</option>
-                        <option value="Tea">Tea</option>
-                        <option value="Coffee">Coffee</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <!-- Add more fields as needed -->
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="price" required>
-                </div>
-                <div class="col">
-                    <label for="productImage">Upload Product Image:</label>
-                    <input type="file" id="productImage" name="productImage" accept="image/*" onchange="previewProductImage()" required>
-                </div>
-            </div>
-                <input type="submit" id="submit_product" name="submit_product" value="Add Product" class="form-buttons" style="background-color: #4CAF50; color: white; text-align: center; ">
-        </form>
-    </div>
-</div>
-</div>
-</div>
 
 
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
         <tr> 
-                    <th> ID </th> 
-                    <th> Image </th>
+                    <th> Product ID </th> 
+                    <th> Product Image </th>
                     <th> Product Name </th>
-                    <th> Category </th>
+                    <th> Product Category </th>
                     <th> Price </th>
+                    <th> Product Description </th>
+                    <th> Allergy Information </th>
+                    <th> Trader Name </th>
+                    <th> Prooduct Stock </th>
+                    <th> Product Status </th>
+                    <th> Verification Status </th>
                     <!-- Add more headers for product details -->
                     <th> Actions </th> 
         </tr>
         </thead>
         <tbody>
         
-            <tr>
-            <td> 1001 </td>
-            <td><img src='../caviber_image.jpg' alt='Product Image' style='width:50px;height:50px;'></td>
-            <td> Hello</td>
-            <td>fghhjffg</td>
-            <td>10000</td>
-            <td> <a href=admin_product_view.php?id=$id&action=edit> Edit </a> | <a href=deleteproduct.php?id=$id&action=delete> Delete </a> </td>
-            </tr>
+        <?php foreach ($products as $product) { ?>
+                    <tr>
+                        <td><?php echo $product['PRODUCT_ID']; ?></td>
+                        <td><img src='../product_image/<?php echo $product['PRODUCT_PICTURE']; ?>' alt='Product Image' style='width:50px;height:50px;'></td>
+                        <td><?php echo $product['PRODUCT_NAME']; ?></td>
+                        <td><?php echo $product['CATEGORY_ID']; ?></td>
+                        <td><?php echo $product['PRODUCT_PRICE']; ?></td>
+                        <td><?php echo $product['PRODUCT_DESCRIPTION']; ?></td>
+                        <td><?php echo $product['ALLERGY_INFORMATION']; ?></td>
+                        <td><?php echo $product['NAME']; ?></td>
+                        <td><?php echo $product['PRODUCT_QUANTITY']; ?></td>
+                        <td>
+                            <form action="" method="POST">
+                                <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
+                                <input type="hidden" name="updateForm">
+                                <select name="is_disabled" onchange="this.form.submit()">
+                                    <option value="0" <?php echo ($product['IS_DISABLED'] == 0) ? 'selected' : ''; ?>>Disabled</option>
+                                    <option value="1" <?php echo ($product['IS_DISABLED'] == 1) ? 'selected' : ''; ?>>Not Disabled</option>
+                                </select>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="" method="POST">
+                                <input type="hidden" name="product_id" value="<?php echo $product['PRODUCT_ID']; ?>">
+                                <input type="hidden" name="verifyForm">
+                                <select name="admin_verified" onchange="this.form.submit()">
+                                    <option value="0" <?php echo ($product['ADMIN_VERIFIED'] == 0) ? 'selected' : ''; ?>>Unverified</option>
+                                    <option value="1" <?php echo ($product['ADMIN_VERIFIED'] == 1) ? 'selected' : ''; ?>>Verified</option>
+                                </select>
+                            </form>
+                        </td>
+
+                        <td>
+                            <a href="admin_product_view.php?id=<?php echo $product['PRODUCT_ID']; ?>&action=edit">Edit</a> | 
+                            <a href="deleteproduct.php?id=<?php echo $product['PRODUCT_ID']; ?>&action=delete">Delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
         </tbody>
         </table>
     </div>
@@ -117,19 +174,6 @@
         let table = new DataTable('#myTable', {
         responsive: true,
         });
-        window.onload = function() {
-        var sortSelect = document.getElementById("sort");
-        var selectedValue = localStorage.getItem("selectedSortValue");
-        if (selectedValue) {
-            sortSelect.value = selectedValue;
-        }
-    };
-
-    function submitForm() {
-        var sortSelect = document.getElementById("sort");
-        localStorage.setItem("selectedSortValue", sortSelect.value);
-        document.getElementById("sortForm").submit();
-    }
-    </script>
+        </script>
 </body>
 </html>
