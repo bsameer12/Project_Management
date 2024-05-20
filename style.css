@@ -1,447 +1,248 @@
-.home {
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+<?php
+session_start();
+// Include connection file to the database
+include("connection/connection.php");
+$user_id = isset($_SESSION["userid"]) ? $_SESSION["userid"] : 0;
+$searchText = "";
+if($user_id > 0){
+
+// Initialize an empty array to store the results
+$reviews = [];
+
+// SQL query to select REVIEW_ID, PRODUCT_ID
+$selectReviewSql = "SELECT REVIEW_ID, PRODUCT_ID FROM REVIEW WHERE REVIEW_PROCIDED = 0 AND USER_ID = :customerId";
+
+// Prepare the OCI statement
+$selectReviewStmt = oci_parse($conn, $selectReviewSql);
+if (!$selectReviewStmt) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-.swiper-slide {
-  width: 100%; /* Ensure each slide takes up the full width of the container */
+// Bind the CUSTOMER_ID parameter
+oci_bind_by_name($selectReviewStmt, ':customerId', $user_id);
+
+// Execute the query
+if (oci_execute($selectReviewStmt)) {
+    // Fetch the results and populate the array
+    while ($row = oci_fetch_assoc($selectReviewStmt)) {
+        // Fetch additional product details for each review
+        $productId = $row['PRODUCT_ID'];
+        $productDetails = [];
+
+        // Select PRODUCT_ID, PRODUCT_NAME, and PRODUCT_PICTURE from PRODUCT table
+        $selectProductSql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE PRODUCT_ID = :productId";
+
+        // Prepare the OCI statement
+        $selectProductStmt = oci_parse($conn, $selectProductSql);
+        if (!$selectProductStmt) {
+            $e = oci_error($conn);
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+
+        // Bind the PRODUCT_ID parameter
+        oci_bind_by_name($selectProductStmt, ':productId', $productId);
+
+        // Execute the query
+        if (oci_execute($selectProductStmt)) {
+            // Fetch the product details
+            $productDetails = oci_fetch_assoc($selectProductStmt);
+        } else {
+            $e = oci_error($selectProductStmt);
+            echo "Error executing product query: " . htmlentities($e['message'], ENT_QUOTES);
+        }
+
+        // Free statement resources
+        oci_free_statement($selectProductStmt);
+
+        // Append the review details along with product details to the reviews array
+        $reviews[] = [
+            'REVIEW_ID' => $row['REVIEW_ID'],
+            'PRODUCT_ID' => $productId,
+            'PRODUCT_NAME' => $productDetails['PRODUCT_NAME'],
+            'PRODUCT_PICTURE' => $productDetails['PRODUCT_PICTURE']
+        ];
+    }
+} else {
+    $e = oci_error($selectReviewStmt);
+    echo "Error executing review query: " . htmlentities($e['message'], ENT_QUOTES);
 }
 
-.home{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-/* Define attributes for slider image section */
-.home .home-slider .slide {
-  position: relative;
-  height: 650px; /* Adjust height as needed */
-  width: 100%;
-  background-size:cover;
-  background-position: center;
-}
+// Free statement resources
+oci_free_statement($selectReviewStmt);
 
-.home .home-slider .slide .content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: black;
+if(isset($_POST["review_submit"]))
+{
+    // Function to sanitize input data
+function sanitizeInput($data) {
+    // Remove whitespace from the beginning and end of the string
+    $data = trim($data);
+    // Remove backslashes (\)
+    $data = stripslashes($data);
+    // Convert special characters to HTML entities
+    $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+    // Allow only text, numbers, and some special characters
+    $data = preg_replace("/[^a-zA-Z0-9\-_.,?!()'\"\s]/", "", $data);
+    return $data;
 }
 
-.home .home-slider .slide .content h3 {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  color: black;
+    $submittedRating = sanitizeInput($_POST["rating"]);
+    $submittedReview = sanitizeInput($_POST["review"]);
+    $reviewId = sanitizeInput($_POST["review_id"]);
+
+    // Update the review in the database
+    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 1, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
+
+// Prepare the OCI statement
+$updateReviewStmt = oci_parse($conn, $updateReviewSql);
+if (!$updateReviewStmt) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-.home .home-slider .slide .content p {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: black;
+// Bind parameters
+oci_bind_by_name($updateReviewStmt, ':rating', $submittedRating);
+oci_bind_by_name($updateReviewStmt, ':feedback', $submittedReview);
+oci_bind_by_name($updateReviewStmt, ':reviewId', $reviewId);
+
+// Execute the statement
+if (oci_execute($updateReviewStmt)) {
+    // Review updated successfully
+    header("Location: {$_SERVER['PHP_SELF']}");
+    exit();
+} else {
+    // Error updating review
+    $e = oci_error($updateReviewStmt);
+    echo "Error updating review: " . htmlentities($e['message'], ENT_QUOTES);
 }
 
-.home .home-slider .slide .content .btn {
-  font-size: 1.7rem;
-  color: black;
-  background: var(--black);
-  border-radius: .5rem;
-  padding: .8rem 3rem;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
+// Free statement resources
+oci_free_statement($updateReviewStmt);
 
-.home .home-slider .slide .content .btn:hover {
-  background: grey;
-  letter-spacing: .1rem;
-}
-
-.swiper-pagination {
-  display: none;
-  text-align: left;
-  margin-top: 0;
-}
-
-.swiper-pagination-bullet {
-  display: block;
-  margin: 10px 0; /* Adjust the margin as needed */
-}
-@media (max-width: 768px) {
-  .home .home-slider .slide {
-    height: 230px; /* Adjust height for smaller screens */
-    width: 100%; /* Set width to full viewport width */
-    background-size:center;
-    background-position:center;
-    position: relative;
-  }
-  .swiper-pagination {
-    display: none;
-    text-align: left;
-    margin-top: 0;
-  }
-
-  .swiper-pagination-bullet {
-    display: block;
-    margin: 10px 0; /* Adjust the margin as needed */
-  }
-  .home .home-slider .slide .content {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: black;
-  }
-  
-  .home .home-slider .slide .content h3 {
-    font-size: 5rem;
-    margin-bottom: 1rem;
-    color: black;
-  }
-  
-  .home .home-slider .slide .content p {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: black;
-  }
-  
-  .home .home-slider .slide .content .btn {
-    font-size: 1.7rem;
-    color: black;
-    background: var(--black);
-    border-radius: .5rem;
-    padding: .8rem 3rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .home .home-slider .slide .content .btn:hover {
-    background: grey;
-    letter-spacing: .1rem;
-  }
-
-}
-/* Style for Add to Cart button */
-.btn {
-  font-size: 1.7rem;
-  color: black;
-  background: var(--black);
-  border-radius: .5rem;
-  padding: .8rem 3rem;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn:hover {
-  background: var(--green);
-  letter-spacing: .1rem;
-}
-
-/* Make images responsive */
-img {
-  height:17rem;
-  margin:1rem 0;
-}
-
-.home{
-  margin-bottom: 20px;
-}
-/* defining attributes  dishes section in dishes page */
-.dishes .box-container{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
-  gap:1.5rem;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-.dishes .box-container .box{
-  padding:2.5rem;
-  background:#fff;
-  border-radius: .5rem;
-  border:.1rem solid rgba(0,0,0,.2);
-  box-shadow: var(--box-shadow);
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.dishes .box-container .box .fa-heart,
-.dishes .box-container .box .fa-eye{
-  position: absolute;
-  top:1.5rem;
-  border-radius: 50%;
-  height: 5rem;
-  width:5rem;
-  line-height: 5rem;
-  font-size: 2rem;
-  color:var(--black);
-}
-
-.dishes .box-container .box .fa-heart:hover,
-.dishes .box-container .box .fa-eye:hover{
-  background: grey;
-  color:black;
-}
-
-.dishes .box-container .box .fa-heart{
-  right:-15rem;
-}
-
-.dishes .box-container .box .fa-eye{
-  left:-15rem;
-}
-
-.dishes .box-container .box:hover .fa-heart{
-  right:1.5rem;
-  
-}
-
-.dishes .box-container .box:hover .fa-eye{
-  left:1.5rem;
-}
-
-.dishes .box-container .box img{
-  height:17rem;
-  margin:1rem 0;
-}
-
-.dishes .box-container .box h3{
-  color:var(--black);
-  font-size: 2.5rem;
-}
-
-.dishes .box-container .box .stars{
-  padding:1rem 0;
-}
-
-.dishes .box-container .box .stars i{
-  font-size: 1.7rem;
-  color:var(--green);
-}
-
-.dishes .box-container .box span{
-  color:var(--green);
-  font-weight: bolder;
-  margin-right: 1rem;
-  font-size: 2.5rem;
-}
-
-
-/* defining attributes of heading section */
-.heading{
-  text-align: center;
-  color:var(--black);
-  font-size: 3rem;
-  padding-bottom: 2rem;
-  text-transform: uppercase;
-}
-/* defining attributes for btn class */
-.btn{
-  margin-top: 1rem;
-  display: inline-block;
-  font-size: 1.7rem;
-  color:black;
-  background: blue;
-  border-radius: .5rem;
-  cursor: pointer;
-  padding:.8rem 3rem;
-}
-
-.btn:hover{
-  background: lightskyblue;
-  letter-spacing: .1rem;
-}
-
-@media (max-width:450px){
-
-  html{
-      font-size: 50%;
-  }
-
-  .dishes .box-container .box img{
-      height:auto;
-      width: 100%;
-  }
-
-  .order form .inputBox .input{
-      width:100%;
-  }
 
 }
 
+}
+// Initialize an empty array to store the products
+$products = [];
 
-.container_dash {
-  margin: 20px auto;
-  margin-bottom: 0;
-  max-width: 800px; /* Adjust max-width as needed */
-  border-top: 2px solid black ;
-  border-bottom: 2px solid black ;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-radius: 55px;
+// SQL query to select products
+$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 0";
+
+// Prepare the OCI statement
+$selectProductsStmt = oci_parse($conn, $selectProductsSql);
+if (!$selectProductsStmt) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
 
-.bar {
-  height: 2px;
-  background-color: #000;
-  margin: 10px 0;
-  
+// Execute the query
+if (oci_execute($selectProductsStmt)) {
+    // Fetch the results and populate the array
+    while ($row = oci_fetch_assoc($selectProductsStmt)) {
+        $products[] = $row;
+    }
+} else {
+    $e = oci_error($selectProductsStmt);
+    echo "Error executing product query: " . htmlentities($e['message'], ENT_QUOTES);
 }
 
-.content {
-  text-align: center;
+// Free statement resources
+oci_free_statement($selectProductsStmt);
+
+// Prepare the SQL statement to get the required data
+$sql = "SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE, 
+               AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE
+        FROM product p
+        LEFT JOIN review r ON p.PRODUCT_ID = r.PRODUCT_ID
+        WHERE p.IS_DISABLED = 0
+        GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE";
+
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$products_review = array();
+
+// Fetch the results
+while ($row = oci_fetch_assoc($stmt)) {
+    $products_review[] = $row;
 }
 
-.content h3 {
-  font-size: 20px;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-  margin-right: 15px;
-  font: bold;
-  margin-left: 5px;
-}
+// Free statement resources
+oci_free_statement($stmt);
 
-.content p {
-  font-size: 1.2rem;
-}
+// Randomly select 6 products from the array
+$selected_indices = array_rand($products_review, min(6, count($products_review)));
 
-
-/* defining attributes  review section in home page */
-.review .slide{
-  padding:2rem;
-  box-shadow:var(--box-shadow);
-  border:.1rem solid rgba(0,0,0,.2);
-  border-radius: .5rem;
-  position: relative;    
-}
-
-.review .slide .fa-quote-right{
-  position: absolute;
-  top:2rem; right:2rem;
-  font-size: 6rem;
-  color:#ccc;
-}
-
-.review .slide .user{
-  display: flex;
-  gap:1.5rem;
-  align-items: center;
-  padding-bottom: 1.5rem;
-}
-
-.review .slide .user img{
-  height: 7rem;
-  width: 7rem;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.review .slide .user h3{
-  color:var(--black);
-  font-size: 2rem;
-  padding-bottom: .5rem;
-}
-
-.review .slide .user i{
-  font-size: 1.3rem;
-  color:var(--green);
-}
-
-.review .slide p{
-  font-size: 1.5rem;
-  line-height: 1.8;
-  color:var(--light-color);
-}
-
-.sub-heading{
-  text-align: center;
-  color:var(--green);
-  font-size: 2rem;
-  padding-top: 1rem;
+// Ensure $selected_indices is an array if only one product is returned
+if (!is_array($selected_indices)) {
+    $selected_indices = array($selected_indices);
 }
 
 
-/* CSS for mobile devices */
-@media only screen and (max-width: 768px) {
-  body {
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-  }
+// Prepare the SQL statement to get the review data
+$sql = "SELECT 
+            r.REVIEW_SCORE, 
+            r.FEEDBACK, 
+            h.FIRST_NAME || ' ' || h.LAST_NAME AS NAME, 
+            h.USER_PROFILE_PICTURE 
+        FROM 
+            REVIEW r 
+        JOIN 
+            HUDDER_USER h ON r.USER_ID = h.USER_ID 
+        WHERE 
+            r.REVIEW_PROCIDED = 1";
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$user_review = array();
+
+// Fetch the results
+while ($row = oci_fetch_assoc($stmt)) {
+    $user_review[] = $row;
 }
 
-/* Styles for the profile container */
-.profile-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f0f0f0;
+// Free statement resources
+oci_free_statement($stmt);
+
+// Prepare the SQL statement to get the trader's information
+$sql = "SELECT 
+            u.FIRST_NAME || ' ' || u.LAST_NAME AS NAME, 
+            u.USER_PROFILE_PICTURE,
+            s.SHOP_DESCRIPTION
+        FROM 
+            HUDDER_USER u 
+        JOIN 
+            SHOP s ON u.USER_ID = s.USER_ID 
+        WHERE 
+            u.USER_TYPE = 'trader'";
+
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Initialize an array to store the results
+$trader_shop = array();
+
+// Fetch the results
+while ($row = oci_fetch_assoc($stmt)) {
+    $trader_shop[] = $row;
 }
 
-/* Styles for the profile section */
-.profile {
-  display: flex;
-  align-items: center;
-}
+// Free statement resources
+oci_free_statement($stmt);
 
-.profile-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
+// Close the connection
+oci_close($conn);
 
-.profile-info {
-  flex-grow: 1;
-}
-
-.profile-name {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-/* Styles for the review form */
-.review-form {
-  margin-top: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-  font-family: Arial, sans-serif;
-}
-
-.submit-btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.submit-btn:hover {
-  background-color: #0056b3;
-}
-
-#rating {
-  width: 100%;
-  /* Add any other styles you need */
-}
+?>
