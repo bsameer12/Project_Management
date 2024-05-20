@@ -127,7 +127,7 @@ oci_free_statement($updateReviewStmt);
 $products = [];
 
 // SQL query to select products
-$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 0";
+$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED != 0";
 
 // Prepare the OCI statement
 $selectProductsStmt = oci_parse($conn, $selectProductsSql);
@@ -155,7 +155,7 @@ $sql = "SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE,
                AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE
         FROM product p
         LEFT JOIN review r ON p.PRODUCT_ID = r.PRODUCT_ID
-        WHERE p.IS_DISABLED = 0
+        WHERE p.IS_DISABLED != 0
         GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE";
 
 // Parse the SQL statement
@@ -175,8 +175,10 @@ while ($row = oci_fetch_assoc($stmt)) {
 // Free statement resources
 oci_free_statement($stmt);
 
+if (!empty($products_review)) {
 // Randomly select 6 products from the array
 $selected_indices = array_rand($products_review, min(6, count($products_review)));
+}
 
 // Ensure $selected_indices is an array if only one product is returned
 if (!is_array($selected_indices)) {
