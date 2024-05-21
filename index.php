@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 // Include connection file to the database
@@ -357,8 +356,6 @@ oci_close($conn);
     }
     ?>
 
-
-
     <section class="dishes" id="dishes">
     <!-- heading context section  -->
     <h1 class="heading"> Features Products </h1>
@@ -416,87 +413,14 @@ oci_close($conn);
             </div>
             <!-- Pagination -->
             <div class="swiper-pagination"></div>
-        </div> <br><br> 
+        </div>
     </section>
-
-<h4 text align=" center"> Just in Season </h4>
-<h3 text align=" center"> Eat fresh, eat healthy!</h3>
-
-<!--product images-->
-
-<div class="product-grid">
-    <div class="product-card">
-        <img src="Bakery/Croissant.jpeg" alt="Croissant">
-        <h4>Croissant</h4>
-        <p>£5.0</p>
-        <button class= "btn">Add to Cart</button>
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-
-    <div class="product-card">
-        <img src="Delicatessen/blue cheese.jpeg" alt="">
-        <h4>Blue Cheese</h4>
-        <p>£5.5</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="product-card">
-        <img src="Green grocer/kiwi.jpeg" alt="">
-        <h4>Kiwi</h4>
-        <p>£8.39</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="product-card">
-        <img src="Fish Monger/Atlantic Salmon.jpeg" alt="">
-        <h4>Atlantic Salmon</h4>
-        <p>£10.0</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="product-card">
-        <img src="Butcher/Bacon.jpeg" alt="">
-        <h4>Bacon</h4>
-        <p>£3.40</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="product-card">
-        <img src="Bakery/chewy brownies.jpeg" alt="">
-        <h4>Brownies</h4>
-        <p>£3.45</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="product-card">
-        <img src="Green grocer/lettuce.jpeg" alt="">
-        <h4>Asparagus</h4>
-        <p>£8.39</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-
-    <div class="product-card">
-        <img src="Green grocer/tomato.jpeg" alt="">
-        <h4>Tomato </h4>
-        <p>£2.0</p>
-        <button class= "btn">Add to Cart</button> 
-        <button class="favorite"><i class="fas fa-heart"></i></button>
-    </div>
-    
-</div>
 
     <!-- review section starts here -->
 <section class="review" id="review" style="overflow-x: hidden;">
      <!-- Adding heading to section  -->
-    <h3 class="sub-heading"> Customer's Review </h3>
-    <h1 class="heading"> What they say </h1>
+    <h3 class="sub-heading"> customer's review </h3>
+    <h1 class="heading"> what they say </h1>
     <div class="swiper-container review-slider">
 
         <div class="swiper-wrapper">
