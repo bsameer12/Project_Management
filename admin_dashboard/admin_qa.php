@@ -23,13 +23,9 @@
         include("admin_navbar.php");
     ?>
     <div class="container">
-        <div class="profile-container">
-            <img src="../profile.jpg" alt="Profile Picture" class="profile-pic">
-            <h2 class="username">John Doe</h2>
-        </div>
         <div class="form-container">
             <form id="userReviewForm">
-                <label for="userReview" class="review-label">User Rating:</label>
+                <label for="userReview" class="review-label">Q:</label>
                 <input type="text" id="userReview" name="userReview" class="review-textbox">
                 <label for="userReview" class="review-label">User Review:</label>
                 <textarea id="userReview" name="userReview" class="review-textbox" rows="4"></textarea>
