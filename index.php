@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 // Include connection file to the database
@@ -127,7 +128,7 @@ oci_free_statement($updateReviewStmt);
 $products = [];
 
 // SQL query to select products
-$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED != 0";
+$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 0";
 
 // Prepare the OCI statement
 $selectProductsStmt = oci_parse($conn, $selectProductsSql);
@@ -155,7 +156,7 @@ $sql = "SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE,
                AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE
         FROM product p
         LEFT JOIN review r ON p.PRODUCT_ID = r.PRODUCT_ID
-        WHERE p.IS_DISABLED != 0
+        WHERE p.IS_DISABLED = 0
         GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE";
 
 // Parse the SQL statement
@@ -175,10 +176,8 @@ while ($row = oci_fetch_assoc($stmt)) {
 // Free statement resources
 oci_free_statement($stmt);
 
-if (!empty($products_review)) {
 // Randomly select 6 products from the array
 $selected_indices = array_rand($products_review, min(6, count($products_review)));
-}
 
 // Ensure $selected_indices is an array if only one product is returned
 if (!is_array($selected_indices)) {
@@ -358,6 +357,8 @@ oci_close($conn);
     }
     ?>
 
+
+
     <section class="dishes" id="dishes">
     <!-- heading context section  -->
     <h1 class="heading"> Features Products </h1>
@@ -415,14 +416,87 @@ oci_close($conn);
             </div>
             <!-- Pagination -->
             <div class="swiper-pagination"></div>
-        </div>
+        </div> <br><br> 
     </section>
+
+<h4 text align=" center"> Just in Season </h4>
+<h3 text align=" center"> Eat fresh, eat healthy!</h3>
+
+<!--product images-->
+
+<div class="product-grid">
+    <div class="product-card">
+        <img src="Bakery/Croissant.jpeg" alt="Croissant">
+        <h4>Croissant</h4>
+        <p>£5.0</p>
+        <button class= "btn">Add to Cart</button>
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+
+    <div class="product-card">
+        <img src="Delicatessen/blue cheese.jpeg" alt="">
+        <h4>Blue Cheese</h4>
+        <p>£5.5</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+    <div class="product-card">
+        <img src="Green grocer/kiwi.jpeg" alt="">
+        <h4>Kiwi</h4>
+        <p>£8.39</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+    <div class="product-card">
+        <img src="Fish Monger/Atlantic Salmon.jpeg" alt="">
+        <h4>Atlantic Salmon</h4>
+        <p>£10.0</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+    <div class="product-card">
+        <img src="Butcher/Bacon.jpeg" alt="">
+        <h4>Bacon</h4>
+        <p>£3.40</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+    <div class="product-card">
+        <img src="Bakery/chewy brownies.jpeg" alt="">
+        <h4>Brownies</h4>
+        <p>£3.45</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+    <div class="product-card">
+        <img src="Green grocer/lettuce.jpeg" alt="">
+        <h4>Asparagus</h4>
+        <p>£8.39</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+
+    <div class="product-card">
+        <img src="Green grocer/tomato.jpeg" alt="">
+        <h4>Tomato </h4>
+        <p>£2.0</p>
+        <button class= "btn">Add to Cart</button> 
+        <button class="favorite"><i class="fas fa-heart"></i></button>
+    </div>
+    
+</div>
 
     <!-- review section starts here -->
 <section class="review" id="review" style="overflow-x: hidden;">
      <!-- Adding heading to section  -->
-    <h3 class="sub-heading"> customer's review </h3>
-    <h1 class="heading"> what they say </h1>
+    <h3 class="sub-heading"> Customer's Review </h3>
+    <h1 class="heading"> What they say </h1>
     <div class="swiper-container review-slider">
 
         <div class="swiper-wrapper">

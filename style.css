@@ -1,17 +1,25 @@
+
+body{
+    background-color: #F5F5DC ;
+}
+
+
+
 .home {
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  margin-top: 10px;
+  margin-bottom: 20px; /* Updated as per your existing CSS */
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: orange; /* Light cream color */
 }
+
 
 .swiper-slide {
   width: 100%; /* Ensure each slide takes up the full width of the container */
 }
 
-.home{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
+
 /* Define attributes for slider image section */
 .home .home-slider .slide {
   position: relative;
@@ -124,22 +132,8 @@
   }
 
 }
-/* Style for Add to Cart button */
-.btn {
-  font-size: 1.7rem;
-  color: black;
-  background: var(--black);
-  border-radius: .5rem;
-  padding: .8rem 3rem;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
 
-.btn:hover {
-  background: var(--green);
-  letter-spacing: .1rem;
-}
+
 
 /* Make images responsive */
 img {
@@ -241,21 +235,27 @@ img {
   text-transform: uppercase;
 }
 /* defining attributes for btn class */
-.btn{
-  margin-top: 1rem;
-  display: inline-block;
-  font-size: 1.7rem;
-  color:black;
-  background: blue;
-  border-radius: .5rem;
-  cursor: pointer;
-  padding:.8rem 3rem;
+.btn {
+    
+    display: inline-block;
+    color: white; /* Changed to white for better contrast on blue background */
+    background-color: #007BFF; /* Using a more professional shade of blue */
+    border: none; /* Removing border for a cleaner look */
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Smooth transition for multiple properties */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
-.btn:hover{
-  background: lightskyblue;
-  letter-spacing: .1rem;
+.btn:hover {
+    background-color: #0056b3; /* Darker shade of blue for hover state */
+    color: #ffffff; /* Ensures text color is white */
+    letter-spacing: 0.1rem; /* Increasing letter spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+    transform: translateY(-2px); /* Slight raise effect on hover */
 }
+
 
 @media (max-width:450px){
 
@@ -444,4 +444,107 @@ textarea {
 #rating {
   width: 100%;
   /* Add any other styles you need */
+
+}
+
+.h5{
+    text-align: center;
+}
+
+/* Container for product cards */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates four columns */
+    gap: 16px; /* Spacing between cards */
+    padding: 20px;
+}
+
+/* Individual product cards */
+.product-card {
+    background: #F5F5DC; /* White background for each card */
+    border: 1px solid #E0E0E0; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Ensures no content spills out */
+    position: relative; /* For absolute positioning of elements inside */
+}
+
+.product-image img {
+    width: 100%; /* Full width of the card */
+    display: block;
+    margin: 0; /* No margin to align with top border */
+    border-top-left-radius: 10px; /* Maintain border-radius on the image */
+    border-top-right-radius: 10px; /* Maintain border-radius on the image */
+
+.product-details {
+    text-align: center; /* Centering text inside the card */
+    padding: 10px 0;
+}
+
+.product-details .new-arrival {
+    display: block;
+    background-color: #76B041; /* Green background for new arrival label */
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-details h4 {
+    margin: 5px 0; /* Margin for spacing */
+    font-size: 1em; /* Appropriate font size */
+    color: #333; /* Dark grey text color */
+}
+
+.product-details p {
+    color: #555; /* Darker text for price */
+    font-weight: bold;
+}
+
+.add-to-cart {
+    background: #76B041;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 8px;
+    width: calc(100% - 24px); /* Adjust width considering padding */
+    transition: background-color 0.3s;
+}
+
+.favorite {
+    background: none;
+    border: none;
+    color: #ccc; /* Neutral grey color suitable for unclicked state */
+    cursor: pointer;
+    font-size: 1.2em; /* Maintaining slightly larger size for visibility */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color and transformation */
+    padding: 8px; /* Padding to increase the clickable area */
+    border-radius: 50%; /* Circular area for the icon */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.favorite:hover {
+    color: #ff1a1a; /* Bright red on hover to indicate active or liked state */
+    transform: scale(1.1); /* Slight scale-up effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Deeper shadow for a lifted effect */
+}
+
+.favorite i {
+    pointer-events: none; /* Keeps the icon non-interactive to ensure the button functionality is uniform */
+}
+
+
+@media (max-width: 600px) {
+    .product-grid {
+        flex-direction: column; /* Stack cards vertically on small screens */
+        align-items: center;
+    }
 }
