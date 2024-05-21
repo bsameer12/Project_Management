@@ -1,4 +1,5 @@
 <?php
+ include("admin_session.php");
 include("../connection/connection.php");
 
 // Initialize variables for placeholders

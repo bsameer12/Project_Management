@@ -1,4 +1,5 @@
 <?php
+ include("admin_session.php");
 include("../connection/connection.php");
 
         // Variable for Input_validation 

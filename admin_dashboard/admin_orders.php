@@ -1,4 +1,5 @@
 <?php
+ include("admin_session.php");
 include("../connection/connection.php"); // Include the database connection
 
 // Check if the form has been submitted

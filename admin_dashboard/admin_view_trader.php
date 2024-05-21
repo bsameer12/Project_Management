@@ -1,5 +1,5 @@
 <?php
-
+ include("admin_session.php");
 include("../connection/connection.php");
 
 

@@ -1,4 +1,5 @@
 <?php
+ include("admin_session.php");
 // Initialize connection and other necessary variables
 include("../connection/connection.php");
 

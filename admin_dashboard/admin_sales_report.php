@@ -1,4 +1,5 @@
 <?php
+ include("admin_session.php");
 // Include the database connection file
 include("../connection/connection.php");
 
