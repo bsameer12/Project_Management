@@ -59,7 +59,7 @@ include("../connection/connection.php");
                         echo "<td>" . $row['CONTACT_NO'] . " </td>";
                         echo "<td>" . $row['SUBJECT'] . " </td>";
                         echo "<td>" . $row['MESSAGE'] . " </td>";
-                        echo "<td> <a href='admin_qa.php?id=" . $row['QUERY_ID'] . "&action=edit'> Edit </a> | <a href='deletequery.php?id=" . $row['QUERY_ID'] . "&action=delete'> Delete </a> </td>";
+                        echo "<td>  <a href='deletequery.php?id=" . $row['QUERY_ID'] . "&action=delete'> Delete </a> </td>";
                         echo "</tr>";
                     }
                     oci_free_statement($stmt);
