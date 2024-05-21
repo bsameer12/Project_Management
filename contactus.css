@@ -1,3 +1,6 @@
+body {
+    background-color: #F5F5F5; /* Slightly lighter shade for a fresh look */
+}
 #contact-container {
     width: 90%; /* Set initial width */
     max-width: 600px;
