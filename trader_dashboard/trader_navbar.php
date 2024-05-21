@@ -22,6 +22,7 @@ include("trader_session.php");
   <div class="navbar-buttons">
     <button class="navbar-button" onclick="window.location.href='trader_dashboard.php' ; return false;"><i class="fas fa-tachometer-alt"></i> <span class="button-text">Dashboard</span></button>
     <button class="navbar-button" onclick="window.location.href='trader_products.php' ; return false;"><i class="fas fa-box"></i> <span class="button-text">Products</span></button>
+    <button class="navbar-button" onclick="window.location.href='trader_discount.php' ; return false;"><i class="fas fa-box"></i> <span class="button-text">Products Discounts</span></button>
     <button class="navbar-button" onclick="window.location.href='trader_review.php' ; return false;"><i class="fas fa-star"></i> <span class="button-text">Reviews</span></button>
     <button class="navbar-button" onclick="window.location.href='trader_order.php' ; return false;"><i class="fas fa-clipboard-list"></i> <span class="button-text">Orders</span></button>
     <button class="navbar-button" onclick="window.location.href='trader_shop.php' ; return false;"><i class="fas fa-store"></i> <span class="button-text">Shop</span></button>
