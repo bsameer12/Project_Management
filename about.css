@@ -1,4 +1,9 @@
 /* defining attributes  about section in about page */
+
+body{
+    background-color: #F5F5DC ;
+}
+
 .about .row{
     display: flex;
     flex-wrap: wrap;
