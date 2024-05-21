@@ -1,58 +1,43 @@
 body {
     background-color: #F5F5F5; /* Slightly lighter shade for a fresh look */
 }
+
 #contact-container {
-    width: 90%; /* Set initial width */
+    width: 90%;
     max-width: 600px;
-    margin: 50px auto 30px; /* 50px top margin, auto left and right margins, 30px bottom margin */
+    margin: 50px auto 30px;
     padding: 40px;
-    border: 2px solid transparent;
+    border: 2px solid #E0E0E0; /* Soft gray border for subtle definition */
     border-radius: 10px;
     transition: border-color 0.3s ease, background-color 0.3s ease;
-    text-align: center; /* Align content centrally */
+    text-align: center;
     display: flex;
-    flex-direction: column; /* Arrange items vertically */
-    align-items: center; /* Align items horizontally */
-}
-
-#contact-container h2 {
-    /* Existing styles */
-    margin-bottom: 20px; /* Add margin to separate from form */
-}
-
-@media screen and (max-width: 768px) {
-    #contact-container {
-        width: 80%; /* Adjust width for tablets */
-        
-    }
-}
-
-@media screen and (max-width: 576px) {
-    #contact-container {
-        width: 80%; /* Adjust width for mobile devices */
-    }
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff; /* White background for the form */
 }
 
 #contact-container:hover {
-    border-color: #007bff;
-    background-color: #f0f0f0;
+    border-color: #0056b3; /* Darker blue for hover state */
+    background-color: #f9f9f9; /* Very light gray for a hover background */
 }
 
 #contact-container .form-group {
     margin-bottom: 20px;
-    text-align: left; /* Align form labels to the left */
+    text-align: left;
     display: flex;
-    flex-direction: row; /* Arrange items horizontally */
-    align-items: center; /* Align items vertically */
+    flex-direction: row;
+    align-items: center;
 }
 
 #contact-container label {
     font-weight: bold;
     display: block;
-    margin-bottom: 5px; /* Add space between label and input */
-    flex: 0 0 30%; /* Set label width */
-    margin-right: 10px; /* Add space between label and input */
-    text-align: right; /* Align label text to the right */
+    margin-bottom: 5px;
+    flex: 0 0 30%;
+    margin-right: 10px;
+    text-align: right;
+    color: #333333; /* Dark gray for text, enhancing readability */
 }
 
 #contact-container input[type="text"],
@@ -64,11 +49,12 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    flex: 0 0 70%; /* Set input field width */
+    flex: 0 0 70%;
+    background-color: #f0f0f0; /* Light gray for input fields for subtle contrast */
 }
 
 #contact-container input[type="submit"] {
-    background-color: #007bff;
+    background-color: #007bff; /* Vibrant blue for submit button */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -78,5 +64,5 @@ body {
 }
 
 #contact-container input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue when hovered for a dynamic effect */
 }
