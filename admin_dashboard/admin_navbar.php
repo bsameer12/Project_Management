@@ -3,8 +3,8 @@
         <h1 class="heading">Admin Dashboard</h1>
         <div class="user-info">
                 <span class="welcome">Welcome,</span>
-                <span class="trader-name">  Admin Name</span>
-                <img src="../profile.jpg" alt="Profile Image" class="profile-image">
+                <span class="trader-name"><?php echo $_SESSION["name"]; ?></span>
+                <img src="../profile_image/<?php echo $_SESSION["picture"]; ?>" alt="Profile Image" class="profile-image">
                 <div class="dropdown">
                     <ul>
                         <li><a href="admin_profile.php"><i class="fas fa-user"></i> Profile</a></li>
