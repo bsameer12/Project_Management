@@ -49,6 +49,7 @@ if(isset($_POST["sign_in"]))
                     $_SESSION["name"] = $first_name ." " . $last_name ;
                     $_SESSION["picture"] = $profile_picture;
                     $_SESSION["userid"] = $user_id;
+                    $_SESSION["role"] = $user_role;
                     header("Location:trader_dashboard/trader_dashboard.php");
                     exit();
 
