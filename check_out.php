@@ -179,6 +179,29 @@ if(isset($_GET['cartid'])) {
     oci_free_statement($stmt);
     oci_free_statement($updateStmt);
 
+     // Prepare SQL statement
+     $sql = "UPDATE PRODUCT 
+     SET STOCK_AVAILABLE = 'no', IS_DISABLED = 0 
+     WHERE PRODUCT_QUANTITY < 0";
+
+// Parse the SQL query
+$stmt = oci_parse($conn, $sql);
+if (!$stmt) {
+ $e = oci_error($conn);
+ throw new Exception("Failed to prepare statement: " . $e['message']);
+}
+
+// Execute the SQL statement
+$r = oci_execute($stmt);
+if (!$r) {
+ $e = oci_error($stmt);
+ throw new Exception("Failed to execute statement: " . $e['message']);
+}
+
+// Free the statement identifier
+oci_free_statement($stmt);
+close($conn);
+
     // Redirect to checkout page with customerid, cartid, number_product, and total_price parameters
     $url = "slot_time.php?customerid=$customer_id&order_id=$order_product_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price";
     header("Location: $url");

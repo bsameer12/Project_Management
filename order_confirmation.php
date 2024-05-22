@@ -1,5 +1,35 @@
 <?php
 $order_id = $_GET["order_id"];
+
+
+// Include the database connection
+include("connection/connection.php");
+
+
+ // Prepare SQL statement
+ $sql = "UPDATE PRODUCT 
+ SET STOCK_AVAILABLE = 'no', IS_DISABLED = 0 
+ WHERE PRODUCT_QUANTITY < 0";
+
+// Parse the SQL query
+$stmt = oci_parse($conn, $sql);
+if (!$stmt) {
+$e = oci_error($conn);
+throw new Exception("Failed to prepare statement: " . $e['message']);
+}
+
+// Execute the SQL statement
+$r = oci_execute($stmt);
+if (!$r) {
+$e = oci_error($stmt);
+throw new Exception("Failed to execute statement: " . $e['message']);
+}
+
+
+// Free the statement identifier
+oci_free_statement($stmt);
+
+close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
