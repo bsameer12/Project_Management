@@ -17,7 +17,6 @@
                         <li class="highlight"><a href="index.php">Home</a></li>
                         <li><a href="about.php">About Us</a></li>
                         <li><a href="contactus.php">Contacts</a></li>
-                        <li><a href="category.php">Category</a></li>
                     </ul>
                 </div>
                 <div class="search">

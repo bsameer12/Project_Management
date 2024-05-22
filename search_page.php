@@ -1,114 +1,142 @@
 <?php
-// Set the variable $userId based on $_SESSION["userid"]
 session_start();
 $userId = isset($_SESSION["userid"]) ? $_SESSION["userid"] : 0;
 include("connection/connection.php");
-    $Search_text = $_GET["value"];
-            include("connection/connection.php");
-            $Search_text = $_GET["value"];
-               // Function to sanitize integer input
-                function sanitizeInteger($input) {
-                    // Remove non-numeric characters except '-' sign
-                    $sanitized_input = preg_replace("/[^0-9\-]/", "", $input);
-                    // Convert to integer
-                    $sanitized_input = (int)$sanitized_input;
-                    return $sanitized_input;
-                }
+$Search_text = isset($_GET["value"]) ? $_GET["value"] : '';
 
-                // Function to sanitize string input
-                function sanitizeString($input) {
-                    // Remove HTML tags and special characters
-                    $sanitized_input = htmlspecialchars(strip_tags($input), ENT_QUOTES, 'UTF-8');
-                    return $sanitized_input;
-                }
-                    // Define filter and sort variables
-                    $min_price = isset($_POST["min-price"]) ? sanitizeInteger($_POST["min-price"]) : null;
-                    $max_price = isset($_POST["max-price"]) ? sanitizeInteger($_POST["max-price"]) : null;
-                    $category1 = isset($_POST["category1"]) ? sanitizeInteger($_POST["category1"]) : null;
-                    $category2 = isset($_POST["category2"]) ? sanitizeInteger($_POST["category2"]) : null;
-                    $category3 = isset($_POST["category3"]) ? sanitizeInteger($_POST["category3"]) : null;
-                    //$rating = isset($_POST["rating"]) ? sanitizeInteger($_POST["rating"]) : null;
-                    $sort_by = isset($_POST["sort-by"]) ? sanitizeString($_POST["sort-by"]) : null;
-            
-                // Prepare the base SQL statement
-                $sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, IS_DISABLED, PRODUCT_PICTURE, CATEGORY_ID 
-                        FROM product 
-                        WHERE PRODUCT_NAME LIKE '%' || :search_text || '%'";
-            
-                // Add filter conditions
-                if ($min_price !== null && $max_price !== null) {
-                    $sql .= " AND PRODUCT_PRICE BETWEEN :min_price AND :max_price";
-                }
-                if ($category1 !== null || $category2 !== null || $category3 !== null) {
-                    $sql .= " AND CATEGORY_ID IN (:category1, :category2, :category3)";
-                }
-                /*if ($rating !== null) {
-                    $sql .= " AND RATING >= :rating";
-                }
-                */
-            
-                // Add sorting condition
-                switch ($sort_by) {
-                    case "alphabetically_asc":
-                        $sql .= " ORDER BY PRODUCT_NAME ASC";
-                        break;
-                    case "alphabetically_desc":
-                        $sql .= " ORDER BY PRODUCT_NAME DESC";
-                        break;
-                    case "price-low-to-high":
-                        $sql .= " ORDER BY PRODUCT_PRICE ASC";
-                        break;
-                    case "price-high-to-low":
-                        $sql .= " ORDER BY PRODUCT_PRICE DESC";
-                        break;
-                    /*
-                    case "rating-high-to-low":
-                        $sql .= " ORDER BY RATING DESC";
-                        break;
-                    case "rating-low-to-high":
-                        $sql .= " ORDER BY RATING ASC";
-                        break;
-                        */
-                    default:
-                        // Default sorting if no valid option selected
-                        $sql .= " ORDER BY PRODUCT_ID DESC";
-                        break;
-                }
-            
-                // Parse the SQL statement
-                $stmt = oci_parse($conn, $sql);
-            
-                // Bind parameters
-                oci_bind_by_name($stmt, ':search_text', $Search_text);
-                if ($min_price !== null && $max_price !== null) {
-                    oci_bind_by_name($stmt, ':min_price', $min_price);
-                    oci_bind_by_name($stmt, ':max_price', $max_price);
-                }
-                if ($category1 !== null || $category2 !== null || $category3 !== null) {
-                    oci_bind_by_name($stmt, ':category1', $category1);
-                    oci_bind_by_name($stmt, ':category2', $category2);
-                    oci_bind_by_name($stmt, ':category3', $category3);
-                }
-                /*
-                if ($rating !== null) {
-                    oci_bind_by_name($stmt, ':rating', $rating);
-                }
-                */
-            
-                // Execute the SQL statement
-                oci_execute($stmt);
 
-                // Count the number of rows fetched
-                $numRows = 0;
 
-                // Fetch the rows and count them
-                while ($row = oci_fetch_assoc($stmt)) {
-                    // Increment the row count
-                    $numRows++;
-                    
-                    // Store the fetched row
-                    $fetchedRows[] = $row;
-                }
+// Define an array to store the category data
+$categoryArray = [];
+
+// Query to select CATEGORY_ID and CATEGORY_TYPE from PRODUCT_CATEGORY
+$sql = "SELECT CATEGORY_ID, CATEGORY_TYPE FROM PRODUCT_CATEGORY";
+
+// Execute the query
+$result = oci_parse($conn, $sql);
+oci_execute($result);
+
+// Fetch the rows and store them in the category array
+while ($row = oci_fetch_assoc($result)) {
+    $categoryArray[] = $row;
+}
+
+// Free the statement resources
+oci_free_statement($result);
+
+// Function to sanitize integer input
+function sanitizeInteger($input) {
+    // Remove non-numeric characters except '-' sign
+    $sanitized_input = preg_replace("/[^0-9\-]/", "", $input);
+    // Convert to integer
+    $sanitized_input = (int)$sanitized_input;
+    return $sanitized_input;
+}
+
+// Function to sanitize string input
+function sanitizeString($input) {
+    // Remove HTML tags and special characters
+    $sanitized_input = htmlspecialchars(strip_tags($input), ENT_QUOTES, 'UTF-8');
+    return $sanitized_input;
+}
+
+
+
+// Define the $category variable
+$category = null;
+// Define filter and sort variables
+$min_price = isset($_POST["min-price"]) ? sanitizeInteger($_POST["min-price"]) : null;
+$max_price = isset($_POST["max-price"]) ? sanitizeInteger($_POST["max-price"]) : null;
+// Check if $_POST["category"] is set and sanitize it
+if (isset($_POST["category"])) {
+    // Set $category to the sanitized value if $_POST["category"] is set, otherwise set it to null
+    $category = sanitizeInteger($_POST["category"]);
+} elseif (isset($_GET["category_id"])) { // If not, check if $_GET["category_id"] is set and sanitize it
+    // Set $category to the sanitized value of $_GET["category_id"]
+    $category = sanitizeInteger($_GET["category_id"]);
+}
+
+$sort_by = isset($_POST["sort-by"]) ? sanitizeString($_POST["sort-by"]) : null;
+
+// Prepare the base SQL statement
+$sql = "SELECT 
+p.PRODUCT_ID, 
+p.PRODUCT_NAME, 
+p.PRODUCT_PRICE, 
+p.PRODUCT_PICTURE, 
+p.PRODUCT_QUANTITY,
+AVG(r.REVIEW_SCORE) OVER() AS AVG_REVIEW_SCORE,
+COUNT(r.REVIEW_SCORE) OVER() AS TOTAL_REVIEWS,
+COALESCE(d.DISCOUNT_PERCENT, '') AS DISCOUNT_PERCENT
+FROM 
+product p
+LEFT JOIN 
+review r ON p.PRODUCT_ID = r.PRODUCT_ID
+LEFT JOIN 
+discount d ON p.PRODUCT_ID = d.PRODUCT_ID
+WHERE 
+p.IS_DISABLED = 1
+AND p.PRODUCT_NAME LIKE '%' || :search_text || '%'";
+
+// Add filter conditions
+if ($min_price !== null && $max_price !== null) {
+    $sql .= " AND p.PRODUCT_PRICE BETWEEN :min_price AND :max_price";
+}
+if ($category !== null) {
+    $sql .= " AND p.CATEGORY_ID = :category";
+}
+
+// Add sorting condition
+switch ($sort_by) {
+    case "alphabetically_asc":
+        $sql .= " ORDER BY p.PRODUCT_NAME ASC";
+        break;
+    case "alphabetically_desc":
+        $sql .= " ORDER BY p.PRODUCT_NAME DESC";
+        break;
+    case "price-low-to-high":
+        $sql .= " ORDER BY p.PRODUCT_PRICE ASC";
+        break;
+    case "price-high-to-low":
+        $sql .= " ORDER BY p.PRODUCT_PRICE DESC";
+        break;
+    default:
+        // Default sorting if no valid option selected
+        $sql .= " ORDER BY p.PRODUCT_ID DESC";
+        break;
+}
+
+// Parse the SQL statement
+$stmt = oci_parse($conn, $sql);
+
+// Bind parameters
+oci_bind_by_name($stmt, ':search_text', $Search_text);
+if ($min_price !== null && $max_price !== null) {
+    oci_bind_by_name($stmt, ':min_price', $min_price);
+    oci_bind_by_name($stmt, ':max_price', $max_price);
+}
+if ($category !== null) {
+    oci_bind_by_name($stmt, ':category', $category);
+}
+
+// Execute the SQL statement
+oci_execute($stmt);
+
+// Count the number of rows fetched
+$numRows = 0;
+
+// Initialize an array to store the fetched rows
+$fetchedRows = [];
+
+// Fetch the rows and count them
+while ($row = oci_fetch_assoc($stmt)) {
+    // Increment the row count
+    $numRows++;
+    
+    // Store the fetched row
+    $fetchedRows[] = $row;
+}
+
 
             
                
@@ -156,9 +184,14 @@ include("connection/connection.php");
             </select>
         
             <h3>Category</h3>
-            <label for="category1"> <input type="checkbox" id="category1" name="category1" value="1"> Category 1</label><br>
-            <label for="category2"> <input type="checkbox" id="category2" name="category2" value="2"> Category 2</label><br>
-            <label for="category3"> <input type="checkbox" id="category3" name="category3" value="3"> Category 3</label><br>
+            <?php
+            foreach ($categoryArray as $category) {
+    $categoryId = $category['CATEGORY_ID'];
+    $categoryType = $category['CATEGORY_TYPE'];
+    echo "<label for='category$categoryId'> <input type='checkbox' id='category$categoryId' name='category' value='$categoryId'> $categoryType</label><br>";
+    
+}
+?>
             <!-- Add more checkbox inputs for categories as needed -->
                 <h3>Rating</h3>
                 <label for="rating">Rating:</label>
@@ -195,20 +228,32 @@ include("connection/connection.php");
                      foreach ($fetchedRows as $row):
                     // Access data from each row
 
-                    echo "<div class='product-card'>";
+                    echo "<div class='product-card' onclick='redirectToProductPage(" . $row['PRODUCT_ID'] . ")'>";
                     echo "<div class='product-details'>";
                     echo "<div class='product-image'>";
                         echo "<img src='product_image/" . $row['PRODUCT_PICTURE'] ."' alt='Product Image'>";
                     echo"</div>";
                         echo "<p class='product-name'>" .$row['PRODUCT_NAME'] ."</p>";
                         echo"<div class='product-rating'>";
-                            echo"<span class='stars'>&#9733;&#9733;&#9733;&#9733;&#9734;</span>";
-                            echo"<span class='total-reviews'>(15)</span>";
+                        echo "<span class='stars'>";
+                        
+                            $rating = round($row['AVG_REVIEW_SCORE']);
+                            for ($i = 0; $i < 5; $i++) {
+                                if ($i < $rating) {
+                                    echo '&#9733;';
+                                } 
+                            }
+                        echo "</span>";
+                        echo "<span class='total-reviews'>( " . $row['TOTAL_REVIEWS'] . ")</span>";
                         echo"</div>";
                         echo"<div id='price_container'>";
                             echo"<div id='original_price'>". $row['PRODUCT_PRICE'] . "</div>";
-                            echo"<div id='discount>-20%</div>";
-                            echo"<div id='discount_price'>" . $row['PRODUCT_PRICE'] . "</div>";
+                            $original_price = $row['PRODUCT_PRICE'];
+                            $discount_percent = $row['DISCOUNT_PERCENT'];
+                            $discount_amount = ($original_price * $discount_percent) / 100;
+                            $discount_price = $original_price - $discount_amount;
+                            echo "<div id='discount'>-" . ($row['DISCOUNT_PERCENT'] ?? '0') . "%</div>";
+                            echo"<div id='discount_price'>" . $discount_price . "</div>";
                         echo "</div>";
                         echo"<div class='button-container'>";
                         if ($row['PRODUCT_QUANTITY'] <= 0) {
@@ -299,6 +344,12 @@ include("connection/connection.php");
         // Redirect to add_to_cart.php with the productId, userId, and searchText parameters
         window.location.href = 'add_to_cart.php?productid=' + productId + '&userid=' + userId + '&searchtext=' + searchText;
     }
+
+    function redirectToProductPage(productId) {
+        // Redirect to the product page with the specific product ID
+        window.location.href = "product.php?productId=" + productId;
+    }
+    
 </script>
 
 </body>

@@ -7,6 +7,23 @@ ini_set('display_errors',1);
 $input_validation_passed = true;
 
 include("connection/connection.php");
+// Define an array to store the category data
+$categoryArray = [];
+
+// Query to select CATEGORY_ID and CATEGORY_TYPE from PRODUCT_CATEGORY
+$sql = "SELECT CATEGORY_ID, CATEGORY_TYPE FROM PRODUCT_CATEGORY";
+
+// Execute the query
+$result = oci_parse($conn, $sql);
+oci_execute($result);
+
+// Fetch the rows and store them in the category array
+while ($row = oci_fetch_assoc($result)) {
+    $categoryArray[] = $row;
+}
+
+// Free the statement resources
+oci_free_statement($result);
 
 
 if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
@@ -407,10 +424,12 @@ else{
             <label for="category">Category</label>
             <select id="category" name="category" required style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; transition: border-color 0.3s;" required>
                 <option value="">Select Category</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Books">Books</option>
-                <!-- Add more options as needed -->
+                <?php
+    // Iterate through the category array and generate option elements
+    foreach ($categoryArray as $category) {
+        echo "<option value='" . $category['CATEGORY_ID'] . "'>" . $category['CATEGORY_TYPE'] . "</option>";
+    }
+    ?>
             </select>
             <?php
             if (!empty($category_error)) {

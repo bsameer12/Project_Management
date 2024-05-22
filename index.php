@@ -2,6 +2,24 @@
 session_start();
 // Include connection file to the database
 include("connection/connection.php");
+// Define an array to store the category data
+$categoryArray = [];
+
+// Query to select CATEGORY_ID and CATEGORY_TYPE from PRODUCT_CATEGORY
+$sql = "SELECT CATEGORY_ID, CATEGORY_TYPE, CATEGORY_IMAGE FROM PRODUCT_CATEGORY";
+
+// Execute the query
+$result = oci_parse($conn, $sql);
+oci_execute($result);
+
+// Fetch the rows and store them in the category array
+while ($row = oci_fetch_assoc($result)) {
+    $categoryArray[] = $row;
+}
+
+// Free the statement resources
+oci_free_statement($result);
+
 $user_id = isset($_SESSION["userid"]) ? $_SESSION["userid"] : 0;
 $searchText = "";
 if($user_id > 0){
@@ -151,12 +169,29 @@ if (oci_execute($selectProductsStmt)) {
 oci_free_statement($selectProductsStmt);
 
 // Prepare the SQL statement to get the required data
-$sql = "SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE, 
-               AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE
-        FROM product p
-        LEFT JOIN review r ON p.PRODUCT_ID = r.PRODUCT_ID
-        WHERE p.IS_DISABLED = 1
-        GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE";
+$sql = "SELECT 
+p.PRODUCT_ID, 
+p.PRODUCT_NAME, 
+p.PRODUCT_PRICE, 
+p.PRODUCT_PICTURE, 
+AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE,
+COUNT(r.REVIEW_SCORE) AS TOTAL_REVIEWS, -- Count of reviews
+COALESCE(d.DISCOUNT_PERCENT, '') AS DISCOUNT_PERCENT -- If no discount is available, default to 0
+FROM 
+product p
+LEFT JOIN 
+review r ON p.PRODUCT_ID = r.PRODUCT_ID
+LEFT JOIN 
+discount d ON p.PRODUCT_ID = d.PRODUCT_ID
+WHERE 
+p.IS_DISABLED = 1
+GROUP BY 
+p.PRODUCT_ID, 
+p.PRODUCT_NAME, 
+p.PRODUCT_PRICE, 
+p.PRODUCT_PICTURE, 
+d.DISCOUNT_PERCENT
+";
 
 // Parse the SQL statement
 $stmt = oci_parse($conn, $sql);
@@ -298,6 +333,17 @@ oci_close($conn);
             <div class="swiper-pagination"></div>
         </div>
     </section>
+    <section class="category-section" id="category-section">
+    <h2>Categories</h2>
+    <div class="category-container">
+            <?php foreach ($categoryArray as $category): ?>
+        <div class="category-item">
+            <a href="search_page.php?category_id=<?php echo $category['CATEGORY_ID'];?>value=<?php echo urlencode(''); ?>"><img src="category_picture/<?php echo $category['CATEGORY_IMAGE']; ?>" alt="<?php echo $category['CATEGORY_TYPE']; ?>"></a>
+            <p><?php echo $category['CATEGORY_TYPE']; ?></p>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</section>
 
         <!-- review section starts here -->
         <?php
@@ -315,7 +361,7 @@ oci_close($conn);
             $productId = $review['PRODUCT_ID'];
             $productName = $review['PRODUCT_NAME'];
             $productPicture = $review['PRODUCT_PICTURE'];
-            $userId = $review['USER_ID'];
+            $userId = $_SESSION["userid"];
 
             // Generate HTML for each review
             ?>
@@ -356,40 +402,53 @@ oci_close($conn);
     }
     ?>
 
+
     <section class="dishes" id="dishes">
     <!-- heading context section  -->
     <h1 class="heading"> Features Products </h1>
+    <div class="product-card-container">
     <?php foreach ($selected_indices as $index): ?>
             <?php $product = $products_review[$index]; ?>
-    <div class="box-container">
-        <!-- creating first item  box   -->
-        <div class="box"  onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
-
-            <!-- favicon code for heart icon --> <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="fas fa-heart"></a>
-            <!-- linking image -->
-            <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
-            <!-- item name -->
-            <h3><?php echo $product['PRODUCT_NAME']; ?></h3>
-            <!-- favicon code for star logo -->
-            <div class="stars">
-            <?php
+    <div class="product-card" onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
+        <div class="product-details">
+            <div class="product-image">
+                <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
+            </div>
+            <p class="product-name"><?php echo $product['PRODUCT_NAME']; ?></p>
+            <div class="product-rating">
+                <span class="stars">
+                <?php
                     $rating = round($product['AVG_REVIEW_SCORE']);
                     for ($i = 0; $i < 5; $i++) {
                         if ($i < $rating) {
-                            echo '<i class="fas fa-star"></i>';
-                        } else {
-                            echo '<i class="far fa-star"></i>';
-                        }
+                            echo '&#9733;';
+                        } 
                     }
                     ?>
+                </span>
+                <span class="total-reviews">(<?php echo number_format($product['TOTAL_REVIEWS']); ?>)</span>
             </div>
-            <!-- item price -->
-            <span>$ <?php echo number_format($product['PRODUCT_PRICE'], 2); ?></span><br>
-            <!-- creating add to cart button -->
-            <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="btn">add to cart</a> 
+            <div id="price_container">
+                <div id="original_price"><?php echo number_format($product['PRODUCT_PRICE'], 2); ?></div>
+                <div id="discount"><?php echo number_format($product['DISCOUNT_PERCENT'], 2); ?> %</div>
+                <?php
+                        $original_price = $product['PRODUCT_PRICE'];
+                        $discount_percent = $product['DISCOUNT_PERCENT'];
+                        $discount_amount = ($original_price * $discount_percent) / 100;
+                        $discount_price = $original_price - $discount_amount;
+                        ?>
+
+                <div id="discount_price">$<?php  echo number_format($discount_price, 2); ?></div>
+            </div>
+            <div class="button-container">
+                <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="add-to-cart-btn">add to cart</a> 
+                <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+            </div>
         </div>
-        <?php endforeach; ?>
-    </section>
+    </div>
+    <?php endforeach; ?>
+                </div>
+                </section>
 
     <div class="container_dash">
     <div class="content">
