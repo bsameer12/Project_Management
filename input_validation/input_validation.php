@@ -124,7 +124,7 @@ function productNameExists($productName)
     // Establishing a connection to the database
     $conn = oci_connect('HudderFoods', 'Root123#', '//localhost/xe');
     // OCI prepared statement to check for duplicate product name
-    $sql_query = "SELECT * FROM product_table WHERE product_name = :productName";
+    $sql_query = "SELECT * FROM product WHERE product_name = :productName";
     $stmt = oci_parse($conn, $sql_query);
     oci_bind_by_name($stmt, ":productName", $productName);
     oci_execute($stmt);

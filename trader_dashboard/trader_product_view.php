@@ -234,7 +234,7 @@ if(isset($_POST["saveChangesBtn"])){
                         echo "<p style='color: red;'>$general_error</p>";
                     }
                     ?>
-        <form id="productDetailsForm" class="product-details-form" name="productDetailsForm" method="POST" action="">
+        <form id="productDetailsForm" class="product-details-form" name="productDetailsForm" method="POST" action="" enctype="multipart/form-data">
             <div class="form-row">
                 <label for="productId" class="form-label">Product ID:</label>
                 <input type="text" id="productId" name="productId" class="form-input" placeholder="Enter product ID" value="<?php  echo  $productDetails['PRODUCT_ID']?>" readonly>

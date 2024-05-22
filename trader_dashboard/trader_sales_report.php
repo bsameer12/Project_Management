@@ -1,5 +1,5 @@
 <?php
- include("admin_session.php");
+ include("trader_session.php");
 // Include the database connection file
 include("../connection/connection.php");
 
@@ -30,7 +30,7 @@ oci_free_statement($stmt);
 
 
 // Get the selected trader and time period from POST request
-$selected_trader = $_POST['trader'] ?? 'all';
+$selected_trader =  $_SESSION["userid"];
 $selected_time_period = $_POST['time_period'] ?? '1';
 
 // Calculate the start date based on the selected time period
@@ -637,8 +637,8 @@ oci_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Report</title>
     <link rel="icon" href="../logo.png" type="image/png">
-    <link rel="stylesheet" href="admin_navbar.css">
-    <link rel="stylesheet" href="admin_sales_report.css">
+    <link rel="stylesheet" href="trader_navbar.css">
+    <link rel="stylesheet" href="trader_sales_report.css">
     <!-- swiper css file web -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <!-- font link -->  
@@ -652,21 +652,10 @@ oci_close($conn);
 </head>
 <body>
     <?php
-        include("admin_navbar.php");
+        include("trader_navbar.php");
     ?>
     <h1 class="page-title">Sales Report</h1>
     <div class="product-container">
-    <div class="sort-container">
-    <form id="traderForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                <label for="trader">Select Trader:</label>
-                <select id="trader" name="trader" onchange="submitTraderForm()">
-            <option value="all">All</option>
-            <?php foreach ($user_shop_details as $detail): ?>
-                <option value="<?php echo $detail['USER_ID']; ?>"><?php echo htmlspecialchars($detail['SHOP_NAME']); ?></option>
-            <?php endforeach; ?>
-        </select>
-            </form>
-        </div>
         <div class="search-container">
         <form id="time_periodForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <label for="time_period">Time Period:</label>
@@ -748,13 +737,13 @@ oci_close($conn);
         <canvas id="salesBarGraph"></canvas>
 </div>
 
-    <script src="admin_product.js"></script>
+    <script src="trader_product.js"></script>
      <!-- Include Chart.js library -->
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include Chart.js Plugin Annotations -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
-    <script src="admin_sales_report.js"></script>
-    <script src="admin_navbar.js"></script>
+    <script src="trader_sales_report.js"></script>
+    <script src="trader_navbar.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js">
     </script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
