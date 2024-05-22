@@ -7,7 +7,7 @@ include("connection/connection.php");
  // Prepare SQL statement
  $sql = "UPDATE PRODUCT 
  SET STOCK_AVAILABLE = 'no', IS_DISABLED = 0 
- WHERE PRODUCT_QUANTITY < 0";
+ WHERE PRODUCT_QUANTITY < 1";
 
 // Parse the SQL query
 $stmt = oci_parse($conn, $sql);
