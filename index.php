@@ -109,7 +109,7 @@ function sanitizeInput($data) {
     $reviewId = sanitizeInput($_POST["review_id"]);
 
     // Update the review in the database
-    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 1, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
+    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 0, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
 
 // Prepare the OCI statement
 $updateReviewStmt = oci_parse($conn, $updateReviewSql);
@@ -230,7 +230,7 @@ $sql = "SELECT
         JOIN 
             HUDDER_USER h ON r.USER_ID = h.USER_ID 
         WHERE 
-            r.REVIEW_PROCIDED = 1";
+            r.REVIEW_PROCIDED = 0";
 // Parse the SQL statement
 $stmt = oci_parse($conn, $sql);
 

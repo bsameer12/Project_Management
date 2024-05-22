@@ -186,6 +186,100 @@ include("connection/connection.php");
 
         // Free the statement and close the connection
         oci_free_statement($stmt);
+        // Prepare the SQL query
+$sql = "
+SELECT op.ORDER_PRODUCT_ID, op.ORDER_DATE, op.TOTAL_PRICE, op.DISCOUNT_AMOUNT, op.ORDER_STATUS
+FROM ORDER_PRODUCT op
+JOIN CUSTOMER c ON op.CUSTOMER_ID = c.CUSTOMER_ID
+WHERE c.USER_ID = :user_id
+";
+
+// Parse the SQL query
+$stid = oci_parse($conn, $sql);
+if (!$stid) {
+    $e = oci_error($conn);
+    echo "Failed to prepare statement: " . $e['message'];
+    exit;
+}
+
+// Bind the user_id parameter to the SQL query
+oci_bind_by_name($stid, ':user_id', $user_id);
+
+// Execute the SQL query
+$r = oci_execute($stid);
+if (!$r) {
+    $e = oci_error($stid);
+    echo "Failed to execute statement: " . $e['message'];
+    exit;
+}
+
+// Initialize an array to store the results
+$results = array();
+
+// Fetch the results
+while (($row = oci_fetch_assoc($stid)) != false) {
+    $results[] = $row;
+}
+
+// Free the statement identifier and close the connection
+oci_free_statement($stid);
+
+// Function to get the status text based on the status value
+function getOrderStatusText($status) {
+    switch ($status) {
+        case 0:
+            return "Order Incompleted";
+        case 1:
+            return "Payment Complete";
+        case 2:
+            return "Order Prepared";
+        case 3:
+            return "Order Ready to Pick Up";
+        case 4:
+            return "Order Delivered";
+        default:
+            return "Unknown Status";
+    }
+}
+
+// Prepare the SQL query
+$sql = "
+SELECT r.REVIEW_SCORE, r.FEEDBACK, p.PRODUCT_NAME
+FROM REVIEW r
+JOIN PRODUCT p ON r.PRODUCT_ID = p.PRODUCT_ID
+WHERE r.USER_ID = :user_id AND r.REVIEW_PROCIDED = 0
+";
+
+// Parse the SQL query
+$stid = oci_parse($conn, $sql);
+if (!$stid) {
+    $e = oci_error($conn);
+    echo "Failed to prepare statement: " . $e['message'];
+    exit;
+}
+
+// Bind the user_id parameter to the SQL query
+oci_bind_by_name($stid, ':user_id', $user_id);
+
+// Execute the SQL query
+$r = oci_execute($stid);
+if (!$r) {
+    $e = oci_error($stid);
+    echo "Failed to execute statement: " . $e['message'];
+    exit;
+}
+
+// Initialize an array to store the results
+$results_r = array();
+
+// Fetch the results
+while (($row = oci_fetch_assoc($stid)) != false) {
+    $results_r[] = $row;
+}
+
+// Free the statement identifier and close the connection
+oci_free_statement($stid);
+
         oci_close($conn);
 
 ?>
@@ -322,49 +416,24 @@ include("connection/connection.php");
             <thead>
                 <tr>
                     <th>Order ID</th>
-                    <th>Date</th>
-                    <th>Items</th>
-                    <th>Total</th>
+                    <th>Order Date</th>
+                    <th>Total Price</th>
+                    <th>Total Discount</th>
+                    <th>Order Status</th>
+                    <th> Action </th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2024-04-12</td>
-                    <td>Product 1, Product 2</td>
-                    <td>$50.00</td>
-                </tr>
-                <!-- Add more rows as needed -->
-                <tr>
-                    <td>2</td>
-                    <td>2024-04-22</td>
-                    <td>Product 3, Product 4</td>
-                    <td>$90.00</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>2024-11-12</td>
-                    <td>Product 5, Product 2</td>
-                    <td>$150.00</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>2023-04-12</td>
-                    <td>Product 10, Product 12</td>
-                    <td>$1150.00</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>2024-04-22</td>
-                    <td>Product 12, Product 12</td>
-                    <td>$950.00</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>2024-09-12</td>
-                    <td>Product 5, Product 9</td>
-                    <td>$9250.00</td>
-                </tr>
+            <?php foreach ($results as $order): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($order['ORDER_PRODUCT_ID']); ?></td>
+                <td><?php echo htmlspecialchars($order['ORDER_DATE']); ?></td>
+                <td><?php echo htmlspecialchars($order['TOTAL_PRICE']); ?></td>
+                <td><?php echo htmlspecialchars($order['DISCOUNT_AMOUNT']); ?></td>
+                <td><?php echo htmlspecialchars(getOrderStatusText($order['ORDER_STATUS'])); ?></td>
+                <td><a href="view_order.php?id=<?php echo urlencode($order['ORDER_PRODUCT_ID']); ?>&action=edit">View</a></td>
+            </tr>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -381,11 +450,13 @@ include("connection/connection.php");
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Product 1</td>
-                    <td>5 stars</td>
-                    <td>Great product!</td>
-                </tr>
+                <?php foreach ($results_r as $review): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($review['PRODUCT_NAME']); ?></td>
+                <td><?php echo htmlspecialchars($review['REVIEW_SCORE']) . ' stars'; ?></td>
+                <td><?php echo htmlspecialchars($review['FEEDBACK']); ?></td>
+            </tr>
+            <?php endforeach; ?>
                 <!-- Add more rows as needed -->
             </tbody>
         </table>
