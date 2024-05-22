@@ -40,8 +40,8 @@ if(isset($_POST["sign_in"]))
                 $user_role = $row['USER_TYPE'];
                 if($password == $passwords && $user_role == "admin"){
                     if($remember == 1){
-                            setcookie("email_trader",$email,time()+60*60*24*30,"/");
-                            setcookie("password_trader",$pass,time()+60*60*24*30,"/");
+                            setcookie("email_admin",$email,time()+60*60*24*30,"/");
+                            setcookie("password_admin",$pass,time()+60*60*24*30,"/");
                     }
                     //registering session username
                     $_SESSION["email"]=$email;
@@ -95,11 +95,11 @@ if(isset($_POST["sign_in"]))
     <form method="POST" id="trader_signin" name="trader_signin" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="Enter your Email" required value="<?php if(isset($_COOKIE["email_trader"])){ echo $_COOKIE["email_trader"];} ?>">
+        <input type="text" id="email" name="email" placeholder="Enter your Email" required value="<?php if(isset($_COOKIE["email_admin"])){ echo $_COOKIE["email_trader"];} ?>">
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number" value="<?php if(isset($_COOKIE["password_trader"])){ echo $_COOKIE["password_trader"];} ?>">
+        <input type="password" id="password" name="password" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" title="Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number" value="<?php if(isset($_COOKIE["password_admin"])){ echo $_COOKIE["password_trader"];} ?>">
     </div>
     <div class="form-group">
         <label for="remember"><input type="checkbox" id="remember" name="remember" alt="Remember Me" value="1">Remember Me</label>
