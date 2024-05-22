@@ -150,7 +150,7 @@ if(isset($_GET['cartid'])) {
        $totalAmount += $row['PRODUCT_QTY'] * $row['PRODUCT_PRICE'];
 
        // Calculate discount amount for this product
-       $discountAmount += ($row['ACTUAL_PRICE']* $row['PRODUCT_QTY'] - $row['PRODUCT_PRICE']) * $row['PRODUCT_QTY'];
+       $discountAmount += ($row['ACTUAL_PRICE']  - $row['PRODUCT_PRICE']) * $row['PRODUCT_QTY'];
     }
 
     // Prepare the SQL statement to update TOTAL_PRICE and DISCOUNT_AMOUNT
