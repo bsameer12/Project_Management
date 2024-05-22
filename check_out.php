@@ -55,6 +55,17 @@ if(isset($_GET['cartid'])) {
         $product_qty = $row['NO_OF_PRODUCTS'];
         $product_id = $row['PRODUCT_ID'];
         $product_price = $row['PRODUCT_PRICE'];
+        $selectDiscountSql = "SELECT DISCOUNT_PERCENT FROM DISCOUNT WHERE PRODUCT_ID = :productId";
+        $selectDiscountStmt = oci_parse($conn, $selectDiscountSql);
+        oci_bind_by_name($selectDiscountStmt, ':productId', $product_id);
+        oci_execute($selectDiscountStmt);
+
+        $discount_row = oci_fetch_assoc($selectDiscountStmt);
+        $discountPercent = $discount_row ? $discount_row['DISCOUNT_PERCENT'] : 0;
+        
+        $discountAmount = ($product_price * $discountPercent) / 100;
+        $discountedPrice = $product_price - $discountAmount;
+
 
         // Insert into ORDER_DETAILS
         $sqlInsertOrderDetails = "INSERT INTO ORDER_DETAILS (ORDER_PRODUCT_ID, PRODUCT_ID, PRODUCT_QTY, PRODUCT_PRICE, TRADER_USER_ID) 
@@ -63,7 +74,7 @@ if(isset($_GET['cartid'])) {
         oci_bind_by_name($stmtInsertOrderDetails, ":order_product_id", $order_product_id);
         oci_bind_by_name($stmtInsertOrderDetails, ":product_id", $product_id);
         oci_bind_by_name($stmtInsertOrderDetails, ":product_qty", $product_qty);
-        oci_bind_by_name($stmtInsertOrderDetails, ":product_price", $product_price);
+        oci_bind_by_name($stmtInsertOrderDetails, ":product_price", $discountedPrice);
         oci_execute($stmtInsertOrderDetails);
 
         // Delete the product from CART_ITEM
@@ -72,6 +83,31 @@ if(isset($_GET['cartid'])) {
         oci_bind_by_name($stmtDeleteCartItem, ":cart_id", $cart_id);
         oci_bind_by_name($stmtDeleteCartItem, ":product_id", $product_id);
         oci_execute($stmtDeleteCartItem);
+
+        // Prepare the SQL statement to update PRODUCT_QUANTITY
+            $updateSql = "
+            UPDATE 
+                PRODUCT 
+            SET 
+                PRODUCT_QUANTITY = PRODUCT_QUANTITY - :no_of_products
+            WHERE 
+                PRODUCT_ID = :product_id
+        ";
+
+        // Parse the SQL statement
+        $updateStmt = oci_parse($conn, $updateSql);
+
+        // Bind the parameters
+        oci_bind_by_name($updateStmt, ':no_of_products', $product_qty);
+        oci_bind_by_name($updateStmt, ':product_id', $product_id);
+
+        // Execute the SQL statement to update
+        $success = oci_execute($updateStmt);
+
+        // Free the statement resources
+        oci_free_statement($updateStmt);
+
+
     }
 
     oci_free_statement($stmtSelectProducts);
@@ -79,6 +115,69 @@ if(isset($_GET['cartid'])) {
     // Commit transaction
     $stmtCommit = oci_parse($conn, "COMMIT");
     oci_execute($stmtCommit);
+
+    $sql = "
+        SELECT 
+            OP.PRODUCT_ID, 
+            OP.PRODUCT_QTY, 
+            OP.PRODUCT_PRICE, 
+            P.PRODUCT_PRICE AS ACTUAL_PRICE
+        FROM 
+            ORDER_DETAILS OP
+        JOIN 
+            PRODUCT P ON OP.PRODUCT_ID = P.PRODUCT_ID
+        WHERE 
+            OP.ORDER_PRODUCT_ID = :order_id
+    ";
+
+    // Parse the SQL statement
+    $stmt = oci_parse($conn, $sql);
+
+    // Bind the ORDER_PRODUCT_ID parameter
+    oci_bind_by_name($stmt, ':order_id', $order_product_id);
+
+    // Execute the SQL statement
+    oci_execute($stmt);
+
+    // Initialize an array to store the results
+    // Initialize variables for total amount and discount amount
+    $totalAmount = 0;
+    $discountAmount = 0;
+
+    // Fetch the results and store them in the array
+    while ($row = oci_fetch_assoc($stmt)) {
+       // Calculate total amount for this product
+       $totalAmount += $row['PRODUCT_QTY'] * $row['PRODUCT_PRICE'];
+
+       // Calculate discount amount for this product
+       $discountAmount += ($row['ACTUAL_PRICE']* $row['PRODUCT_QTY'] - $row['PRODUCT_PRICE']) * $row['PRODUCT_QTY'];
+    }
+
+    // Prepare the SQL statement to update TOTAL_PRICE and DISCOUNT_AMOUNT
+    $updateSql = "
+        UPDATE 
+            ORDER_PRODUCT 
+        SET 
+            TOTAL_PRICE = :total_amount,
+            DISCOUNT_AMOUNT = :discount_amount
+        WHERE 
+            ORDER_PRODUCT_ID = :order_id
+    ";
+
+    // Parse the SQL statement
+    $updateStmt = oci_parse($conn, $updateSql);
+
+    // Bind the parameters
+    oci_bind_by_name($updateStmt, ':total_amount', $totalAmount);
+    oci_bind_by_name($updateStmt, ':discount_amount', $discountAmount);
+    oci_bind_by_name($updateStmt, ':order_id', $order_product_id);
+
+    // Execute the SQL statement to update
+    $success = oci_execute($updateStmt);
+
+    // Free the statement resources
+    oci_free_statement($stmt);
+    oci_free_statement($updateStmt);
 
     // Redirect to checkout page with customerid, cartid, number_product, and total_price parameters
     $url = "slot_time.php?customerid=$customer_id&order_id=$order_product_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price";

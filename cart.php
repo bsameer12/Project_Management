@@ -52,7 +52,7 @@ if ($row) {
         $cart_id = $rowCartCheck['CART_ID'];
 
         // Get cart items and sum of total products
-        $sql = "SELECT ci.NO_OF_PRODUCTS, ci.PRODUCT_ID, p.PRODUCT_PRICE, p.PRODUCT_NAME, p.PRODUCT_PICTURE,
+        $sql = "SELECT ci.NO_OF_PRODUCTS, ci.PRODUCT_ID, ci.PRODUCT_PRICE, p.PRODUCT_NAME, p.PRODUCT_PICTURE,
                        SUM(ci.NO_OF_PRODUCTS) OVER() AS TOTAL_PRODUCTS
                 FROM CART_ITEM ci
                 INNER JOIN PRODUCT p ON ci.PRODUCT_ID = p.PRODUCT_ID
