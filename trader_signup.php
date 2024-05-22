@@ -6,6 +6,18 @@ ini_set('display_errors',1);
 // Variable for Input_validation 
 $input_validation_passed = true;
 
+function calculateAge($dob) {
+    // Create a DateTime object from the date of birth
+    $dob = new DateTime($dob);
+    // Get the current date
+    $now = new DateTime();
+    // Calculate the difference between the current date and the date of birth
+    $age = $now->diff($dob);
+    // Return the difference in years as the age
+    return $age->y;
+}
+
+
 include("connection/connection.php");
 // Define an array to store the category data
 $categoryArray = [];
@@ -24,6 +36,7 @@ while ($row = oci_fetch_assoc($result)) {
 
 // Free the statement resources
 oci_free_statement($result);
+
 
 
 if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
@@ -68,6 +81,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
 
     // Check if $_POST["category"] Exists before sanitizing 
      $category = isset($_POST["category"]) ? sanitizeCategory($_POST["category"]) : "";
+
+     $age = calculateAge($dob);
 
 
 
@@ -199,8 +214,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
         $verification_code = generateRandomCode();
         if ($input_validation_passed) {
             // Prepare the SQL statement for user insertion
-            $sql_insert_user = "INSERT INTO HUDDER_USER (first_name, last_name, user_address, user_email, user_gender, user_password, USER_PROFILE_PICTURE, user_type, user_contact_no)
-                                VALUES (:first_name, :last_name, :user_address, :user_email, :user_gender, :user_password, :USER_PROFILE_PICTURE, 'trader', :user_contact_no)";
+            $sql_insert_user = "INSERT INTO HUDDER_USER (first_name, last_name, user_address, user_email, user_gender, user_password, USER_PROFILE_PICTURE, user_type, user_contact_no, USER_AGE)
+                                VALUES (:first_name, :last_name, :user_address, :user_email, :user_gender, :user_password, :USER_PROFILE_PICTURE, 'trader', :user_contact_no, :user_age)";
             $stmt_insert_user = oci_parse($conn, $sql_insert_user);
         
             // Bind parameters
@@ -212,6 +227,7 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             oci_bind_by_name($stmt_insert_user, ':user_password', $password);
             oci_bind_by_name($stmt_insert_user, ':USER_PROFILE_PICTURE', $newFileName);
             oci_bind_by_name($stmt_insert_user, ':user_contact_no', $contact_number);
+            oci_bind_by_name($stmt_insert_user, ':user_age', $age);
         
             // Execute the SQL statement
             if (!oci_execute($stmt_insert_user)) {
