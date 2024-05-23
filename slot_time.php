@@ -13,6 +13,10 @@ if (isset($_POST['submit'])) {
 
     // Split the selected value into date and day
     list($selectedDayName, $selectedDate) = explode(', ', $selectedDay);
+    //echo $selectedDate;
+    $oracleFormattedDate = date('Y-m-d', strtotime($selectedDate));
+    //echo $oracleFormattedDate;
+    //echo $selectedDayName;
 
     // Include the database connection
     include("connection/connection.php");
@@ -23,27 +27,28 @@ if (isset($_POST['submit'])) {
     oci_bind_by_name($checkSlotStmt, ':order_id', $order_id);
     oci_execute($checkSlotStmt);
     $slotRow = oci_fetch_assoc($checkSlotStmt);
-    
+
     if ($slotRow) {
         // Slot already allocated, store the SLOT_ID in a variable
         $slot_id = $slotRow['SLOT_ID'];
-        
+
         // Update the existing slot
         $updateSlotSql = "UPDATE COLLECTION_SLOT SET SLOT_DATE = TO_DATE(:selectedDate, 'YYYY-MM-DD'), SLOT_TIME = :selectedTime, SLOT_DAY = :selectedDayName, LOCATION = :selectedLocation WHERE SLOT_ID = :slot_id";
         $updateSlotStmt = oci_parse($conn, $updateSlotSql);
-        
+
         // Bind the parameters
-        oci_bind_by_name($updateSlotStmt, ':selectedDate', $selectedDate);
+        oci_bind_by_name($updateSlotStmt, ':selectedDate', $oracleFormattedDate);
         oci_bind_by_name($updateSlotStmt, ':selectedTime', $selectedTime);
         oci_bind_by_name($updateSlotStmt, ':selectedDayName', $selectedDayName);
         oci_bind_by_name($updateSlotStmt, ':selectedLocation', $selectedLocation);
         oci_bind_by_name($updateSlotStmt, ':slot_id', $slot_id);
-        
+
         // Execute the SQL statement
         $updateSuccess = oci_execute($updateSlotStmt);
 
         if (!$updateSuccess) {
-            echo "Failed to update the COLLECTION_SLOT table.";
+            $e = oci_error($updateSlotStmt);
+            echo "Failed to update the COLLECTION_SLOT table: " . htmlentities($e['message']);
         }
 
         // Free statement resources
@@ -56,7 +61,7 @@ if (isset($_POST['submit'])) {
         $insertSlotStmt = oci_parse($conn, $insertSlotSql);
 
         // Bind the parameters
-        oci_bind_by_name($insertSlotStmt, ':selectedDate', $selectedDate);
+        oci_bind_by_name($insertSlotStmt, ':selectedDate', $oracleFormattedDate);
         oci_bind_by_name($insertSlotStmt, ':selectedTime', $selectedTime);
         oci_bind_by_name($insertSlotStmt, ':selectedDayName', $selectedDayName);
         oci_bind_by_name($insertSlotStmt, ':order_id', $order_id);
@@ -67,7 +72,8 @@ if (isset($_POST['submit'])) {
         $success = oci_execute($insertSlotStmt);
 
         if (!$success) {
-            echo "Failed to insert into COLLECTION_SLOT table.";
+            $e = oci_error($insertSlotStmt);
+            echo "Failed to insert into COLLECTION_SLOT table: " . htmlentities($e['message']);
         }
 
         // Free statement resources
@@ -87,7 +93,8 @@ if (isset($_POST['submit'])) {
         $updateSuccess = oci_execute($updateStmt);
 
         if (!$updateSuccess) {
-            echo "Failed to update SLOT_ID in ORDER_PRODUCT table.";
+            $e = oci_error($updateStmt);
+            echo "Failed to update SLOT_ID in ORDER_PRODUCT table: " . htmlentities($e['message']);
         }
 
         // Free statement resources

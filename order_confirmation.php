@@ -29,7 +29,6 @@ throw new Exception("Failed to execute statement: " . $e['message']);
 // Free the statement identifier
 oci_free_statement($stmt);
 
-close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +59,7 @@ close($conn);
             <h2>Your order has been confirmed and your order number is <strong id="order-number"><?php echo $order_id; ?></strong>.</h2>
         </div>
         <div class="return-home">
-            <a href="index.html" class="return-home-link">Return to Home</a>
+            <a href="index.php" class="return-home-link">Return to Home</a>
         </div>
     </div>
     </div>

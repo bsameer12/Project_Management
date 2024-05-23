@@ -50,10 +50,11 @@ if ($row) {
         if ($rowCartCheck) {
             $cart_id = $rowCartCheck['CART_ID'];
         } else {
-            $sqlCreateCart = "INSERT INTO cart (customer_id) VALUES (:customer_id) RETURNING cart_id INTO :new_cart_id";
+            $sqlCreateCart = "INSERT INTO cart (customer_id, ORDER_PRODUCT_ID) VALUES (:customer_id, :p_id) RETURNING cart_id INTO :new_cart_id";
             $stmtCreateCart = oci_parse($conn, $sqlCreateCart);
             oci_bind_by_name($stmtCreateCart, ':customer_id', $customer_id);
-            oci_bind_by_name($stmtCreateCart, ':new_cart_id', $cart_id);
+            oci_bind_by_name($stmtCreateCart, ':p_id', $product_id);  // Correct variable used here
+            oci_bind_by_name($stmtCreateCart, ':new_cart_id', $cart_id, -1, OCI_B_INT); // Added size and type for OUT bind variable
             oci_execute($stmtCreateCart);
         }
 
