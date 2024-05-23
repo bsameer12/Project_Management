@@ -54,7 +54,7 @@ if($user_id > 0){
 $reviews = [];
 
 // SQL query to select REVIEW_ID, PRODUCT_ID
-$selectReviewSql = "SELECT REVIEW_ID, PRODUCT_ID FROM REVIEW WHERE REVIEW_PROCIDED = 1 AND USER_ID = :customerId";
+$selectReviewSql = "SELECT REVIEW_ID, PRODUCT_ID FROM REVIEW WHERE REVIEW_PROCIDED = 0 AND USER_ID = :customerId";
 
 // Prepare the OCI statement
 $selectReviewStmt = oci_parse($conn, $selectReviewSql);
@@ -135,7 +135,7 @@ function sanitizeInput($data) {
     $reviewId = sanitizeInput($_POST["review_id"]);
 
     // Update the review in the database
-    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 0, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
+    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 1, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
 
 // Prepare the OCI statement
 $updateReviewStmt = oci_parse($conn, $updateReviewSql);
@@ -171,7 +171,7 @@ oci_free_statement($updateReviewStmt);
 $products = [];
 
 // SQL query to select products
-$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 1";
+$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 1 AND ADMIN_VERIFIED=1";
 
 // Prepare the OCI statement
 $selectProductsStmt = oci_parse($conn, $selectProductsSql);
@@ -210,7 +210,8 @@ review r ON p.PRODUCT_ID = r.PRODUCT_ID
 LEFT JOIN 
 discount d ON p.PRODUCT_ID = d.PRODUCT_ID
 WHERE 
-p.IS_DISABLED = 1
+p.IS_DISABLED = 1 AND
+P.ADMIN_VERIFIED = 1
 GROUP BY 
 p.PRODUCT_ID, 
 p.PRODUCT_NAME, 
@@ -256,7 +257,7 @@ $sql = "SELECT
         JOIN 
             HUDDER_USER h ON r.USER_ID = h.USER_ID 
         WHERE 
-            r.REVIEW_PROCIDED = 0";
+            r.REVIEW_PROCIDED = 1";
 // Parse the SQL statement
 $stmt = oci_parse($conn, $sql);
 
