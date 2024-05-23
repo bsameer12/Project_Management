@@ -6,7 +6,7 @@ include("../connection/connection.php"); // Include the database connection
 $order_product_id = $_GET['id']; // Assuming you're retrieving this from a form
 
 // Query to select PRODUCT_ID, PRODUCT_QTY, PRODUCT_PRICE from ORDER_DETAILS
-$sql_product_details = "SELECT OD.PRODUCT_ID, OD.PRODUCT_QTY, OD.PRODUCT_PRICE, P.PRODUCT_PICTURE, P.PRODUCT_NAME
+$sql_product_details = "SELECT OD.PRODUCT_ID, OD.PRODUCT_QTY, OD.PRODUCT_PRICE, P.PRODUCT_PICTURE, P.PRODUCT_NAME, P.PRODUCT_PRICE AS ACTUAL_PRICE
 FROM ORDER_DETAILS OD
 JOIN PRODUCT P ON OD.PRODUCT_ID = P.PRODUCT_ID
 WHERE OD.ORDER_PRODUCT_ID = :order_product_id";
@@ -66,6 +66,24 @@ oci_free_statement($stmt_slot_details);
 oci_free_statement($stmt_payment_type);
 oci_close($conn);
 
+// Function to get the status text based on the status value
+function getOrderStatusText($status) {
+    switch ($status) {
+        case 0:
+            return "Order Incompleted";
+        case 1:
+            return "Payment Complete";
+        case 2:
+            return "Order Prepared";
+        case 3:
+            return "Order Ready to Pick Up";
+        case 4:
+            return "Order Delivered";
+        default:
+            return "Unknown Status";
+    }
+}
+
 ?>
 
 
@@ -96,112 +114,112 @@ oci_close($conn);
         <img src="../logo.png" alt="Company Logo" class="logo_detail">
         <h2 class="form-heading">Detailed Order Details</h2>
         <form id="orderForm" class="order-form">
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="orderId" class="form-label">Order ID:</label>
-                    <input type="text" id="orderId" name="orderId" class="form-input" placeholder="Enter order ID" readonly value="<?php echo $order_product_id; ?>">
-                </div>
-                <div class="form-column">
-                    <label for="customerId" class="form-label">Customer ID:</label>
-                    <input type="text" id="customerId" name="customerId" class="form-input" placeholder="Enter customer ID" readonly value="<?php echo $order_details['CUSTOMER_ID']; ?>">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="orderDate" class="form-label">Order Date:</label>
-                    <input type="date" id="orderDate" name="orderDate" class="form-input" readonly value="<?php echo date('Y-m-d', strtotime($order_details['ORDER_DATE'])); ?>">
-                </div>
-                <div class="form-column">
-                    <label for="pickupDate" class="form-label">Pickup Date:</label>
-                    <input type="date" id="pickupDate" name="pickupDate" class="form-input" readonly value="<?php echo date('Y-m-d', strtotime($slot_details['SLOT_DATE'])); ?>">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="pickupLocation" class="form-label">Pickup Location:</label>
-                    <input type="text" id="pickupLocation" name="pickupLocation" class="form-input" placeholder="Enter pickup location" readonly value="<?php echo $slot_details['LOCATION'] . ' ,' . $slot_details['SLOT_TIME']; ?>">
-                </div>
-                <div class="form-column">
-                    <label for="orderStatus" class="form-label">Order Status:</label>
-                    <select id="orderStatus" name="orderStatus" class="form-input" disabled>
-                        <option value="0" <?php echo ($order_details['ORDER_STATUS'] == 0) ? 'selected' : ''; ?>>Order Incomplete</option>
-                        <option value="1" <?php echo ($order_details['ORDER_STATUS'] == 1) ? 'selected' : ''; ?>>Payment Complete</option>
-                        <option value="2" <?php echo ($order_details['ORDER_STATUS'] == 2) ? 'selected' : ''; ?>>Order Prepared</option>
-                        <option value="3" <?php echo ($order_details['ORDER_STATUS'] == 3) ? 'selected' : ''; ?>>Order Ready to Pick Up</option>
-                        <option value="4" <?php echo ($order_details['ORDER_STATUS'] == 4) ? 'selected' : ''; ?>>Order Delivered</option>
-                    </select>
-                </div>
-            </div>
-        </form>
+    <div class="form-row">
+        <div class="form-column">
+            <label for="orderId" class="form-label">Order ID:</label>
+            <input type="text" id="orderId" name="orderId" class="form-input" placeholder="Enter order ID" readonly value="<?php echo $order_product_id ?>" >
+        </div>
+        <div class="form-column">
+            <label for="customerId" class="form-label">Customer ID:</label>
+            <input type="text" id="customerId" name="customerId" class="form-input" placeholder="Enter customer ID" readonly value="<?php echo $order_details['CUSTOMER_ID']; ?>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label for="orderDate" class="form-label">Order Date:</label>
+            <input type="date" id="orderDate" name="orderDate" class="form-input" readonly  value="<?php echo date('Y-m-d', strtotime($order_details['ORDER_DATE'])); ?>">
+        </div>
+        <div class="form-column">
+            <label for="pickupDate" class="form-label">Pickup Date:</label>
+            <input type="date" id="pickupDate" name="pickupDate" class="form-input" readonly  value="<?php echo date('Y-m-d', strtotime($slot_details['SLOT_DATE'])); ?>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label for="pickupLocation" class="form-label">Pickup Location:</label>
+            <input type="text" id="pickupLocation" name="pickupLocation" class="form-input" placeholder="Enter pickup location" readonly  value="<?php echo $slot_details['LOCATION'] . " ," . $slot_details['SLOT_TIME']; ?>">
+        </div>
+        <div class="form-column">
+            <label for="orderStatus" class="form-label">Order Status:</label>
+            <input type="text" id="orderId" name="orderId" class="form-input" placeholder="Enter order ID" readonly value="<?php echo htmlspecialchars(getOrderStatusText($order_details['ORDER_STATUS'])); ?>" readonly>
+        </div>
+    </div>
+</form>
     </div>
     <div id="productTableContainer" class="product-table-container">
-        <table class="product-table">
-            <thead>
-                <tr>
-                    <th>Product ID</th>
-                    <th>Product Picture</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($product_details as $product): ?>
-                    <tr>
-                        <td><?php echo $product['PRODUCT_ID']; ?></td>
-                        <td><img src="../product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>" class="product-image"></td>
-                        <td><?php echo $product['PRODUCT_NAME']; ?></td>
-                        <td><?php echo $product['PRODUCT_QTY']; ?></td>
-                        <td><?php echo '$' . $product['PRODUCT_PRICE']; ?></td>
-                        <td><?php echo '$' . ($product['PRODUCT_QTY'] * $product['PRODUCT_PRICE']); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Picture</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Actual Price </th>
+                <th>Sale Price</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($product_details as $product): ?>
+            <tr>
+                <td><?php echo $product['PRODUCT_ID']; ?></td>
+                <td><img src="../product_image/<?php echo $product['PRODUCT_PICTURE'];?>" alt="<?php echo $product['PRODUCT_NAME']; ?>" class="product-image"></td>
+                <td><?php echo $product['PRODUCT_NAME']; ?></td>
+                <td><?php echo $product['PRODUCT_QTY']; ?></td>
+                <td><?php echo '$' . $product['ACTUAL_PRICE']; ?></td>
+                <td><?php echo '$' . $product['PRODUCT_PRICE']; ?></td>
+                <td><?php echo '$' . ($product['PRODUCT_QTY'] * $product['PRODUCT_PRICE']); ?></td>
+            </tr>
+        <?php endforeach; ?>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+<div id="paymentFormContainer" class="payment-form-container">
+<form id="paymentForm" class="payment-form">
+    <div class="form-row">
+    <div class="form-column">
+        <label for="netTotal" class="form-label">Net Total:</label>
+        <?php
+            // Calculate total amount after discount
+            $total_amount = $order_details['TOTAL_PRICE'] + $order_details['DISCOUNT_AMOUNT'];
+        ?>
+        <input type="text" id="netTotal" name="netTotal" class="form-input" placeholder="Enter net total" readonly value="<?php echo $total_amount; ?>">
     </div>
-    <div id="paymentFormContainer" class="payment-form-container">
-        <form id="paymentForm" class="payment-form">
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="netTotal" class="form-label">Net Total:</label>
-                    <input type="text" id="netTotal" name="netTotal" class="form-input" placeholder="Enter net total" readonly value="<?php echo $order_details['TOTAL_PRICE']; ?>">
-                </div>
-                <div class="form-column">
-                    <label for="discountPercent" class="form-label">Discount Percent:</label>
-                    <?php
-                        // Calculate discount percent
-                        $discount_percent = ($order_details['DISCOUNT_AMOUNT'] / $order_details['TOTAL_PRICE']) * 100;
-                    ?>
-                    <input type="text" id="discountPercent" name="discountPercent" class="form-input" placeholder="Enter discount percent" readonly value="<?php echo $discount_percent; ?>">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="discountAmount" class="form-label">Discount Amount:</label>
-                    <input type="text" id="discountAmount" name="discountAmount" class="form-input" placeholder="Enter discount amount" readonly value="<?php echo $order_details['DISCOUNT_AMOUNT']; ?>">
-                </div>
-                <div class="form-column">
-                    <label for="totalAmount" class="form-label">Total Amount:</label>
-                    <?php
-                        // Calculate total amount after discount
-                        $total_amount = $order_details['TOTAL_PRICE'] - $order_details['DISCOUNT_AMOUNT'];
-                    ?>
-                    <input type="text" id="totalAmount" name="totalAmount" class="form-input" placeholder="Enter total amount" readonly value="<?php echo $total_amount; ?>">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-column">
-                    <label for="paymentMode" class="form-label">Payment Mode:</label>
-                    <input type="text" id="paymentMode" name="paymentMode" class="form-input" placeholder="Enter payment mode" value="<?php echo !empty($payment_type) ? $payment_type['PAYMENT_TYPE'] : 'Payment Incomplete'; ?>" readonly>
-                </div>
-                <div class="form-column">
-                    <label for="paymentStatus" class="form-label">Payment Status:</label>
-                    <input type="text" id="paymentStatus" name="paymentStatus" class="form-input" placeholder="Enter payment status" value="<?php echo !empty($payment_type) ? 'Payment Completed' : 'Payment Incomplete'; ?>" readonly>
-                </div>
-            </div>
-        </form>
+    <div class="form-column">
+        <label for="discountPercent" class="form-label">Discount Percent:</label>
+        <?php
+            // Calculate discount percent
+            $discount_percent = ($order_details['DISCOUNT_AMOUNT'] / $total_amount) * 100;
+        ?>
+        <input type="text" id="discountPercent" name="discountPercent" class="form-input" placeholder="Enter discount percent" readonly value="<?php echo $discount_percent; ?>">
     </div>
+</div>
+<div class="form-row">
+    <div class="form-column">
+        <label for="discountAmount" class="form-label">Discount Amount:</label>
+        <input type="text" id="discountAmount" name="discountAmount" class="form-input" placeholder="Enter discount amount" readonly value="<?php echo $order_details['DISCOUNT_AMOUNT']; ?>">
+    </div>
+    <div class="form-column">
+        <label for="totalAmount" class="form-label">Total Amount:</label>
+        
+        <input type="text" id="totalAmount" name="totalAmount" class="form-input" placeholder="Enter total amount" readonly value="<?php echo $order_details['TOTAL_PRICE']; ?>">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-column">
+        <label for="paymentMode" class="form-label">Payment Mode:</label>
+        <input type="text" id="paymentMode" name="paymentMode" class="form-input" placeholder="Enter payment mode" value="<?php echo !empty($payment_type) ? $payment_type['PAYMENT_TYPE'] : 'Payment Incomplete'; ?>" readonly>
+    </div>
+    <div class="form-column">
+        <label for="paymentStatus" class="form-label">Payment Status:</label>
+        <input type="text" id="paymentStatus" name="paymentStatus" class="form-input" placeholder="Enter payment status" value="<?php echo !empty($payment_type) ? 'Payment Completed' : 'Payment Incomplete'; ?>" readonly>
+    </div>
+</div>
+
+</form>
+</div>
     <div id="returnToOrdersContainer" class="return-to-orders-container">
         <button id="returnToOrdersBtn" class="return-to-orders-btn">Return to Orders</button>
     </div>

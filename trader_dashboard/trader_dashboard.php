@@ -229,7 +229,7 @@ oci_free_statement($stmt_top_products);
 $sql_products = "SELECT PRODUCT_NAME, PRODUCT_PICTURE 
                  FROM PRODUCT 
                  WHERE USER_ID = :trader_user_id 
-                 AND PRODUCT_QUANTITY < 110";
+                 AND PRODUCT_QUANTITY < 5";
 
 // Prepare the statement
 $stmt_products = oci_parse($conn, $sql_products);
