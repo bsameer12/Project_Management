@@ -97,7 +97,7 @@ oci_close($conn);
                 echo "<td>" . ($shop['VERIFIED_SHOP'] ? 'Verified' : 'Not Verified') . "</td>";
                 echo "<td>
                         <a href='admin_view_shop_detail.php?id=" .  htmlspecialchars($shop['SHOP_ID']) . "&action=view'>View</a> |
-                        <a href='admin_view_shop_detail.php?id=" .  htmlspecialchars($shop['SHOP_ID']) . "&action=delete'>Delete</a>
+                        <a href='admin_delte_shop.php?id=" .  htmlspecialchars($shop['SHOP_ID']) . "&action=delete'>Delete</a>
                       </td>";
                 echo "</tr>";
             }

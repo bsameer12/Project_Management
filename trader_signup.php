@@ -273,8 +273,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             if (oci_execute($stmt)) {
                 $verified_shop = 0;
                     // Prepare the SQL statement for inserting into the SHOP table
-                    $sql_insert_shop = "INSERT INTO SHOP (SHOP_NAME, SHOP_DESCRIPTION, USER_ID, VERIFIED_SHOP, SHOP_PROFILE)
-                                        VALUES (:shop_name, :shop_description, :user_id, :verified_shop, :shop_profile)";
+                    $sql_insert_shop = "INSERT INTO SHOP (SHOP_NAME, SHOP_DESCRIPTION, USER_ID, VERIFIED_SHOP, SHOP_PROFILE, REGISTRATION_NO, SHOP_CATEGORY_ID)
+                                        VALUES (:shop_name, :shop_description, :user_id, :verified_shop, :shop_profile, :reg_no, :cat)";
 
                     // Prepare the OCI statement
                     $stmt_insert_shop = oci_parse($conn, $sql_insert_shop);
@@ -285,6 +285,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
                     oci_bind_by_name($stmt_insert_shop, ':user_id', $user_id);
                     oci_bind_by_name($stmt_insert_shop, ':verified_shop', $verified_shop);
                     oci_bind_by_name($stmt_insert_shop, ':shop_profile', $newFileName_shop);
+                    oci_bind_by_name($stmt_insert_shop, ':reg_no', $company_no);
+                    oci_bind_by_name($stmt_insert_shop, ':cat', $category);
 
                     // Execute the SQL statement
                     if (!oci_execute($stmt_insert_shop)) {
