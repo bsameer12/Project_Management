@@ -163,7 +163,7 @@ if (isset($_GET['cartid'])) {
     oci_close($conn);
 
     // Redirect to checkout page
-    $url = "slot_time.php?customerid=$customer_id&order_id=$order_product_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price";
+    $url = "slot_time.php?customerid=$customer_id&order_id=$order_product_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price&discount=$discountAmount";
     header("Location: $url");
     exit();
 } else {

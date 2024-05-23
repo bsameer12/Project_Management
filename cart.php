@@ -128,11 +128,12 @@ if ($cart_id) {
     oci_close($conn);
 } else {
     $total_products = 0;
+    $discountAmount =0;
 }
 
 if(isset($_POST['checkout'])) {
     // Redirect to checkout page with customerid and cartid parameters
-    header("Location: check_out.php?customerid=$customer_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price");
+    header("Location: check_out.php?customerid=$customer_id&cartid=$cart_id&nuber_product=$total_products&total_price=$total_price&discount=$discountAmount");
     exit(); // Stop further execution
 }
 ?>
