@@ -103,12 +103,6 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             $input_validation_passed = false;
         }
 
-        // Validate category
-        $category_error = "";
-        if (validateFirstName($category) === "false") {
-            $category_error = "Please Select A category.";
-            $input_validation_passed = false;
-        }
 
         // Validate last name
         $last_name_error = "";
