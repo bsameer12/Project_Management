@@ -115,7 +115,7 @@ function validateShopDescription($description)
 function validateCategory($category)
 {
     // Check if the category is not empty
-    return !empty($category);
+    return !empty($category) && preg_match("/^[0-9]{10}$/", $category) ? "true" : "false";
 }
 
 // Function to validate product name for uniqueness
