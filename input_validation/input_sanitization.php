@@ -69,6 +69,6 @@ function sanitizeShopDescription($description)
 // Function to sanitize category
 function sanitizeCategory($category)
 {
-    return (string) filter_var($category, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);
+    return (string) filter_var($category, FILTER_SANITIZE_FULL_SPECIAL_CHARS);;
 }
 ?>

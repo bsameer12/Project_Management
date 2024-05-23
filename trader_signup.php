@@ -105,10 +105,6 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
 
         // Validate category
         $category_error = "";
-        if (validateFirstName($category) === "false") {
-            $category_error = "Please Select A category.";
-            $input_validation_passed = false;
-        }
 
         // Validate last name
         $last_name_error = "";
@@ -214,8 +210,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
         $verification_code = generateRandomCode();
         if ($input_validation_passed) {
             // Prepare the SQL statement for user insertion
-            $sql_insert_user = "INSERT INTO HUDDER_USER (first_name, last_name, user_address, user_email, user_gender, user_password, USER_PROFILE_PICTURE, user_type, user_contact_no, USER_AGE)
-                                VALUES (:first_name, :last_name, :user_address, :user_email, :user_gender, :user_password, :USER_PROFILE_PICTURE, 'trader', :user_contact_no, :user_age)";
+            $sql_insert_user = "INSERT INTO HUDDER_USER (first_name, last_name, user_address, user_email, user_gender, user_password, USER_PROFILE_PICTURE, user_type, user_contact_no, USER_AGE, USER_DOB)
+                                VALUES (:first_name, :last_name, :user_address, :user_email, :user_gender, :user_password, :USER_PROFILE_PICTURE, 'trader', :user_contact_no, :user_age, TO_DATE(:dob, 'YYYY-MM-DD'))";
             $stmt_insert_user = oci_parse($conn, $sql_insert_user);
         
             // Bind parameters
@@ -228,6 +224,7 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             oci_bind_by_name($stmt_insert_user, ':USER_PROFILE_PICTURE', $newFileName);
             oci_bind_by_name($stmt_insert_user, ':user_contact_no', $contact_number);
             oci_bind_by_name($stmt_insert_user, ':user_age', $age);
+            oci_bind_by_name($stmt_insert_user, ':dob', $dob);
         
             // Execute the SQL statement
             if (!oci_execute($stmt_insert_user)) {
