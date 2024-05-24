@@ -3,7 +3,15 @@
 // Initialize connection and other necessary variables
 include("../connection/connection.php");
 // Construct the SQL statement
-$sql = "SELECT * FROM HUDDER_USER WHERE USER_TYPE ='customer'";
+$sql = "SELECT 
+HU.*
+FROM 
+HUDDER_USER HU
+JOIN 
+CUSTOMER C ON HU.USER_ID = C.USER_ID
+WHERE 
+HU.USER_TYPE = 'customer' 
+AND C.VERIFIED_CUSTOMER = 1";
 
 // Prepare the statement
 $stmt = oci_parse($conn, $sql);

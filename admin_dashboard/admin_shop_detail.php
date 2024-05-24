@@ -3,10 +3,26 @@
 include("../connection/connection.php");
 
 // SQL query to select the required fields
-$sql = "SELECT S.SHOP_ID, S.SHOP_NAME, S.SHOP_DESCRIPTION, S.REGISTRATION_NO, S.SHOP_CATEGORY_ID, S.SHOP_PROFILE, S.VERIFIED_SHOP,
-               H.FIRST_NAME, H.LAST_NAME AS NAME
-        FROM SHOP S
-        JOIN HUDDER_USER H ON S.USER_ID = H.USER_ID";
+$sql = "SELECT 
+    S.SHOP_ID, 
+    S.SHOP_NAME, 
+    S.SHOP_DESCRIPTION, 
+    S.REGISTRATION_NO, 
+    S.SHOP_CATEGORY_ID, 
+    S.SHOP_PROFILE, 
+    S.VERIFIED_SHOP,
+    H.FIRST_NAME, 
+    H.LAST_NAME AS NAME,
+    PC.CATEGORY_TYPE
+FROM 
+    SHOP S
+JOIN 
+    HUDDER_USER H ON S.USER_ID = H.USER_ID
+JOIN 
+    PRODUCT_CATEGORY PC ON S.SHOP_CATEGORY_ID = PC.CATEGORY_ID
+WHERE 
+    S.VERIFIED_SHOP = 1
+";
 
 // Prepare the OCI statement
 $stmt = oci_parse($conn, $sql);
@@ -23,7 +39,7 @@ if (oci_execute($stmt)) {
             'SHOP_NAME' => $row['SHOP_NAME'],
             'SHOP_DESCRIPTION' => $row['SHOP_DESCRIPTION'],
             'REGISTRATION_NO' => $row['REGISTRATION_NO'],
-            'SHOP_CATEGORY_ID' => $row['SHOP_CATEGORY_ID'],
+            'SHOP_CATEGORY_ID' => $row['CATEGORY_TYPE'],
             'SHOP_PROFILE' => $row['SHOP_PROFILE'],
             'VERIFIED_SHOP' => $row['VERIFIED_SHOP'],
             'FIRST_NAME' => $row['FIRST_NAME'],
