@@ -344,7 +344,7 @@ if(isset($_POST["submit_product"])){
                         echo "<td>" . $row['PRODUCT_QUANTITY'] . "</td>";
                         echo "<td>" . ($row['IS_DISABLED'] == 1 ? 'Enabled' : 'Disabled') . "</td>";
                         echo "<td>" . $row['PRODUCT_DESCRIPTION'] . "</td>";
-                        echo "<td> <a href=trader_product_view.php?id=". $row['PRODUCT_ID'] . "&userid=" . $user_id . "&action=edit> Edit </a> | <a href=deleteproduct.php?id=" . $row['PRODUCT_ID'] . "&action=delete> Delete </a> </td>";
+                        echo "<td> <a href=trader_product_view.php?id=". $row['PRODUCT_ID'] . "&userid=" . $user_id . "&action=edit> Edit </a>";
                         echo "</tr>";
                 }
                 // Free statement resources

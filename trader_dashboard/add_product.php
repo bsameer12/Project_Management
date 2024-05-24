@@ -111,6 +111,7 @@ if(isset($_POST["saveChangesBtn"])){
         $update_date = date('Y-m-d'); // Format: YYYY-MM-DD
         $isdisabled = 0;
         $user_id = $_SESSION["userid"];
+        $admin_ver = 0;
         $stockAvailable = "yes";
         if ($input_validation_passed) {
             include("../connection/connection.php");
@@ -128,7 +129,8 @@ if(isset($_POST["saveChangesBtn"])){
                 PRODUCT_ADDED_DATE, 
                 PRODUCT_UPDATE_DATE, 
                 CATEGORY_ID, 
-                USER_ID
+                USER_ID,
+                ADMIN_VERIFIED
             ) 
             VALUES (
                 :productName, 
@@ -142,7 +144,8 @@ if(isset($_POST["saveChangesBtn"])){
                 TO_DATE(:productAddedDate, 'YYYY-MM-DD'), 
                 TO_DATE(:productUpdateDate, 'YYYY-MM-DD'), 
                 :categoryID, 
-                :userID
+                :userID,
+                :admin_ver
             )";
 
             // Prepare the OCI statement
@@ -161,6 +164,7 @@ if(isset($_POST["saveChangesBtn"])){
             oci_bind_by_name($stmt_insert_product, ':productUpdateDate', $update_date);
             oci_bind_by_name($stmt_insert_product, ':categoryID', $category);
             oci_bind_by_name($stmt_insert_product, ':userID', $user_id);
+            oci_bind_by_name($stmt_insert_product, ':admin_ver', $admin_ver);
 
             // Execute the SQL statement
             if (oci_execute($stmt_insert_product)) {
