@@ -75,7 +75,8 @@ review r ON p.PRODUCT_ID = r.PRODUCT_ID
 LEFT JOIN 
 discount d ON p.PRODUCT_ID = d.PRODUCT_ID
 WHERE 
-p.IS_DISABLED = 1
+p.IS_DISABLED = 1 
+AND ADMIN_VERIFIED = 1
 AND p.PRODUCT_NAME LIKE '%' || :search_text || '%'";
 
 // Add filter conditions
