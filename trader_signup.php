@@ -248,12 +248,15 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
                 $user_id = $row['USER_ID'];
             } 
 
+            $trader_admin_ver = 0;
+            $trader_mail_sen = 0;
+
 
             // Prepare the SQL statement
             $sql = "INSERT INTO TRADER 
-                    (SHOP_NAME, VERIFICATION_CODE, TRADER_TYPE, VERIFICATION_STATUS, USER_ID, PROFILE_PICTURE) 
+                    (SHOP_NAME, VERIFICATION_CODE, TRADER_TYPE, VERIFICATION_STATUS, USER_ID, PROFILE_PICTURE, VERFIED_ADMIN, VERIFICATION_SEND) 
                     VALUES 
-                    (:shop_name, :verification_code, :trader_type, :verified_customer, :user_id, :profile_picture)";
+                    (:shop_name, :verification_code, :trader_type, :verified_customer, :user_id, :profile_picture, :ver_ad, :ver_sed)";
 
             // Prepare the OCI statement
             $stmt = oci_parse($conn, $sql);
@@ -268,6 +271,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             oci_bind_by_name($stmt, ':verified_customer', $verified_customer);
             oci_bind_by_name($stmt, ':user_id', $user_id);
             oci_bind_by_name($stmt, ':profile_picture', $newFileName);
+            oci_bind_by_name($stmt, ':ver_ad', $trader_admin_ver);
+            oci_bind_by_name($stmt, ':ver_sed', $trader_mail_sen);
 
             // Execute the statement
             if (oci_execute($stmt)) {
