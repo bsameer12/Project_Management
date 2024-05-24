@@ -6,11 +6,26 @@ include("../connection/connection.php");
 $trader_user_id = $_SESSION["userid"];
 
 // Query to select user and shop details using JOIN
-$sql_user_shop_details = "SELECT U.FIRST_NAME || ' ' || U.LAST_NAME AS NAME, U.USER_EMAIL, U.USER_CONTACT_NO,
-                                  S.SHOP_NAME, S.SHOP_ID, S.SHOP_DESCRIPTION, S.SHOP_PROFILE, S.SHOP_CATEGORY_ID, S.REGISTRATION_NO
-                           FROM HUDDER_USER U
-                           JOIN SHOP S ON U.USER_ID = S.USER_ID
-                           WHERE U.USER_ID = :user_id";
+$sql_user_shop_details = "SELECT 
+    U.FIRST_NAME || ' ' || U.LAST_NAME AS NAME, 
+    U.USER_EMAIL, 
+    U.USER_CONTACT_NO,
+    S.SHOP_NAME, 
+    S.SHOP_ID, 
+    S.SHOP_DESCRIPTION, 
+    S.SHOP_PROFILE, 
+    S.SHOP_CATEGORY_ID, 
+    S.REGISTRATION_NO,
+    PC.CATEGORY_TYPE
+FROM 
+    HUDDER_USER U
+JOIN 
+    SHOP S ON U.USER_ID = S.USER_ID
+JOIN 
+    PRODUCT_CATEGORY PC ON S.SHOP_CATEGORY_ID = PC.CATEGORY_ID
+WHERE 
+    U.USER_ID = :user_id
+";
 
 $stmt_user_shop_details = oci_parse($conn, $sql_user_shop_details);
 oci_bind_by_name($stmt_user_shop_details, ':user_id', $trader_user_id);
@@ -26,7 +41,7 @@ oci_free_statement($stmt_user_shop_details);
 // Extracting data from the array
 $shop_id = $user_shop_details['SHOP_ID'];
 $registration_no = $user_shop_details['REGISTRATION_NO'];; // You need to fetch this data from the database
-$shop_category = $user_shop_details['SHOP_CATEGORY_ID']; // Assuming this is the category ID
+$shop_category = $user_shop_details['CATEGORY_TYPE']; // Assuming this is the category ID
 $shop_owner = $user_shop_details['NAME']; // Assuming NAME contains the shop owner's name
 $shop_description = $user_shop_details['SHOP_DESCRIPTION'];
 $email = $user_shop_details['USER_EMAIL'];
