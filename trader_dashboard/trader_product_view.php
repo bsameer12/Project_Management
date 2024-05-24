@@ -8,6 +8,37 @@ $input_validation_passed = true;
 $product_id = $_GET["id"];
 $user_id = $_GET["userid"];
 include("../connection/connection.php");
+
+$query = '
+    SELECT 
+        CATEGORY_ID, 
+        CATEGORY_TYPE 
+    FROM 
+        PRODUCT_CATEGORY
+';
+
+$stid = oci_parse($conn, $query);
+if (!$stid) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+// Executing the statement
+oci_execute($stid);
+
+$categories = array();
+
+// Fetching the results
+while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+    $categories[] = array(
+        'CATEGORY_ID' => $row['CATEGORY_ID'],
+        'CATEGORY_TYPE' => $row['CATEGORY_TYPE']
+    );
+}
+
+// Free the statement and close the connection
+oci_free_statement($stid);
+
 // Prepare the SQL statement
 $sql = "SELECT PRODUCT_ID, PRODUCT_NAME, CATEGORY_ID, PRODUCT_PRICE, PRODUCT_DESCRIPTION, ALLERGY_INFORMATION, PRODUCT_QUANTITY, STOCK_AVAILABLE, IS_DISABLED, PRODUCT_ADDED_DATE, PRODUCT_PICTURE
         FROM product 
@@ -69,7 +100,10 @@ if(isset($_POST["saveChangesBtn"])){
     $product_allergy = isset($_POST["productallergy"]) ? sanitizeShopDescription($_POST["productallergy"]) : "";
 
     // Check if $_POST["category"] Exists before sanitizing 
-    $category = isset($_POST["productCategory"]) ? sanitizeCategory($_POST["productCategory"]) : "";
+    $category = isset($_POST["productCategory"]) ? $_POST["productCategory"] : "";
+
+    // Check if $_POST["company-registration-no"] Exists before sanitizing 
+    $status = isset($_POST["productStatus"]) ? $_POST["productStatus"] : "";
 
     // Input Validation
     require("../input_validation/input_validation.php");
@@ -100,6 +134,7 @@ if(isset($_POST["saveChangesBtn"])){
             $input_validation_passed = false;
         }
 
+
         // Validate Shop Descripyion
         $product_description_error = "";
         if (validateShopDescription($product_description) === "false") {
@@ -114,12 +149,6 @@ if(isset($_POST["saveChangesBtn"])){
              $input_validation_passed = false;
          }
 
-         // validate product category
-         $category_error = "";
-         if(validateCategory($category) === "false"){
-            $category_error = "Please Select your category  Correctly.";
-            $input_validation_passed = false;
-         }
 
          $profile_upload_error="";
          if(isset($_FILES["productImage"]) && $_FILES["productImage"]["error"] == 0){
@@ -154,7 +183,8 @@ if(isset($_POST["saveChangesBtn"])){
                     ALLERGY_INFORMATION = :allergyInformation, 
                     PRODUCT_PICTURE = :productPicture, 
                     PRODUCT_UPDATE_DATE = TO_DATE(:productUpdateDate, 'YYYY-MM-DD'), 
-                    CATEGORY_ID = :categoryID
+                    CATEGORY_ID = :categoryID,
+                    IS_DISABLED = :status
                 WHERE 
                     PRODUCT_ID = :productID
                     AND USER_ID = :userID"; // assuming PRODUCT_ID is the primary key
@@ -171,6 +201,7 @@ if(isset($_POST["saveChangesBtn"])){
                 oci_bind_by_name($stmt_update_product, ':productPicture', $newFileName);
                 oci_bind_by_name($stmt_update_product, ':productUpdateDate', $update_date);
                 oci_bind_by_name($stmt_update_product, ':categoryID', $category);
+                oci_bind_by_name($stmt_update_product, ':status', $status);
                 oci_bind_by_name($stmt_update_product, ':userID', $user_id);
                 oci_bind_by_name($stmt_update_product, ':productID', $product_id); // Assuming $product_id is the ID of the product to update
 
@@ -251,15 +282,12 @@ if(isset($_POST["saveChangesBtn"])){
             <div class="form-row">
                 <label for="productCategory" class="form-label">Product Category:</label>
                 <select id="productCategory" name="productCategory" class="form-input">
-                <option value="1" <?php echo ($productDetails['CATEGORY_ID'] == '1') ? 'selected' : ''; ?>>Category 1</option>
-                <option value="2" <?php echo ($productDetails['CATEGORY_ID'] == '2') ? 'selected' : ''; ?>>Category 2</option>
-                <option value="3" <?php echo ($productDetails['CATEGORY_ID'] == '5') ? 'selected' : ''; ?>>Category 3</option>
+                <?php foreach ($categories as $category): ?>
+                        <option value="<?php echo $category['CATEGORY_ID']; ?>" <?php echo ($productDetails['CATEGORY_ID'] == $category['CATEGORY_ID']) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($category['CATEGORY_TYPE']); ?>
+                        </option>
+                <?php endforeach; ?>
                 </select>
-                <?php
-                    if(isset($category_error)){
-                        echo "<p style='color: red;'>$category_error</p>";
-                    }
-                    ?>
             </div>
             <div class="form-row">
                 <label for="productPrice" class="form-label">Product Price:</label>
@@ -302,8 +330,11 @@ if(isset($_POST["saveChangesBtn"])){
                 <input type="text" id="quantityStatus" name="quantityStatus" class="form-input" placeholder="Enter quantity status" value="<?php echo $productDetails['STOCK_AVAILABLE'];?>" readonly>
             </div>
             <div class="form-row">
-                <label for="productStatus" class="form-label">Product Status:</label>
-                <input type="text" id="productStatus" name="productStatus" class="form-input" placeholder="Enter product status" value="<?php echo ($productDetails['IS_DISABLED'] == 1) ? "Enabled" : "Disabled";?>" readonly>
+            <label for="productStatus" class="form-label">Product Status:</label>
+                <select id="productStatus" name="productStatus" class="form-input">
+                    <option value="1" <?php echo ($productDetails['IS_DISABLED'] == 1) ? 'selected' : ''; ?>>Enabled</option>
+                    <option value="0" <?php echo ($productDetails['IS_DISABLED'] == 0) ? 'selected' : ''; ?>>Disabled</option>
+                </select>
             </div>
             <div class="form-row">
                 <label for="productdate" class="form-label">Product Added On:</label>
