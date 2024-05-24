@@ -17,9 +17,20 @@ if(isset($_POST["sign_in"]))
     $pass = $_POST["password"];
 
     // Prepare the SQL statement
-        $sql = "SELECT FIRST_NAME, LAST_NAME, USER_ID, USER_PASSWORD, USER_PROFILE_PICTURE, USER_TYPE
-        FROM HUDDER_USER
-        WHERE USER_EMAIL = :email";
+        $sql = "SELECT 
+        HU.FIRST_NAME, 
+        HU.LAST_NAME, 
+        HU.USER_ID, 
+        HU.USER_PASSWORD, 
+        HU.USER_PROFILE_PICTURE, 
+        HU.USER_TYPE, 
+        C.VERIFIED_CUSTOMER
+    FROM 
+        HUDDER_USER HU
+    JOIN 
+        CUSTOMER C ON HU.USER_ID = C.USER_ID
+    WHERE 
+        HU.USER_EMAIL = :email";
 
         // Prepare the OCI statement
         $stmt = oci_parse($conn, $sql);
@@ -38,7 +49,8 @@ if(isset($_POST["sign_in"]))
                 $passwords = $row['USER_PASSWORD'];
                 $profile_picture = $row['USER_PROFILE_PICTURE'];
                 $user_role = $row['USER_TYPE'];
-                if($password == $passwords && $user_role = "customer"){
+                $status = $row["VERIFIED_CUSTOMER"];
+                if($password == $passwords && $user_role = "customer" && $status == 1){
                     if($remember == 1){
                             setcookie("email",$email,time()+60*60*24*30,"/");
                             setcookie("password",$pass,time()+60*60*24*30,"/");
