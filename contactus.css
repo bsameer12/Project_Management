@@ -1,25 +1,28 @@
 body {
-    background-color: #F5F5F5; /* Slightly lighter shade for a fresh look */
+    background-color: #f8f9f7; /* Slightly lighter shade for a fresh look */
+    padding: 25px;
 }
 
 #contact-container {
-    width: 90%;
-    max-width: 600px;
-    margin: 50px auto 30px;
-    padding: 40px;
-    border: 2px solid #E0E0E0; /* Soft gray border for subtle definition */
-    border-radius: 10px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    width: 100%;  /* Use full width to maximize responsiveness */
+    max-width: 400px; /* Slightly narrower max-width for better focus on form elements */
+    margin: 50px auto 30px; /* Center the container with vertical spacing */
+    padding: 2rem; /* Uniform padding of 2rem for a balanced internal spacing */
+    border: 2px solid #D0D0D0; /* Lighter, softer border for a less intrusive appearance */
+    border-radius: 15px; /* Maintain rounded corners for a modern look */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions for interactive feedback */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff; /* White background for the form */
+    background-color: #cad4c3; /* Pure white background for contrast and clarity */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth and focus */
 }
 
+
 #contact-container:hover {
-    border-color: #0056b3; /* Darker blue for hover state */
-    background-color: #f9f9f9; /* Very light gray for a hover background */
+    border-color: #819171 
+    
 }
 
 #contact-container .form-group {
@@ -28,6 +31,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    
 }
 
 #contact-container label {
@@ -37,7 +41,7 @@ body {
     flex: 0 0 30%;
     margin-right: 10px;
     text-align: right;
-    color: #333333; /* Dark gray for text, enhancing readability */
+    color: #333333; 
 }
 
 #contact-container input[type="text"],
@@ -47,14 +51,14 @@ body {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     box-sizing: border-box;
     flex: 0 0 70%;
     background-color: #f0f0f0; /* Light gray for input fields for subtle contrast */
 }
 
 #contact-container input[type="submit"] {
-    background-color: #007bff; /* Vibrant blue for submit button */
+    background-color: #627754; /* green for submit button */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -64,5 +68,5 @@ body {
 }
 
 #contact-container input[type="submit"]:hover {
-    background-color: #0056b3; /* Darker blue when hovered for a dynamic effect */
+    background-color: #46563c; /* Darker green when hovered for a dynamic effect */
 }

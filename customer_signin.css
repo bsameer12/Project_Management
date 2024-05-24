@@ -1,86 +1,113 @@
-.sign-in-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 50px;
-    margin-bottom: 25px;
-  }
-  
-  .sign-in-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .form-group input[type="text"],
-  .form-group input[type="password"] {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-group input[type="checkbox"] {
-    display: inline-block;
-    margin-right: 5px;
-  }
-  
-  .forgot-password {
-    text-align: center;
-    font-size: 14px;
-    text-decoration: none;
-    color: #007bff;
-    display: inline-block;
-  }
-  
-  .sign-up-link {
-    color: #007bff;
-    text-decoration: none;
-    
-  }
-  
-  input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    text-align: center;
-    margin-left: 200px;
-  }
-  
-  input[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  input[type="text"]:hover,
-  input[type="password"]:hover,
-  input[type="submit"]:hover {
-    border-color: #0056b3;
-    background-color: lightgray;
-  }
-  
-  .action-links {
-    text-align: center; /* Center align the content */
-  }
-  
-  .action-links a {
-    display: inline-block; /* Ensure the elements are displayed in line */
-  }
-
-
-  .sign-in-container:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
-    border-color: blue;
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif; /* Consistent, readable font */
+  color: #333; /* Slightly softer than black for text readability */
+  line-height: 1.6; /* Improve readability with better line spacing */
+  margin: 0;
+  padding: 25px;
 }
+
+/* Sign-in Container Styles */
+.sign-in-container {
+  width: 100%;
+  max-width: 300px; /* Suitable width for login forms */
+  background: #cad4c3;
+  padding: 60px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  margin: 50px auto; /* Center the form on the page vertically and horizontally */
+  text-align: center;
+}
+
+.sign-in-container:hover {
+  background-color: #bfc9b8; /* Slightly lighter background on hover */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* More pronounced shadow on hover */
+}
+
+
+
+.sign-in-container h2 {
+  margin-bottom: 1.5rem; /* Space below the heading */
+  color: black; /* Theme color for branding */
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1rem; /* Consistent spacing between form groups */
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: .5rem; /* Small space between label and input */
+  font-weight: bold; /* Emphasis on label */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="submit"] {
+  width: 100%; /* Full width of its container */
+  padding: 10px; /* Adequate padding for touch targets */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px; /* Space below each input */
+}
+
+/* Improving the visual feedback for input interaction */
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+  border-color: #007bff; /* Highlight with a theme color when focused */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Subtle glow effect */
+}
+
+/* Styles for submit button to make it stand out */
+input[type="submit"] {
+  background-color: #627754; /* Primary button color */
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #46563c; /* Darken the button color on hover */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Raise effect with shadow */
+}
+
+/* Link and Action Styles */
+.action-links {
+  margin-top: 1.5rem; /* Increase spacing from the form for better separation */
+  font-size: 0.95rem; /* Slightly larger font size for readability */
+  text-align: center; /* Center-align links for a balanced look */
+}
+
+.action-links a {
+  color: #627754; /* Aesthetic green to match the submit button */
+  text-decoration: underline; /* No underline to keep it clean */
+  padding: 8px; /* Padding for better touch targets */
+  transition: color 0.3s ease, border-bottom 0.3s ease; /* Smooth transitions for interactions */
+}
+
+
+.action-links p {
+  margin-top: 0.5rem; /* Consistent top margin for text */
+  color: #333; /* Soft black for regular text */
+}
+
+/* Special case for the "Forgot Password?" link */
+.forgot-password {
+  display: block; /* Block display for full width and better control */
+  margin-bottom: 1rem; /* Space before the next links */
+}
+
+/* Text styling for new user and trader sign in prompts */
+.sign-up-link {
+  font-weight: bold; /* Make it bold to stand out as an important action */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #cc0000; /* Bright red color for immediate visibility */
+  font-weight: bold; /* Bold text to highlight error messages */
+}
+

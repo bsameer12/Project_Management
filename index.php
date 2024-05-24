@@ -135,7 +135,7 @@ function sanitizeInput($data) {
     $reviewId = sanitizeInput($_POST["review_id"]);
 
     // Update the review in the database
-    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 0, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
+    $updateReviewSql = "UPDATE REVIEW SET REVIEW_SCORE = :rating, FEEDBACK = :feedback, REVIEW_PROCIDED = 1, REVIEW_DATE = CURRENT_DATE WHERE REVIEW_ID = :reviewId";
 
 // Prepare the OCI statement
 $updateReviewStmt = oci_parse($conn, $updateReviewSql);
@@ -171,7 +171,7 @@ oci_free_statement($updateReviewStmt);
 $products = [];
 
 // SQL query to select products
-$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 1";
+$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 0";
 
 // Prepare the OCI statement
 $selectProductsStmt = oci_parse($conn, $selectProductsSql);
@@ -210,7 +210,7 @@ review r ON p.PRODUCT_ID = r.PRODUCT_ID
 LEFT JOIN 
 discount d ON p.PRODUCT_ID = d.PRODUCT_ID
 WHERE 
-p.IS_DISABLED = 1
+p.IS_DISABLED = 0
 GROUP BY 
 p.PRODUCT_ID, 
 p.PRODUCT_NAME, 
@@ -236,12 +236,12 @@ while ($row = oci_fetch_assoc($stmt)) {
 // Free statement resources
 oci_free_statement($stmt);
 
-// Randomly select 6 products from the array
+//Randomly select 6 products from the array
 $selected_indices = array_rand($products_review, min(6, count($products_review)));
 
-// Ensure $selected_indices is an array if only one product is returned
+ //Ensure $selected_indices is an array if only one product is returned
 if (!is_array($selected_indices)) {
-    $selected_indices = array($selected_indices);
+   $selected_indices = array($selected_indices);
 }
 
 
@@ -256,7 +256,7 @@ $sql = "SELECT
         JOIN 
             HUDDER_USER h ON r.USER_ID = h.USER_ID 
         WHERE 
-            r.REVIEW_PROCIDED = 0";
+            r.REVIEW_PROCIDED = 1";
 // Parse the SQL statement
 $stmt = oci_parse($conn, $sql);
 
@@ -330,30 +330,21 @@ oci_close($conn);
     ?>
     
     <!-- Slider Section -->
-    <section class="home" id="home"  style="overflow-x: hidden;">
+    <section class="home" id="home"  style="overflow-x: hidden; width:100%; margin-left: auto; margin-right:auto;">
         <div class="swiper-container home-slider">
             <div class="swiper-wrapper">
                 <!-- First slide -->
-                <?php
-                    // Check if there are products available
-                    foreach ($products as $product) {
-                        // Extract product details
-                        $productId = $product['PRODUCT_ID'];
-                        $productName = $product['PRODUCT_NAME'];
-                        $productDescription = $product['PRODUCT_DESCRIPTION'];
-                        $productPicture = $product['PRODUCT_PICTURE'];
-            ?>
-                <div class="swiper-slide slide" style="background-image: url('product_image/<?php echo $productPicture; ?>');">
-                    <div class="content">
-                        <h3><?php echo $productName; ?></h3>
-                        <p><?php echo $productDescription; ?></p>
-                        <button class="btn" onclick="addToCart(<?php echo $productId; ?>, <?php echo $user_id; ?>, '<?php echo $searchText; ?>')">Add to Cart</button>
-                    </div>
-                </div>
-                <?php
-                    }
-                    ?>
                 
+                <div class="swiper-slide slide" style="background-image: url('deli.jpeg');">
+            </div>
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+</div>
+<div class="swiper-wrapper">
+                <!-- First slide -->
+                
+                <div class="swiper-slide slide" style="background-image: url('green.png');">
             </div>
             <!-- Pagination -->
             <div class="swiper-pagination"></div>
@@ -431,7 +422,7 @@ oci_close($conn);
 
     <section class="dishes" id="dishes">
     <!-- heading context section  -->
-    <h1 class="heading"> Features Products </h1>
+    <h1 class="heading"> Just In Season </h1>
     <div class="product-card-container">
     <?php foreach ($selected_indices as $index): ?>
             <?php $product = $products_review[$index]; ?>
@@ -489,10 +480,10 @@ oci_close($conn);
         <div class="swiper-container home-slider">
             <div class="swiper-wrapper">
                 <!-- First slide -->
-                <div class="swiper-slide slide" style="background-image: url('caviber_image.jpg');">
+                <div class="swiper-slide slide" style="background-image: url('grocer_banner.jpeg');">
                 </div>
                 <!-- Second slide -->
-                <div class="swiper-slide slide" style="background-image: url('chese_image.jpg');">
+                <div class="swiper-slide slide" style="background-image: url('charcuterie_banner.jpg');">
                 </div>
             </div>
             </div>
@@ -504,8 +495,8 @@ oci_close($conn);
     <!-- review section starts here -->
 <section class="review" id="review" style="overflow-x: hidden;">
      <!-- Adding heading to section  -->
-    <h3 class="sub-heading"> customer's review </h3>
-    <h1 class="heading"> what they say </h1>
+    <h3 class="sub-heading"> Customer's Review </h3>
+    <h1 class="heading"> What they say?</h1>
     <div class="swiper-container review-slider">
 
         <div class="swiper-wrapper">

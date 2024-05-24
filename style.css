@@ -1,15 +1,14 @@
 
-body{
-    background-color: #F5F5DC ;
-}
-
 
 .home {
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  background-image: url(backgroundimage.png);
+  width: 100%;
+
 }
 
 .swiper-slide {
-  width: 100%; /* Ensure each slide takes up the full width of the container */
+  width: 60%; /* Ensure each slide takes up the full width of the container */
 }
 
 .home{
@@ -18,10 +17,12 @@ body{
   margin-left: 5px;
   margin-right: 5px;
 }
+
+
 /* Define attributes for slider image section */
 .home .home-slider .slide {
   position: relative;
-  height: 650px; /* Adjust height as needed */
+  height: 400px; /* Adjust height as needed */
   width: 100%;
   background-size:cover;
   background-position: center;
@@ -82,6 +83,7 @@ body{
     background-position:center;
     position: relative;
   }
+  
   .swiper-pagination {
     display: none;
     text-align: left;
@@ -290,6 +292,7 @@ img {
   border-left: 2px solid black;
   border-right: 2px solid black;
   border-radius: 55px;
+  background-color: #f4e0a8;
 }
 
 .bar {
@@ -564,7 +567,7 @@ textarea {
 }
 
 .wishlist-btn {
-  color: #ff6f61;
+  color: black;
   font-size: 1.5em;
   transition: color 0.3s;
   flex: 0 0 auto;

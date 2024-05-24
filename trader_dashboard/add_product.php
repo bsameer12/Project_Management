@@ -93,10 +93,6 @@ if(isset($_POST["saveChangesBtn"])){
 
          // validate product category
          $category_error = "";
-         if(validateCategory($category) === "false"){
-            $category_error = "Please Select your category  Correctly.";
-            $input_validation_passed = false;
-         }
 
          $profile_upload_error="";
          require("../input_validation/image_upload.php");

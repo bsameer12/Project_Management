@@ -1,41 +1,56 @@
 /* Reset some default browser styles */
+
 body, ul {
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif; /* Consistent font family */
 }
 
 
 .container {
     display: flex;
+    border-radius: 15px;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: linear-gradient(45deg, #533527, #0B3005); /* Gradient background */
-    color: #faf8e2; /* Light text color */
+    padding: 1rem 2rem; /* Maintain good horizontal padding */
+    background-color: #DFE6DA; /* Crisp white background for a clean look */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Soft shadow to lift the navbar off the page */
+    border-bottom: 1px solid #e0e0e0; /* Subtle border to define the lower edge */
+    transition: all 0.3s ease; /* Smooth transition for hover effects and resizing */
 }
 
 .logo img {
-    height: 80px; /* Adjust height for better balance */
-    width: auto; /* Maintain aspect ratio */
+    height: 90px; /* Adjust height as needed */
+    width: 90px; /* Allow the width to adjust automatically */
 }
 
 .nav-links ul {
     list-style: none;
     display: flex;
+    font: bold;
+}
+
+
+.nav-links li:hover {
+    background-color: #9CAF88; /* Light green for hover background */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    transform: translateY(-3px); /* Lift the item slightly on hover for a subtle 3D effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+}
+
+.nav-links ul li a {
+    text-decoration: none;
+    color: #333;
     font-weight: bold;
+    padding: 10px 15px; /* Padding for better click area */
+    border-radius: 5px; /* Rounded corners for aesthetic look */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions for color and transform */
+
 }
 
-.nav-links ul li:hover {
-    background-color: #533527; /* Darker accent color on hover */
-    transition: background-color 0.3s ease; /* Smooth transition */
-}
-
-.nav-links ul li a:hover {
-    color: #f4e0a8; /* Light accent color on hover */
-}
 
 .nav-links li {
-    margin-right: 1.5rem;
+    margin-right: 1rem;
 }
 
 .nav-links li:last-child {
@@ -44,13 +59,14 @@ body, ul {
 
 .nav-links li a {
     text-decoration: none;
-    color: #faf8e2; /* Light text color */
-    font-weight: bold;
+    color: #333; /* Change color to match your design */
+    font: bold;
 }
 
 .search {
     display: flex;
     align-items: center;
+
 }
 
 .search form {
@@ -61,38 +77,67 @@ body, ul {
 .search input[type="text"] {
     flex-grow: 1;
     padding: 0.5rem;
-    border: 1px solid #533527;
-    border-radius: 4px 0 0 4px; /* Rounded corners for left side */
-    border-right: none; /* Remove right border */
-    background-color: #faf8e2; /* Light background for input */
-    color: #0B3005; /* Dark text color */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s ease-in-out; /* Smooth transition for border color */
 }
 
 .search input[type="submit"] {
     padding: 0.5rem 1rem;
-    background-color: #8e7034;
-    color: #faf8e2; /* Light text color */
+    background: linear-gradient(180deg, #DFE6DA, #758467); /* Subtle gradient from lighter to darker blue */
+    color: black;
+    font-weight: bold; /* Make the text bold for better visibility */
+    text-transform: uppercase; /* Capitalize button text for more professional look */
+    letter-spacing: 0.05em; /* Increase letter spacing for readability */
     border: none;
-    border-radius: 0 4px 4px 0; /* Rounded corners for right side */
+    border-radius: 10px;
     cursor: pointer;
-    margin-left: -1px; /* Remove gap between inputs */
+    margin-left: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for 3D effect */
+    transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
 }
+
+.search input[type="submit"]:hover {
+    background: linear-gradient(180deg, #CBD5C0, #758467); /* Darker gradient on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover for a "lifting" effect */
+}
+
+.search input[type="text"]:focus {
+    border-color: #0056b3; /* Highlight input border when focused */
+}
+
 
 .icons {
     display: flex;
-    align-items: center;
-}
-
-.icon:hover {
-    background-color: #533527; /* Darker accent color on hover */
-    color: #faf8e2; /* Light text color on hover */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    align-items: center;  /* Align icons vertically in the middle */
+    justify-content: center; /* Center icons if they are the only elements */
 }
 
 .icon {
     cursor: pointer;
-    margin-right: 1rem;
+    margin-right: 1rem; /* Spacing between icons */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions for interaction */
 }
+
+.icon:last-child {
+    margin-right: 0; /* No margin on the last icon */
+}
+
+.icon i {
+    font-size: 20px; /* Appropriate size for icons */
+    color: #555; /* Professional, subdued color */
+    transition: color 0.2s ease-in-out; /* Smooth color transition */
+}
+
+.icon:hover i,
+.icon:focus i {
+    color: #007bff; /* Highlight color on hover/focus */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+
+
 
 .menu-toggle {
     display: none; /* Hidden by default */
@@ -104,13 +149,10 @@ body, ul {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #0B3005; /* Dark background color */
+    background-color: #f8f9fa; /* Light background color */
     padding: 0.5rem;
     width: 100%;
-    color: #faf8e2; /* Light text color */
 }
-
-
 /* Media queries for responsiveness */
 @media only screen and (max-width: 768px) {
     .container {
@@ -136,7 +178,7 @@ body, ul {
     .menu-toggle {
         display: block; /* Show menu toggle icon for mobile devices */
         font-size: 1.5rem;
-        color: #faf8e2;/* Change color to match your design */
+        color: #333; /* Change color to match your design */
         order: 4; /* Move menu toggle icon after icons for mobile devices */
         margin-top: 1rem; /* Adjust spacing */
         z-index: 10000;
@@ -163,15 +205,15 @@ body, ul {
 
     .submenu ul li a {
         text-decoration: none;
-        color: #faf8e2; /* Change color to match your design */
+        color: #333; /* Change color to match your design */
     }
 
     .submenu ul li:hover {
-        background-color: #533527; /* Light blue background color on hover */
+        background-color: #f0f8ff; /* Light blue background color on hover */
     }
 
     .submenu ul li.active {
-        background-color: #8e7034; /* Light blue background color for selected page */
+        background-color: #add8e6; /* Light blue background color for selected page */
         font-weight: bold; /* Bold font for selected page */
     }
 
@@ -183,7 +225,7 @@ body, ul {
 }
 
 .submenu ul li.highlight {
-    background-color: #8e7034; /* Light blue background color for highlighted page */
+    background-color: #add8e6; /* Light blue background color for highlighted page */
     font-weight: bold; /* Bold font for highlighted page */
 }
 
@@ -230,7 +272,7 @@ body, ul {
 
 .submenu-profile ul li a {
     text-decoration: none;
-    color: #0B3005; /* Dark text color */
+    color: #333;
     display: block;
 }
 
@@ -242,14 +284,14 @@ body, ul {
 
 /* Hover effect for submenu items */
 .submenu-profile ul li:hover {
-    background-color: #8e7034; /* Light blue background color on hover */
+    background-color: #add8e6; /* Light blue background color on hover */
 }
 
 /* Hover effect for submenu item text */
 .submenu-profile ul li:hover a {
-    color: #faf8e2; /* Blue text color on hover */
+    color: #007bff; /* Blue text color on hover */
 }
 
 .icons .icon i {
-    color: #faf8e2; /* Change the color to black */
+    color: black; /* Change the color to black */
   }
