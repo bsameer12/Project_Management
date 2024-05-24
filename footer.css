@@ -1,11 +1,12 @@
+/* Footer Styles */
 footer {
-    bottom: 0;
-    left: 0;
     width: 100%;
-    background-color: #f8f9fa;
+    background: linear-gradient(45deg, #0B3005, #533527); /* Gradient background to match navbar */
     padding: 20px 0;
     text-align: center;
+    color: #faf8e2; /* Light text color */
     margin-top: 20px;
+    font-weight: bold;
 }
 
 .back-to-top-container {
@@ -16,19 +17,23 @@ footer {
 
 .back-to-top-text {
     font-weight: bold;
-    margin-bottom: 10px;
     margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    color: black; /* Light text color */
 }
 
 .back-to-top button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #8e7034; /* Match button color with navbar */
+    color: #faf8e2; /* Light text color */
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.back-to-top button:hover {
+    background-color: #533527; /* Darker accent color on hover */
 }
 
 .footer-links {
@@ -53,7 +58,12 @@ footer {
 
 .footer-links ul li a {
     text-decoration: none;
-    color: #333;
+    color: #faf8e2; /* Light text color */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.footer-links ul li a:hover {
+    color: #f4e0a8; /* Light accent color on hover */
 }
 
 .social-icons {
@@ -64,30 +74,31 @@ footer {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #8e7034; /* Match icon background color with navbar */
+    color: #faf8e2; /* Light text color */
     border-radius: 50%;
     margin-right: 10px;
     line-height: 40px;
     text-align: center;
     text-decoration: none;
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
-.social-icons a:last-child {
-    margin-right: 0;
+.social-icons a:hover {
+    background-color: #533527; /* Darker accent color on hover */
 }
 
 .social-icons i {
     font-size: 20px;
 }
 
-.copyright {
-    color: #333;
-}
-
 .line {
     width: 80%;
     border: none;
-    border-top: 2px solid black;
+    border-top: 2px solid black; /* Light border color */
     margin-bottom: 10px;
+}
+
+.copyright {
+    color: #faf8e2; /* Light text color */
 }

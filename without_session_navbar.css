@@ -9,31 +9,32 @@ body, ul {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #f8f9fa; /* Light background color */
+    background: linear-gradient(45deg, #533527, #0B3005); /* Gradient background */
+    color: #faf8e2; /* Light text color */
 }
 
 .logo img {
-    height: 90px; /* Adjust height as needed */
-    width: 90px; /* Allow the width to adjust automatically */
+    height: 80px; /* Adjust height for better balance */
+    width: auto; /* Maintain aspect ratio */
 }
 
 .nav-links ul {
     list-style: none;
     display: flex;
-    font: bold;
+    font-weight: bold;
 }
 
 .nav-links ul li:hover {
-    background-color: #f0f8ff; /* Light blue background color on hover */
-    font: bold;
+    background-color: #533527; /* Darker accent color on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 .nav-links ul li a:hover {
-    color: #007bff; /* Change text color on hover */
+    color: #f4e0a8; /* Light accent color on hover */
 }
 
 .nav-links li {
-    margin-right: 1rem;
+    margin-right: 1.5rem;
 }
 
 .nav-links li:last-child {
@@ -42,8 +43,8 @@ body, ul {
 
 .nav-links li a {
     text-decoration: none;
-    color: #333; /* Change color to match your design */
-    font: bold;
+    color: #faf8e2; /* Light text color */
+    font-weight: bold;
 }
 
 .search {
@@ -59,18 +60,21 @@ body, ul {
 .search input[type="text"] {
     flex-grow: 1;
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #533527;
+    border-radius: 4px 0 0 4px; /* Rounded corners for left side */
+    border-right: none; /* Remove right border */
+    background-color: #faf8e2; /* Light background for input */
+    color: #0B3005; /* Dark text color */
 }
 
 .search input[type="submit"] {
     padding: 0.5rem 1rem;
-    background-color: #3276be;
-    color: #000000;
+    background-color: #8e7034;
+    color: #faf8e2; /* Light text color */
     border: none;
-    border-radius: 4px;
+    border-radius: 0 4px 4px 0; /* Rounded corners for right side */
     cursor: pointer;
-    margin-left: 0.5rem; /* Add margin to separate the button from the input text */
+    margin-left: -1px; /* Remove gap between inputs */
 }
 
 .icons {
@@ -78,9 +82,10 @@ body, ul {
     align-items: center;
 }
 
-.icon:hover{
-    background-color: #f0f8ff; /* Light blue background color on hover */
-    color: #007bff; /* Change text color on hover */
+.icon:hover {
+    background-color: #533527; /* Darker accent color on hover */
+    color: #faf8e2; /* Light text color on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 .icon {
@@ -98,10 +103,13 @@ body, ul {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #f8f9fa; /* Light background color */
+    background-color: #0B3005; /* Dark background color */
     padding: 0.5rem;
     width: 100%;
+    color: #faf8e2; /* Light text color */
 }
+
+
 /* Media queries for responsiveness */
 @media only screen and (max-width: 768px) {
     .container {
@@ -127,7 +135,7 @@ body, ul {
     .menu-toggle {
         display: block; /* Show menu toggle icon for mobile devices */
         font-size: 1.5rem;
-        color: #333; /* Change color to match your design */
+        color: #faf8e2;/* Change color to match your design */
         order: 4; /* Move menu toggle icon after icons for mobile devices */
         margin-top: 1rem; /* Adjust spacing */
         z-index: 10000;
@@ -154,15 +162,15 @@ body, ul {
 
     .submenu ul li a {
         text-decoration: none;
-        color: #333; /* Change color to match your design */
+        color: #faf8e2; /* Change color to match your design */
     }
 
     .submenu ul li:hover {
-        background-color: #f0f8ff; /* Light blue background color on hover */
+        background-color: #533527; /* Light blue background color on hover */
     }
 
     .submenu ul li.active {
-        background-color: #add8e6; /* Light blue background color for selected page */
+        background-color: #8e7034; /* Light blue background color for selected page */
         font-weight: bold; /* Bold font for selected page */
     }
 
@@ -174,7 +182,7 @@ body, ul {
 }
 
 .submenu ul li.highlight {
-    background-color: #add8e6; /* Light blue background color for highlighted page */
+    background-color: #8e7034; /* Light blue background color for highlighted page */
     font-weight: bold; /* Bold font for highlighted page */
 }
 
@@ -221,7 +229,7 @@ body, ul {
 
 .submenu-profile ul li a {
     text-decoration: none;
-    color: #333;
+    color: #0B3005; /* Dark text color */
     display: block;
 }
 
@@ -233,14 +241,14 @@ body, ul {
 
 /* Hover effect for submenu items */
 .submenu-profile ul li:hover {
-    background-color: #add8e6; /* Light blue background color on hover */
+    background-color: #8e7034; /* Light blue background color on hover */
 }
 
 /* Hover effect for submenu item text */
 .submenu-profile ul li:hover a {
-    color: #007bff; /* Blue text color on hover */
+    color: #faf8e2; /* Blue text color on hover */
 }
 
 .icons .icon i {
-    color: black; /* Change the color to black */
+    color: #faf8e2; /* Change the color to black */
   }
