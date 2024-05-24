@@ -54,7 +54,7 @@ if($user_id > 0){
 $reviews = [];
 
 // SQL query to select REVIEW_ID, PRODUCT_ID
-$selectReviewSql = "SELECT REVIEW_ID, PRODUCT_ID FROM REVIEW WHERE REVIEW_PROCIDED = 1 AND USER_ID = :customerId";
+$selectReviewSql = "SELECT REVIEW_ID, PRODUCT_ID FROM REVIEW WHERE REVIEW_PROCIDED = 0 AND USER_ID = :customerId";
 
 // Prepare the OCI statement
 $selectReviewStmt = oci_parse($conn, $selectReviewSql);

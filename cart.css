@@ -1,4 +1,7 @@
-/* Flex container for the sections */
+body{
+    padding: 20px;
+}
+    /* Flex container for the sections */
 .container_cat {
     display: flex;
     justify-content: space-between; /* Spacing between sections */
@@ -11,7 +14,7 @@
 
 /* Styles specific to the cart section */
 .cart-section {
-    background-color: #f0f0f0; /* Grey background color */
+    background-color: #dfe5db; /* Grey background color */
     width: calc(50% - 10px); /* Set width for the cart container */
     /* Subtracting 10px for the margin to create some space between the sections */
     margin-right: 10px; /* Add some space between the sections */
@@ -19,7 +22,7 @@
 
 /* Styles specific to the summary section */
 .summary-section {
-    background-color: #f0f0f0; /* Grey background color */
+    background-color: #dfe5db;/* Grey background color */
     width: calc(50% - 10px); /* Set width for the summary container */
     /* Subtracting 10px for the margin to create some space between the sections */
     margin-left: 10px; /* Add some space between the sections */
@@ -229,7 +232,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff; /* Blue color */
+    background-color: #627754; /* Blue color */
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -237,7 +240,7 @@
 
 /* Hover effect */
 .summary-section button[type="submit"]:hover {
-    background-color: #0056b3; /* Darker shade of blue on hover */
+    background-color: #46563c; /* Darker shade of blue on hover */
 }
 
 /* Styles for the cart heading */
