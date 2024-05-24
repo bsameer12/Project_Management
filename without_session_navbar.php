@@ -1,4 +1,54 @@
  <?php
+ include("connection/connection.php");
+ require("PHPMailer-master/trader_verify_email.php");
+ 
+ $query = '
+     SELECT 
+         TRADER.TRADER_ID, 
+         TRADER.SHOP_NAME, 
+         TRADER.TRADER_TYPE, 
+         HUDDER_USER.FIRST_NAME || \' \' || HUDDER_USER.LAST_NAME AS NAME, 
+         HUDDER_USER.USER_EMAIL,
+         PRODUCT_CATEGORY.CATEGORY_TYPE,
+         SHOP.SHOP_ID
+     FROM 
+         TRADER
+     JOIN 
+         HUDDER_USER ON TRADER.USER_ID = HUDDER_USER.USER_ID
+     JOIN 
+         PRODUCT_CATEGORY ON TRADER.TRADER_TYPE = PRODUCT_CATEGORY.CATEGORY_ID
+     JOIN 
+         SHOP ON TRADER.USER_ID = SHOP.USER_ID
+     WHERE 
+         TRADER.VERIFICATION_STATUS = 1 
+         AND TRADER.VERFIED_ADMIN = 1 
+         AND TRADER.VERIFICATION_SEND = 0';
+ 
+ $stid = oci_parse($conn, $query);
+ if (!$stid) {
+     $e = oci_error($conn);
+     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+ }
+ 
+ oci_execute($stid);
+ 
+ while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+     $trader_id = $row['TRADER_ID'];
+     $shop_name = $row['SHOP_NAME'];
+     $trader_type = $row['TRADER_TYPE'];
+     $name = $row['NAME'];
+     $user_email = $row['USER_EMAIL'];
+     $shop_category = $row['CATEGORY_TYPE'];
+     $shop_id = $row['SHOP_ID'];
+ 
+     // Send the approval email
+     sendApprovalEmail($user_email, $name, $shop_id, $trader_id, $shop_name, $shop_category);
+ }
+ 
+ oci_free_statement($stid);
+ oci_close($conn);
+
+
  if(isset($_POST["search"])){
      // Input Sanizatization 
      require("input_validation\input_sanitization.php");

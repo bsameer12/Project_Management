@@ -308,7 +308,22 @@ if(isset($_POST["submit_product"])){
             <?php
                 include("../connection/connection.php");
                     // If sort option is not set, fetch data without sorting
-                    $sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_QUANTITY, IS_DISABLED, CATEGORY_ID, PRODUCT_PICTURE FROM product Where USER_ID = :userID ";
+                    $sql = "SELECT 
+                                P.PRODUCT_ID, 
+                                P.PRODUCT_NAME, 
+                                P.PRODUCT_DESCRIPTION, 
+                                P.PRODUCT_PRICE, 
+                                P.PRODUCT_QUANTITY, 
+                                P.IS_DISABLED, 
+                                P.CATEGORY_ID, 
+                                P.PRODUCT_PICTURE, 
+                                PC.CATEGORY_TYPE
+                            FROM 
+                                product P
+                            JOIN 
+                                PRODUCT_CATEGORY PC ON P.CATEGORY_ID = PC.CATEGORY_ID
+                            WHERE 
+                                P.USER_ID = :userID";
                 // Parse the SQL statement
                 $stmt = oci_parse($conn, $sql);
 
@@ -324,12 +339,12 @@ if(isset($_POST["submit_product"])){
                         echo "<td>" . $row['PRODUCT_ID'] . " </td>";
                         echo "<td><img src='../product_image/" . $row['PRODUCT_PICTURE'] ."' alt='Product Image' style='width:50px;height:50px;'></td>";
                         echo "<td>" . $row['PRODUCT_NAME'] . " </td>";
-                        echo "<td>" . $row['CATEGORY_ID'] . "</td>";
+                        echo "<td>" . $row['CATEGORY_TYPE'] . "</td>";
                         echo "<td>" . $row['PRODUCT_PRICE'] . "</td>";
                         echo "<td>" . $row['PRODUCT_QUANTITY'] . "</td>";
-                        echo "<td>" . ($row['IS_DISABLED'] == 0 ? 'Enabled' : 'Disabled') . "</td>";
+                        echo "<td>" . ($row['IS_DISABLED'] == 1 ? 'Enabled' : 'Disabled') . "</td>";
                         echo "<td>" . $row['PRODUCT_DESCRIPTION'] . "</td>";
-                        echo "<td> <a href=trader_product_view.php?id=". $row['PRODUCT_ID'] . "&userid=" . $user_id . "&action=edit> Edit </a> | <a href=deleteproduct.php?id=" . $row['PRODUCT_ID'] . "&action=delete> Delete </a> </td>";
+                        echo "<td> <a href=trader_product_view.php?id=". $row['PRODUCT_ID'] . "&userid=" . $user_id . "&action=edit> Edit </a>";
                         echo "</tr>";
                 }
                 // Free statement resources

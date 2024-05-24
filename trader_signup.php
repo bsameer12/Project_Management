@@ -103,6 +103,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             $input_validation_passed = false;
         }
 
+        // Validate category
+        $category_error = "";
 
         // Validate last name
         $last_name_error = "";
@@ -208,8 +210,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
         $verification_code = generateRandomCode();
         if ($input_validation_passed) {
             // Prepare the SQL statement for user insertion
-            $sql_insert_user = "INSERT INTO HUDDER_USER (first_name, last_name, user_address, user_email, user_gender, user_password, USER_PROFILE_PICTURE, user_type, user_contact_no, USER_AGE)
-                                VALUES (:first_name, :last_name, :user_address, :user_email, :user_gender, :user_password, :USER_PROFILE_PICTURE, 'trader', :user_contact_no, :user_age)";
+            $sql_insert_user = "INSERT INTO HUDDER_USER (first_name, last_name, user_address, user_email, user_gender, user_password, USER_PROFILE_PICTURE, user_type, user_contact_no, USER_AGE, USER_DOB)
+                                VALUES (:first_name, :last_name, :user_address, :user_email, :user_gender, :user_password, :USER_PROFILE_PICTURE, 'trader', :user_contact_no, :user_age, TO_DATE(:dob, 'YYYY-MM-DD'))";
             $stmt_insert_user = oci_parse($conn, $sql_insert_user);
         
             // Bind parameters
@@ -222,6 +224,7 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             oci_bind_by_name($stmt_insert_user, ':USER_PROFILE_PICTURE', $newFileName);
             oci_bind_by_name($stmt_insert_user, ':user_contact_no', $contact_number);
             oci_bind_by_name($stmt_insert_user, ':user_age', $age);
+            oci_bind_by_name($stmt_insert_user, ':dob', $dob);
         
             // Execute the SQL statement
             if (!oci_execute($stmt_insert_user)) {
@@ -245,12 +248,15 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
                 $user_id = $row['USER_ID'];
             } 
 
+            $trader_admin_ver = 0;
+            $trader_mail_sen = 0;
+
 
             // Prepare the SQL statement
             $sql = "INSERT INTO TRADER 
-                    (SHOP_NAME, VERIFICATION_CODE, TRADER_TYPE, VERIFICATION_STATUS, USER_ID, PROFILE_PICTURE) 
+                    (SHOP_NAME, VERIFICATION_CODE, TRADER_TYPE, VERIFICATION_STATUS, USER_ID, PROFILE_PICTURE, VERFIED_ADMIN, VERIFICATION_SEND) 
                     VALUES 
-                    (:shop_name, :verification_code, :trader_type, :verified_customer, :user_id, :profile_picture)";
+                    (:shop_name, :verification_code, :trader_type, :verified_customer, :user_id, :profile_picture, :ver_ad, :ver_sed)";
 
             // Prepare the OCI statement
             $stmt = oci_parse($conn, $sql);
@@ -265,13 +271,15 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
             oci_bind_by_name($stmt, ':verified_customer', $verified_customer);
             oci_bind_by_name($stmt, ':user_id', $user_id);
             oci_bind_by_name($stmt, ':profile_picture', $newFileName);
+            oci_bind_by_name($stmt, ':ver_ad', $trader_admin_ver);
+            oci_bind_by_name($stmt, ':ver_sed', $trader_mail_sen);
 
             // Execute the statement
             if (oci_execute($stmt)) {
                 $verified_shop = 0;
                     // Prepare the SQL statement for inserting into the SHOP table
-                    $sql_insert_shop = "INSERT INTO SHOP (SHOP_NAME, SHOP_DESCRIPTION, USER_ID, VERIFIED_SHOP, SHOP_PROFILE)
-                                        VALUES (:shop_name, :shop_description, :user_id, :verified_shop, :shop_profile)";
+                    $sql_insert_shop = "INSERT INTO SHOP (SHOP_NAME, SHOP_DESCRIPTION, USER_ID, VERIFIED_SHOP, SHOP_PROFILE, REGISTRATION_NO, SHOP_CATEGORY_ID)
+                                        VALUES (:shop_name, :shop_description, :user_id, :verified_shop, :shop_profile, :reg_no, :cat)";
 
                     // Prepare the OCI statement
                     $stmt_insert_shop = oci_parse($conn, $sql_insert_shop);
@@ -282,6 +290,8 @@ if(isset($_POST["submit_sign_up"]) && isset($_POST["terms"]))
                     oci_bind_by_name($stmt_insert_shop, ':user_id', $user_id);
                     oci_bind_by_name($stmt_insert_shop, ':verified_shop', $verified_shop);
                     oci_bind_by_name($stmt_insert_shop, ':shop_profile', $newFileName_shop);
+                    oci_bind_by_name($stmt_insert_shop, ':reg_no', $company_no);
+                    oci_bind_by_name($stmt_insert_shop, ':cat', $category);
 
                     // Execute the SQL statement
                     if (!oci_execute($stmt_insert_shop)) {

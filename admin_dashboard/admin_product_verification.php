@@ -59,9 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['verifyForm'])) {
 }
 
 // Fetch product details
-$sql = "SELECT P.*, U.FIRST_NAME || ' ' || U.LAST_NAME AS NAME 
-        FROM PRODUCT P
-        JOIN HUDDER_USER U ON P.USER_ID = U.USER_ID";
+$sql = "SELECT P.*, U.FIRST_NAME || ' ' || U.LAST_NAME AS NAME
+FROM PRODUCT P
+JOIN HUDDER_USER U ON P.USER_ID = U.USER_ID
+WHERE P.ADMIN_VERIFIED = 0";
 
 $stmt = oci_parse($conn, $sql);
 oci_execute($stmt);

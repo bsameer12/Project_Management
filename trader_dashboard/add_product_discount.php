@@ -81,12 +81,6 @@ if (isset($_POST["saveChangesBtn"])) {
         $input_validation_passed = false;
     }
 
-    // validate product category
-    $category_error = "";
-    if (validateCategory($product_id) === "false") {
-        $category_error = "Please Select your category correctly.";
-        $input_validation_passed = false;
-    }
 
     // Validate Company Registration Number
     $quantity_error = "";

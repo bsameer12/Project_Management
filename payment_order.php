@@ -120,8 +120,12 @@ if ($insertSuccess) {
     }
 
     // Send the order confirmation email
-    require("PHPMailer-master/customer_email_invoice.php");
+    require_once("PHPMailer-master/customer_email_invoice.php");
     sendOrderConfirmationEmail($email, $orderId, $total_price, $no_product, $pickup_date, $time, $location);
+
+    //send the invoice through email
+    require_once("PHPMailer-master/invoice_email.php");
+    sendInvoiceEmail($orderId,$userId);
 
     // Close the connection
     oci_close($conn);

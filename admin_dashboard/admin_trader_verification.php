@@ -2,12 +2,11 @@
  include("admin_session.php");
 include("../connection/connection.php");
 
-
 // Fetch data from both tables
 $sql = "SELECT T.USER_ID, T.TRADER_ID, T.VERFIED_ADMIN, T.VERIFICATION_SEND, S.SHOP_NAME, S.SHOP_PROFILE, S.VERIFIED_SHOP, S.REGISTRATION_NO, S.SHOP_DESCRIPTION, S.SHOP_CATEGORY_ID 
         FROM trader T
         JOIN shop S ON T.USER_ID = S.USER_ID
-        WHERE T.VERFIED_ADMIN = 0";
+        WHERE T.VERFIED_ADMIN = 0 AND T.VERIFICATION_SEND = 0";
 
 $stmt = oci_parse($conn, $sql);
 oci_execute($stmt);
@@ -63,11 +62,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['verifyForm'])) {
 
     // Redirect back to the same page after updating
     // Query to fetch USER_EMAIL, FIRST_NAME, and LAST_NAME based on TRADER_ID
-        $sql = "SELECT U.USER_EMAIL, U.FIRST_NAME, U.LAST_NAME, T.TRADER_TYPE, T.SHOP_NAME, S.SHOP_ID
-        FROM TRADER T
-        JOIN HUDDER_USER U ON T.USER_ID = U.USER_ID
-        JOIN SHOP S ON T.USER_ID = S.USER_ID
-        WHERE T.TRADER_ID = :trader_id";
+        $sql = "SELECT 
+        U.USER_EMAIL, 
+        U.FIRST_NAME, 
+        U.LAST_NAME, 
+        T.TRADER_TYPE, 
+        T.SHOP_NAME, 
+        S.SHOP_ID,
+        PC.CATEGORY_TYPE
+    FROM 
+        TRADER T
+    JOIN 
+        HUDDER_USER U ON T.USER_ID = U.USER_ID
+    JOIN 
+        SHOP S ON T.USER_ID = S.USER_ID
+    JOIN 
+        PRODUCT_CATEGORY PC ON PC.CATEGORY_ID = T.TRADER_TYPE
+    WHERE 
+        T.TRADER_ID = :trader_id
+    ";
 
 
             // Prepare the statement
@@ -89,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['verifyForm'])) {
             $first_name = $row['FIRST_NAME'];
             $last_name = $row['LAST_NAME'];
             $shop_name = $row['SHOP_NAME'];
-            $shop_category = $row['TRADER_TYPE'];
+            $shop_category = $row['CATEGORY_TYPE'];
             $shop_id = $row['SHOP_ID'];
             require("../PHPMailer-master/trader_verify_email.php");
             $name = $first_name . " " . $last_name;

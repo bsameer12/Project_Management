@@ -1,5 +1,4 @@
 <?php
-include("admin_session.php");
 include("../connection/connection.php");
 
 // Get the user_id from the URL
@@ -7,7 +6,7 @@ $user_id = $_GET['id'] ?? null;
 
 
 // Prepare the SQL statement
-$sql = "DELETE FROM hudder_user WHERE user_id = :user_id";
+$sql = "DELETE FROM DISCOUNT WHERE DISCOUNT_ID = :user_id";
 
 // Parse the SQL
 $statement = oci_parse($conn, $sql);
@@ -35,5 +34,5 @@ oci_commit($conn);
 oci_free_statement($statement);
 oci_close($conn);
 
-header("Location: admin_customer.php");
+header("Location: trader_discount.php");
 ?>
