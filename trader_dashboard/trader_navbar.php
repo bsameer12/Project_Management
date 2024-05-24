@@ -9,7 +9,7 @@
         <ul>
         <li><a href="trader_profile.php"><i class="fas fa-user"></i> Profile</a></li>
         <li><a href="trader_change_password.php"><i class="fas fa-lock"></i> Change Password</a></li>
-        <li><a href="../session/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <li><a href="trader_logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
       </div>
     </div>
@@ -24,7 +24,7 @@
     <button class="navbar-button" onclick="window.location.href='trader_order.php' ; return false;"><i class="fas fa-clipboard-list"></i> <span class="button-text">Orders</span></button>
     <button class="navbar-button" onclick="window.location.href='trader_sales_report.php' ; return false;"><i class="fas fa-chart-line"></i> <span class="button-text">Sales Report</span></button>
     <button class="navbar-button" onclick="window.location.href='trader_shop.php' ; return false;"><i class="fas fa-store"></i> <span class="button-text">Shop</span></button>
-    <button class="navbar-button" onclick="window.location.href='../session/logout.php' ; return false;"><i class="fas fa-sign-out-alt"></i> <span class="button-text">Logout</span></button>
+    <button class="navbar-button" onclick="window.location.href='trader_logout.php' ; return false;"><i class="fas fa-sign-out-alt"></i> <span class="button-text">Logout</span></button>
     <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
   </div>
 </div>
