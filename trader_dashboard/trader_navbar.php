@@ -1,6 +1,3 @@
-<?php
-include("trader_session.php");
-?>
 <nav class="navbar">
     <a href="trader_dashboard.php" class="logo"><img src="../logo.png" alt="logo" class="logo-image"></a>
     <h1 class="heading">Trader Dashboard</h1>

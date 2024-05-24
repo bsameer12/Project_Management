@@ -1,4 +1,5 @@
 <?php
+include("trader_session.php");
 // Initialize connection and other necessary variables
 require("trader_session.php");
 include("../connection/connection.php");

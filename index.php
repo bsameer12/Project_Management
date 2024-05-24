@@ -171,7 +171,7 @@ oci_free_statement($updateReviewStmt);
 $products = [];
 
 // SQL query to select products
-$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 0";
+$selectProductsSql = "SELECT PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_PICTURE FROM PRODUCT WHERE IS_DISABLED = 1";
 
 // Prepare the OCI statement
 $selectProductsStmt = oci_parse($conn, $selectProductsSql);
@@ -210,7 +210,7 @@ review r ON p.PRODUCT_ID = r.PRODUCT_ID
 LEFT JOIN 
 discount d ON p.PRODUCT_ID = d.PRODUCT_ID
 WHERE 
-p.IS_DISABLED = 0
+p.IS_DISABLED = 1
 GROUP BY 
 p.PRODUCT_ID, 
 p.PRODUCT_NAME, 

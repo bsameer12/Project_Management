@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("trader_session.php");
 // Error Reporting If any error occurs
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

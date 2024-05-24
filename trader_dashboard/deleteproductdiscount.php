@@ -1,4 +1,5 @@
 <?php
+include("trader_session.php");
 include("../connection/connection.php");
 
 // Get the user_id from the URL
