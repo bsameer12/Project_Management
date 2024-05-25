@@ -602,7 +602,7 @@ textarea {
 }
 
 .add-to-cart-btn {
-  background-color: #627754;
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -614,7 +614,7 @@ textarea {
 }
 
 .add-to-cart-btn:hover {
-  background-color: #46563c;
+  background-color: #007bff;
 }
 
 .add-to-cart-btn:disabled {

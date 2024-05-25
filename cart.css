@@ -232,7 +232,7 @@ body{
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #627754; /* Blue color */
+    background-color: #007bff; /* Blue color */
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -240,7 +240,7 @@ body{
 
 /* Hover effect */
 .summary-section button[type="submit"]:hover {
-    background-color: #46563c; /* Darker shade of blue on hover */
+    background-color: #007bff; /* Darker shade of blue on hover */
 }
 
 /* Styles for the cart heading */

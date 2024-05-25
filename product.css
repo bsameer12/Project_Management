@@ -103,31 +103,75 @@
     border: 1px solid #ccc; /* Add border style if needed */
 }
 
+/* General button styles */
 button {
-    padding: 8px 16px; /* Reduced padding for a more compact look */
-    background-color: #627754; /* Adjust background color as needed */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px; /* Adjusted font size for a more professional look */
-    transition: background-color 0.3s ease;
+    padding: 8px 16px; /* Compact look */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 14px; /* Font size for a professional look */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
 button:hover {
-    background-color: #46563c;
+    background-color: #0056b3; /* Hover background color */
 }
 
+/* FontAwesome heart icon */
 .fa-heart {
-    font-size: 14px;
+    font-size: 14px; /* Font size for heart icon */
 }
 
+/* Individual element margin adjustments */
 #add_to_wishlist {
-    margin-left: 15px; /* Adjusted margin to fit better */
+    margin-left: 15px; /* Margin adjustment */
 }
 
 #add_to_cart {
-    margin-top: 25px;
+    margin-top: 25px; /* Margin adjustment */
+}
+
+/* Specific button styles to match general button styles */
+.add-to-cart-btn {
+    flex: 1;
+    padding: 8px 12px; /* Padding for balanced size */
+    border: 1px solid #007bff; /* Border color */
+    background-color: #007bff; /* Background color */
+    color: #fff; /* Text color */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No text decoration */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    font-size: 16px; /* Font size for professional look */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3; /* Hover background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
+}
+
+.wishlist-btn {
+    flex: 0 0 auto;
+    padding: 8px 12px; /* Padding for balanced size */
+    border: 1px solid #007bff; /* Border color */
+    background-color: transparent; /* Transparent background */
+    color: black; /* Text color */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No text decoration */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 5px; /* Rounded corners */
+    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease; /* Smooth transition */
+    font-size: 16px; /* Font size for professional look */
+    margin-left: 10px; /* Space between buttons */
+}
+
+.wishlist-btn:hover {
+    color: #e34d3b; /* Hover text color */
+    background-color: #f8d7da; /* Hover background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
 }
 
 /* Media query for mobile devices */
@@ -368,26 +412,43 @@ button:hover {
     margin-top: 10px;
 }
 
-.add-to-cart-btn,
-.wishlist-btn {
+.add-to-cart-btn {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #627754;
-    background-color: #627754;
+    padding: 8px 12px; /* Slightly increase padding for a balanced size */
+    border: 1px solid #007bff;
+    background-color: #007bff;
     color: #fff;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px; /* Adjust font size for a professional look */
 }
 
-.add-to-cart-btn:hover,
-.wishlist-btn:hover {
-    background-color: #46563c;
+.add-to-cart-btn:hover {
+    background-color: #0056b3; /* Slightly darker blue for hover effect */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover for a professional look */
 }
 
 .wishlist-btn {
-    margin-left: 10px;
+    flex: 0 0 auto;
+    padding: 8px 12px; /* Add padding for consistency with add-to-cart button */
+    border: 1px solid #007bff;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease;
+    font-size: 16px; /* Adjust font size for a professional look */
+    margin-left: 10px; /* Ensure some space between the buttons */
 }
+
+.wishlist-btn:hover {
+    color: #e34d3b; /* Change text color to red on hover */
+    background-color: #f8d7da; /* Optional: light red background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover for a professional look */
+}
+

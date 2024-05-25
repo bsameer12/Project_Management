@@ -91,64 +91,85 @@ function getOrderStatusText($status) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Order Details</title>
+    <title>Detailed Order</title>
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="without_session_navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="customer.css">
     <link rel="stylesheet" href="trader_dashboard/trader_products.css">
     <link rel="stylesheet" href="trader_dashboard/trader_view_order.css">
-    <!-- swiper css file web -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <!-- font link -->  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Link to fontawesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Boxicons CSS -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
+    <style>
+
+        body{
+            padding: 25px;
+        }
+
+        .order-details-table th, .order-details-table td {
+        padding-right: 10px; /* Adjust spacing to your preference */
+        vertical-align: top; /* Aligns text to the top of the cell */
+        }
+
+        .order-details-table {
+        width: 45%; /* Adjust table width as needed */
+        margin-left: auto;
+        margin-right: auto;
+        }
+        .payment-details-table th, .payment-details-table td{
+         padding-right: 30px; /* Adjust spacing to your preference */
+        vertical-align: top; /* Aligns text to the top of the cell */
+        }
+
+        .payment-details-table{
+        width: 50%; /* Adjust table width as needed */
+        margin-left: auto;
+        margin-right: auto;
+        }
+
+
+    
+</style>
+
 </head>
 <body>
-    <?php
-        include("session_navbar.php");
-    ?>
-        <div id="orderFormContainer" class="order-form-container">
+    <?php include("session_navbar.php"); ?>
+    <div id="orderFormContainer" class="order-form-container">
         <img src="logo.png" alt="Company Logo" class="logo_detail">
-        <h2 class="form-heading">Detailed Order Details</h2>
-        <form id="orderForm" class="order-form">
-    <div class="form-row">
-        <div class="form-column">
-            <label for="orderId" class="form-label">Order ID:</label>
-            <input type="text" id="orderId" name="orderId" class="form-input" placeholder="Enter order ID" readonly value="<?php echo $order_product_id ?>" >
-        </div>
-        <div class="form-column">
-            <label for="customerId" class="form-label">Customer ID:</label>
-            <input type="text" id="customerId" name="customerId" class="form-input" placeholder="Enter customer ID" readonly value="<?php echo $order_details['CUSTOMER_ID']; ?>">
-        </div>
+        <h2 class="form-heading">Detailed Order</h2>
+        <table class="order-details-table">
+            <tbody>
+                <tr>
+                    <th>Order ID:</th>
+                    <td><?php echo $order_product_id; ?></td>
+                </tr>
+                <tr>
+                    <th>Customer ID:</th>
+                    <td><?php echo $order_details['CUSTOMER_ID']; ?></td>
+                </tr>
+                <tr>
+                    <th>Order Date:</th>
+                    <td><?php echo date('Y-m-d', strtotime($order_details['ORDER_DATE'])); ?></td>
+                </tr>
+                <tr>
+                    <th>Pickup Date:</th>
+                    <td><?php echo date('Y-m-d', strtotime($slot_details['SLOT_DATE'])); ?></td>
+                </tr>
+                <tr>
+                    <th>Pickup Location:</th>
+                    <td><?php echo $slot_details['LOCATION'] . " ," . $slot_details['SLOT_TIME']; ?></td>
+                </tr>
+                <tr>
+                    <th>Order Status:</th>
+                    <td><?php echo htmlspecialchars(getOrderStatusText($order_details['ORDER_STATUS'])); ?></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="form-row">
-        <div class="form-column">
-            <label for="orderDate" class="form-label">Order Date:</label>
-            <input type="date" id="orderDate" name="orderDate" class="form-input" readonly  value="<?php echo date('Y-m-d', strtotime($order_details['ORDER_DATE'])); ?>">
-        </div>
-        <div class="form-column">
-            <label for="pickupDate" class="form-label">Pickup Date:</label>
-            <input type="date" id="pickupDate" name="pickupDate" class="form-input" readonly  value="<?php echo date('Y-m-d', strtotime($slot_details['SLOT_DATE'])); ?>">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-column">
-            <label for="pickupLocation" class="form-label">Pickup Location:</label>
-            <input type="text" id="pickupLocation" name="pickupLocation" class="form-input" placeholder="Enter pickup location" readonly  value="<?php echo $slot_details['LOCATION'] . " ," . $slot_details['SLOT_TIME']; ?>">
-        </div>
-        <div class="form-column">
-            <label for="orderStatus" class="form-label">Order Status:</label>
-            <input type="text" id="orderId" name="orderId" class="form-input" placeholder="Enter order ID" readonly value="<?php echo htmlspecialchars(getOrderStatusText($order_details['ORDER_STATUS'])); ?>" readonly>
-        </div>
-    </div>
-</form>
-    </div>
+
     <div id="productTableContainer" class="product-table-container">
     <table class="product-table">
         <thead>
@@ -179,49 +200,49 @@ function getOrderStatusText($status) {
     </table>
 </div>
 <div id="paymentFormContainer" class="payment-form-container">
-<form id="paymentForm" class="payment-form">
-    <div class="form-row">
-    <div class="form-column">
-        <label for="netTotal" class="form-label">Net Total:</label>
-        <?php
-            // Calculate total amount after discount
-            $total_amount = $order_details['TOTAL_PRICE'] + $order_details['DISCOUNT_AMOUNT'];
-        ?>
-        <input type="text" id="netTotal" name="netTotal" class="form-input" placeholder="Enter net total" readonly value="<?php echo $total_amount; ?>">
-    </div>
-    <div class="form-column">
-        <label for="discountPercent" class="form-label">Discount Percent:</label>
-        <?php
-            // Calculate discount percent
-            $discount_percent = ($order_details['DISCOUNT_AMOUNT'] / $total_amount) * 100;
-        ?>
-        <input type="text" id="discountPercent" name="discountPercent" class="form-input" placeholder="Enter discount percent" readonly value="<?php echo $discount_percent; ?>">
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-column">
-        <label for="discountAmount" class="form-label">Discount Amount:</label>
-        <input type="text" id="discountAmount" name="discountAmount" class="form-input" placeholder="Enter discount amount" readonly value="<?php echo $order_details['DISCOUNT_AMOUNT']; ?>">
-    </div>
-    <div class="form-column">
-        <label for="totalAmount" class="form-label">Total Amount:</label>
-        
-        <input type="text" id="totalAmount" name="totalAmount" class="form-input" placeholder="Enter total amount" readonly value="<?php echo $order_details['TOTAL_PRICE']; ?>">
-    </div>
+    <h2 class="form-heading">Payment Details</h2>
+    <table class="payment-details-table">
+        <tbody>
+            <tr>
+                <th>Net Total:</th>
+                <td>
+                    <?php
+                        // Calculate total amount after discount
+                        $total_amount = $order_details['TOTAL_PRICE'] + $order_details['DISCOUNT_AMOUNT'];
+                        echo $total_amount;
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Discount Percent:</th>
+                <td>
+                    <?php
+                        // Calculate discount percent
+                        $discount_percent = ($order_details['DISCOUNT_AMOUNT'] / $total_amount) * 100;
+                        echo number_format($discount_percent, 2); // Formats the discount percent to 2 decimal places
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Discount Amount:</th>
+                <td><?php echo $order_details['DISCOUNT_AMOUNT']; ?></td>
+            </tr>
+            <tr>
+                <th>Total Amount:</th>
+                <td><?php echo $order_details['TOTAL_PRICE']; ?></td>
+            </tr>
+            <tr>
+                <th>Payment Mode:</th>
+                <td><?php echo !empty($payment_type) ? $payment_type['PAYMENT_TYPE'] : 'Payment Incomplete'; ?></td>
+            </tr>
+            <tr>
+                <th>Payment Status:</th>
+                <td><?php echo !empty($payment_type) ? 'Payment Completed' : 'Payment Incomplete'; ?></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<div class="form-row">
-    <div class="form-column">
-        <label for="paymentMode" class="form-label">Payment Mode:</label>
-        <input type="text" id="paymentMode" name="paymentMode" class="form-input" placeholder="Enter payment mode" value="<?php echo !empty($payment_type) ? $payment_type['PAYMENT_TYPE'] : 'Payment Incomplete'; ?>" readonly>
-    </div>
-    <div class="form-column">
-        <label for="paymentStatus" class="form-label">Payment Status:</label>
-        <input type="text" id="paymentStatus" name="paymentStatus" class="form-input" placeholder="Enter payment status" value="<?php echo !empty($payment_type) ? 'Payment Completed' : 'Payment Incomplete'; ?>" readonly>
-    </div>
-</div>
-
-</form>
 </div>
 <div id="returnToOrdersContainer" class="return-to-orders-container">
     <button onclick="window.location.href='customer.php'" class="return-to-orders-btn">Return to Profile</button>

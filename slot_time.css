@@ -60,14 +60,14 @@ button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #89987f;
+    background-color: #007bff;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #5d6e52;
+    background-color: #0250a3;
 }
 
 /* Mobile-specific styles */

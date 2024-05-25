@@ -27,7 +27,7 @@ footer {
 
 /* Back-to-Top Button Enhancements */
 .back-to-top button {
-    background-color: #627754;
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -37,7 +37,7 @@ footer {
 }
 
 .back-to-top button:hover {
-    background-color: #46563c; /* Darker shade on hover */
+    background-color: #0056b3; /* Darker shade on hover */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
 }
 
