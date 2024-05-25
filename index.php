@@ -332,6 +332,7 @@ oci_close($conn);
     
     <section class="home" id="home">
   <div class="background-image"></div>
+  
   <div class="swiper-container home-slider">
     <div class="swiper-wrapper">
       <div class="swiper-slide slide charcuterie-slide" style="background-image: url('charcuterie_banner.jpg');  background-repeat: no-repeat; background-size: cover; background-position: center center;">
@@ -339,7 +340,7 @@ oci_close($conn);
           <a href="#category-section" class="btn">Shop Now</a>
         </div>
       </div>
-      <div class="swiper-slide slide grocer-slide" style="background-image: url('grocer_banner.jpeg') background-repeat: no-repeat; background-size: cover; background-position: center center;;">
+      <div class="swiper-slide slide grocer-slide" style="background-image: url('grocer_banner.jpeg'); background-repeat: no-repeat; background-size: cover; background-position: center center;;">
         <div class="content">
           <a href="#category-section" class="btn">Shop Now</a>
         </div>
@@ -362,8 +363,18 @@ oci_close($conn);
   </div>
 </section>
 
+<div class="container_dash">
+    <div class="content">
+        <h3>Selected UK Traders</h3>
+        <h3>Freshly Picked </h3>
+        <h3> Carefully Packaged </h3> 
+        <h3>Ethical And Sustainable</h3>
+    </div>
+    </div>
+
+    
     <section class="category-section" id="category-section">
-    <h2>Categories</h2>
+    <h2>CATEGORIES</h2>
     <div class="category-container">
             <?php foreach ($categoryArray as $category): ?>
         <div class="category-item">
@@ -432,6 +443,7 @@ oci_close($conn);
     ?>
 
 
+
     <section class="dishes" id="dishes">
     <!-- heading context section  -->
     <h1 class="heading"> Just In Season </h1>
@@ -479,31 +491,7 @@ oci_close($conn);
                 </div>
                 </section>
 
-    <div class="container_dash">
-    <div class="content">
-        <h3>Selected UK Traders</h3>
-        <h3>Freshly Picked </h3>
-        <h3> Carefully Packaged </h3> 
-        <h3>Ethical And Sustainable</h3>
-    </div>
-    </div>
-
-    <section class="home" id="home" style="overflow-x: hidden;">
-        <div class="swiper-container home-slider">
-            <div class="swiper-wrapper">
-                <!-- First slide -->
-                <div class="swiper-slide slide" style="background-image: url('grocer_banner.jpeg');">
-                </div>
-                <!-- Second slide -->
-                <div class="swiper-slide slide" style="background-image: url('charcuterie_banner.jpg');">
-                </div>
-            </div>
-            </div>
-            <!-- Pagination -->
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
-
+    
     <!-- review section starts here -->
 <section class="review" id="review" style="overflow-x: hidden;">
      <!-- Adding heading to section  -->

@@ -1,9 +1,6 @@
-/* Container Styles */
 body{
-    padding:25px;
+    background-image: url('backgroundimage.png');
 }
-
-
 
 .sign-up-container {
     max-width: 300px;

@@ -3,7 +3,7 @@ section.home {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 60vh;
+  height: 65vh;
   background-image: url('backgroundimage.png');
   background-size: cover;
   background-position: center;
@@ -336,7 +336,7 @@ img {
 /* Review section styling */
 .review {
   background-color: #f9f9f9;
-  padding: 2rem 0;
+  padding: 30px;
 }
 
 .review .slide {
@@ -396,7 +396,9 @@ img {
   color: #666;
   margin: 0.8rem 0;
 }
-
+.form-group{
+  padding: 20px;
+}
 /* Sub-heading styling */
 .sub-heading {
   text-align: center;
@@ -603,36 +605,53 @@ textarea {
 }
 
 .add-to-cart-btn {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  flex: 1;
-  margin-right: 10px;
+  background-color: #007bff;  /* Primary blue background */
+  color: white;  /* White text for contrast */
+  padding: 10px 20px;  /* Adequate padding for a touch-friendly button */
+  border: none;  /* No border for a cleaner look */
+  border-radius: 10px;  /* Rounded corners for a softer aesthetic */
+  cursor: pointer;  /* Cursor indicates it's clickable */
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;  /* Smooth transitions for interactive feedback */
+  margin-right: 10px;  /* Space to the right */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  /* Subtle shadow for depth */
+  text-transform: uppercase;  /* Capital letters for emphasis */
+  font-weight: bold;  /* Bold font for clear visibility */
+  text-decoration: none;
 }
 
 .add-to-cart-btn:hover {
-  background-color: #007bff;
+  background-color: #0056b3;  /* Darker shade on hover for tactile feedback */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Enhanced shadow for a 'lifted' effect */
+  transform: translateY(-2px);  /* Slight raise effect on hover */
 }
 
 .add-to-cart-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: #ccc;  /* Grey color indicates it's not clickable */
+  color: #666;  /* Darker text color for better readability */
+  cursor: not-allowed;  /* Cursor indicates the button is disabled */
+  box-shadow: none;  /* No shadow to flatten the appearance */
 }
 
 .wishlist-btn {
-  color: black;
-  font-size: 1.5em;
-  transition: color 0.3s;
-  flex: 0 0 auto;
+  padding: 8px 12px; /* Add padding for consistency with add-to-cart button */
+  border: 1px solid #007bff;
+  background-color: #007bff; /* Darker shade on hover */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease;
+  font-size: 16px; /* Adjust font size for a professional look */
+  margin-left: 10px; /* Ensure some space between the buttons */
+  flex: 0.7;
 }
 
+
 .wishlist-btn:hover {
-  color: #e34d3b;
+transform: scale(1.05); /* Gently enlarges the button on hover */
 }
+
 
 .category-section {
   text-align: center;

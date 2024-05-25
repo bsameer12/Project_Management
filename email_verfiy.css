@@ -1,5 +1,5 @@
 .email-container {
-    background-color:  #dfe5db;
+    background-color:  #cad4c3; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -60,7 +60,7 @@ input[type="submit"]:hover {
 
 .email-container:hover {
     border-color: #007bff; /* Border color on hover */
-    background-color: #ccc;
+    background-color: #dfe6da;
 }
 
 .email-container input[type="text"]:hover {

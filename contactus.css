@@ -1,6 +1,5 @@
-body {
-    background-color: #f8f9f7; /* Slightly lighter shade for a fresh look */
-    padding: 25px;
+body{
+    background-image: url('backgroundimage.png');
 }
 
 #contact-container {

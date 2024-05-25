@@ -4,7 +4,7 @@ body {
   color: #333; /* Slightly softer than black for text readability */
   line-height: 1.6; /* Improve readability with better line spacing */
   margin: 0;
-  padding: 25px;
+  background-image: url('backgroundimage.png');
 }
 
 /* Sign-in Container Styles */
