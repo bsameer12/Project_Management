@@ -169,7 +169,6 @@ $total_wishlist_items = isset($total_wishlist_items) ? $total_wishlist_items : 0
                         <li class="highlight"><a href="index.php">Home</a></li>
                         <li><a href="about.php">About Us</a></li>
                         <li><a href="session_contactus.php">Contacts</a></li>
-                        <li><a href="category.php">Category</a></li>
                     </ul>
                 </div>
                 <div class="search">

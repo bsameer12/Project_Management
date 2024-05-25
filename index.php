@@ -330,27 +330,38 @@ oci_close($conn);
     includeNavbarBasedOnSession();
     ?>
     
-    <!-- Slider Section -->
-    <section class="home" id="home"  style="overflow-x: hidden; width:100%; margin-left: auto; margin-right:auto;">
-        <div class="swiper-container home-slider">
-            <div class="swiper-wrapper">
-                <!-- First slide -->
-                
-                <div class="swiper-slide slide" style="background-image: url('deli.jpeg');">
-            </div>
-            <!-- Pagination -->
-            <div class="swiper-pagination"></div>
+    <section class="home" id="home">
+  <div class="background-image"></div>
+  <div class="swiper-container home-slider">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide slide charcuterie-slide" style="background-image: url('charcuterie_banner.jpg');">
+        <div class="content">
+          <a href="category.php" class="btn">Shop Now</a>
         </div>
-</div>
-<div class="swiper-wrapper">
-                <!-- First slide -->
-                
-                <div class="swiper-slide slide" style="background-image: url('green.png');">
-            </div>
-            <!-- Pagination -->
-            <div class="swiper-pagination"></div>
+      </div>
+      <div class="swiper-slide slide grocer-slide" style="background-image: url('grocer_banner.jpeg');">
+        <div class="content">
+          <a href="category.php" class="btn">Shop Now</a>
         </div>
-    </section>
+      </div>
+      <div class="swiper-slide slide bakery-slide" style="background-image: url('bakery_banner.jpeg');">
+        <div class="content">
+          <a href="category.php" class="btn">Shop Now</a>
+        </div>
+      </div>
+      <div class="swiper-slide slide meat-slide" style="background-image: url('meat_banner.jpeg');"> <div class="content">
+          <a href="category.php" class="btn">Shop Now</a>
+        </div>
+      </div>
+      <div class="swiper-slide slide fruits-slide" style="background-image: url('fruits_banner.jpeg');"> <div class="content">
+          <a href="category.php" class="btn">Shop Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
     <section class="category-section" id="category-section">
     <h2>Categories</h2>
     <div class="category-container">

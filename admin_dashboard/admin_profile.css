@@ -1,9 +1,13 @@
 .profile-details-container {
-    max-width: 800px;
+    max-width: 750px;
     margin: 20px auto;
     padding: 20px;
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transition: box-shadow 0.3s ease-in-out;
+    background-color: #dfe5db;
+    border-radius: 10px;
 }
 
 .left-div {
@@ -42,7 +46,7 @@
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     box-sizing: border-box;
 }
 
@@ -53,7 +57,7 @@
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     max-width: 960px;
     margin: 20px auto;
-    background-color: #a7a7a7;
+    background-color: #dfe5db;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -52,7 +52,7 @@ input[type="text"] {
 input[type="text"]:focus,
 select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color:#dcddda;   
 }
 
 button {
@@ -60,14 +60,14 @@ button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #89987f;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #5d6e52;
 }
 
 /* Mobile-specific styles */

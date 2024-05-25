@@ -38,12 +38,13 @@
 .return-home-link {
     text-decoration: none;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #627754;
+
     color: #fff;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .return-home-link:hover {
-    background-color: #0056b3;
+    background-color: #46563c;
 }

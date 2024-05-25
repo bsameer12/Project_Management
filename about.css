@@ -11,7 +11,7 @@ body {
    .about .row {
        display: flex;
        flex-wrap: wrap;
-       gap: 1.5rem; /* Increased gap for better spacing */
+       gap: 2rem; /* Increased gap for better spacing */
        align-items: center;
        margin: 10px 10px 10px 10px; /* Streamlined margin notation */
    }
