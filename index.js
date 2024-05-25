@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var swiper = new Swiper(".home-slider", {
-        spaceBetween: 30,
+        spaceBetween: 120,
         centeredSlides: true,
         autoplay: {
             delay: 7500,
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
             clickable: true,
         },
         loop: true,
+        speed: 10000,
         slidesPerView: 1, // Limit the number of visible slides
     });
 });
@@ -18,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.addEventListener("DOMContentLoaded", function() {
     var swiper = new Swiper('.swiper-container', {
-        spaceBetween: 30,
-        centeredSlides: true,
+        spaceBetween: 10,
+        centeredSlides: false,
         autoplay: {
-            delay: 5500,
+            delay: 500,
             disableOnInteraction: true,
         },
         pagination: {
@@ -29,44 +30,46 @@ document.addEventListener("DOMContentLoaded", function() {
             clickable: true,
         },
         loop: true,
+        speed: 5000,
         breakpoints: {
             0: {
-                slidesPerView: 1,
+                slidesPerView: 2,
             },
             640: {
-            slidesPerView: 1,
+            slidesPerView: 2,
             },
             768: {
-            slidesPerView: 1,
+            slidesPerView: 2,
             },
             1024: {
-            slidesPerView: 1,
+            slidesPerView: 2,
             },
         },
     });
-
-    // defining swiper for review swction
-var swiper = new Swiper(".review-slider", {
-    spaceBetween: 20,
-    centeredSlides: true,
-    autoplay: {
-        delay: 5500,
-        disableOnInteraction: true,
-    },
-    loop:true,
-    breakpoints: {
-        0: {
-            slidesPerView: 1,
-        },
-        640: {
-        slidesPerView: 1,
-        },
-        768: {
-        slidesPerView: 1,
-        },
-        1024: {
-        slidesPerView: 1,
-        },
-    },
-    });
 });
+
+    var swiper = new Swiper(".review-slider", {
+        spaceBetween: 10,
+        centeredSlides: false,
+        autoplay: {
+            delay: 500,
+            disableOnInteraction: true,
+        },
+        loop: true,
+        speed: 5000,
+        breakpoints: {
+            0: {
+                slidesPerView: 2,
+            },
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 2,
+            },
+        },
+    });
+    

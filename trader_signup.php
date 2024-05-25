@@ -406,7 +406,7 @@ else{
         </div>
         <div class="form-group">
             <label for="contact">Contact Number</label>
-            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required pattern="[0-9]+" title="Please enter only numeric characters">>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required pattern="[0-9]+" title="Please enter only numeric characters">
             <?php
             if (!empty($contact_no_error)) {
                     echo "<p style='color: red;'>$contact_no_error</p>";
