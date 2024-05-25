@@ -336,25 +336,25 @@ oci_close($conn);
     <div class="swiper-wrapper">
       <div class="swiper-slide slide charcuterie-slide" style="background-image: url('charcuterie_banner.jpg');">
         <div class="content">
-          <a href="category.php" class="btn">Shop Now</a>
+          <a href="#category-section" class="btn">Shop Now</a>
         </div>
       </div>
       <div class="swiper-slide slide grocer-slide" style="background-image: url('grocer_banner.jpeg');">
         <div class="content">
-          <a href="category.php" class="btn">Shop Now</a>
+          <a href="#category-section" class="btn">Shop Now</a>
         </div>
       </div>
       <div class="swiper-slide slide bakery-slide" style="background-image: url('bakery_banner.jpeg');">
         <div class="content">
-          <a href="category.php" class="btn">Shop Now</a>
+          <a href="#category-section" class="btn">Shop Now</a>
         </div>
       </div>
       <div class="swiper-slide slide meat-slide" style="background-image: url('meat_banner.jpeg');"> <div class="content">
-          <a href="category.php" class="btn">Shop Now</a>
+          <a href="#category-section" class="btn">Shop Now</a>
         </div>
       </div>
       <div class="swiper-slide slide fruits-slide" style="background-image: url('fruits_banner.jpeg');"> <div class="content">
-          <a href="category.php" class="btn">Shop Now</a>
+          <a href="#category-section" class="btn">Shop Now</a>
         </div>
       </div>
     </div>
