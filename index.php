@@ -448,46 +448,103 @@ oci_close($conn);
     <!-- heading context section  -->
     <h1 class="heading"> Just In Season </h1>
     <div class="product-card-container">
-    <?php foreach ($selected_indices as $index): ?>
-            <?php $product = $products_review[$index]; ?>
-    <div class="product-card" onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
-        <div class="product-details">
-            <div class="product-image">
-                <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
-            </div>
-            <p class="product-name"><?php echo $product['PRODUCT_NAME']; ?></p>
-            <div class="product-rating">
-                <span class="stars">
-                <?php
-                    $rating = round($product['AVG_REVIEW_SCORE']);
-                    for ($i = 0; $i < 5; $i++) {
-                        if ($i < $rating) {
-                            echo '&#9733;';
-                        } 
-                    }
-                    ?>
-                </span>
-                <span class="total-reviews">(<?php echo number_format($product['TOTAL_REVIEWS']); ?>)</span>
-            </div>
-            <div id="price_container">
-                <div id="original_price"><?php echo number_format($product['PRODUCT_PRICE'], 2); ?></div>
-                <div id="discount"><?php echo number_format($product['DISCOUNT_PERCENT'], 2); ?> %</div>
-                <?php
+    <?php
+// Ensure you have at least 8 products in the array
+if (count($products_review) >= 8) {
+    // Get random keys
+    $selected_indices = array_rand($products_review, 8);
+
+    // Loop through the random keys and display the products
+    foreach ($selected_indices as $index):
+        $product = $products_review[$index];
+        ?>
+        <div class="product-card" onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
+            <div class="product-details">
+                <div class="product-image">
+                    <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
+                </div>
+                <p class="product-name"><?php echo $product['PRODUCT_NAME']; ?></p>
+                <div class="product-rating">
+                    <span class="stars">
+                    <?php
+                        $rating = round($product['AVG_REVIEW_SCORE']);
+                        for ($i = 0; $i < 5; $i++) {
+                            if ($i < $rating) {
+                                echo '&#9733;';
+                            } else {
+                                echo '&#9734;'; // Add empty star for better display
+                            }
+                        }
+                        ?>
+                    </span>
+                    <span class="total-reviews">(<?php echo number_format($product['TOTAL_REVIEWS']); ?>)</span>
+                </div>
+                <div id="price_container">
+                    <div id="original_price">$<?php echo number_format($product['PRODUCT_PRICE'], 2); ?></div>
+                    <div id="discount"><?php echo number_format($product['DISCOUNT_PERCENT'], 2); ?>%</div>
+                    <?php
                         $original_price = $product['PRODUCT_PRICE'];
                         $discount_percent = $product['DISCOUNT_PERCENT'];
                         $discount_amount = ($original_price * $discount_percent) / 100;
                         $discount_price = $original_price - $discount_amount;
                         ?>
-
-                <div id="discount_price">$<?php  echo number_format($discount_price, 2); ?></div>
-            </div>
-            <div class="button-container">
-                <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="add-to-cart-btn">add to cart</a> 
-                <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext= <?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+                    <div id="discount_price">$<?php echo number_format($discount_price, 2); ?></div>
+                </div>
+                <div class="button-container">
+                    <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">Add to Cart</a> 
+                    <a href="add_to_wishlist.php?product_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-    <?php endforeach; ?>
+        <?php
+    endforeach;
+} else {
+    // Fallback if there are fewer than 8 products
+    foreach ($products_review as $product):
+        ?>
+        <div class="product-card" onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
+            <div class="product-details">
+                <div class="product-image">
+                    <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
+                </div>
+                <p class="product-name"><?php echo $product['PRODUCT_NAME']; ?></p>
+                <div class="product-rating">
+                    <span class="stars">
+                    <?php
+                        $rating = round($product['AVG_REVIEW_SCORE']);
+                        for ($i = 0; $i < 5; $i++) {
+                            if ($i < $rating) {
+                                echo '&#9733;';
+                            } else {
+                                echo '&#9734;';
+                            }
+                        }
+                        ?>
+                    </span>
+                    <span class="total-reviews">(<?php echo number_format($product['TOTAL_REVIEWS']); ?>)</span>
+                </div>
+                <div id="price_container">
+                    <div id="original_price">$<?php echo number_format($product['PRODUCT_PRICE'], 2); ?></div>
+                    <div id="discount"><?php echo number_format($product['DISCOUNT_PERCENT'], 2); ?>%</div>
+                    <?php
+                        $original_price = $product['PRODUCT_PRICE'];
+                        $discount_percent = $product['DISCOUNT_PERCENT'];
+                        $discount_amount = ($original_price * $discount_percent) / 100;
+                        $discount_price = $original_price - $discount_amount;
+                        ?>
+                    <div id="discount_price">$<?php echo number_format($discount_price, 2); ?></div>
+                </div>
+                <div class="button-container">
+                    <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">Add to Cart</a> 
+                    <a href="add_to_wishlist.php?product_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+                </div>
+            </div>
+        </div>
+        <?php
+    endforeach;
+}
+?>
+
                 </div>
                 </section>
 
