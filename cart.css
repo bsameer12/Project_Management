@@ -12,24 +12,19 @@ body{
     margin-bottom: 20px;
 }
 
-/* Styles specific to the cart section */
-.cart-section {
-    background-color: #dfe5db; /* Grey background color */
-    width: calc(50% - 10px); /* Set width for the cart container */
-    /* Subtracting 10px for the margin to create some space between the sections */
-    margin-right: 10px; /* Add some space between the sections */
-}
+
 
 /* Styles specific to the summary section */
 .summary-section {
-    background-color: #dfe5db;/* Grey background color */
-    width: calc(50% - 10px); /* Set width for the summary container */
-    /* Subtracting 10px for the margin to create some space between the sections */
-    margin-left: 10px; /* Add some space between the sections */
-    height: fit-content;
-    
-
+    background-color: #dfe5db; /* Grey background color */
+    width: calc(40% - 10px); /* Reduced width for the summary container */
+    margin-left: 40px; /* Add some space between the sections */
+    height: fit-content; /* Ensure the height adjusts to the content */
+    padding: 15px; /* Optional: Add some padding for better spacing inside the container */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for depth */
 }
+
 
 .product-item img {
     margin-left: 5px;

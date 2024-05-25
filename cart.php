@@ -184,35 +184,46 @@ if(isset($_POST['checkout'])) {
                 <div class="empty-cart-message">Your Cart is Empty !!!</div>
             <?php } else { ?>
                 <section class="cart-section" id="cart-section">
-                    <div class="cart-container">
-                        <h3>Cart</h3>
-                        <!-- Left side - Products -->
-                        <?php
-                        foreach ($results as $row) {
-                            $disableIncrement = ($total_products >= 15) ? "disabled" : "";
-                            echo "<div class='products'>";
-                                echo "<div class='product-item'>";
-                                    echo "<img src='product_image/" .$row['PRODUCT_PICTURE'] ."' alt='" . $row['PRODUCT_NAME'] ."'>";
-                                    echo "<div class='product-details'>";
-                                        echo "<h3>" . $row['PRODUCT_NAME'] ."</h3>";
-                                        echo "<div class='quantity'>";
-                                        echo "<form method='POST' action='add_qty_to_cart.php'>";
-                                        echo "<input type='hidden' name='product_id' value='" . $row['PRODUCT_ID'] . "'>";
-                                        echo "<input type='hidden' name='cart_id' value='" . $cart_id . "'>";
-                                        echo "<button type='submit' name='action' value='decrease' class='decrement' id='decrementBtn'>-</button>";
-                                        echo "<input type='number' min='1' value='" . $row['NO_OF_PRODUCTS'] . "' id='quantityInput' readonly>";
-                                        echo "<button type='submit' name='action' value='increase' class='increment' id='incrementBtn' $disableIncrement>+</button>";
-                                        echo "</form>";
-                                        echo "</div>";
-                                        echo "<p class='price'>&pound;" . $row['PRODUCT_PRICE'] ."</p>";
-                                        echo "<a href='delete_cart_item.php?cart_id=" . $cart_id . "&product_id=" . $row['PRODUCT_ID'] . "' class='delete'>Remove</a>";
-                                    echo "</div>";
-                                echo "</div>";
-                            echo "</div>";
-                        }
-                        ?>
-                    </div>
-                </section>
+    <div class="cart-container">
+        <h3>Cart</h3>
+        <!-- Table for Cart Items -->
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 18px; background-color: #f9f9f9; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+            <thead style="background-color: #007bff; color: white;">
+                <tr>
+                    <th style="padding: 12px 15px; text-align: center;">Image</th>
+                    <th style="padding: 12px 15px; text-align: center;">Product Name</th>
+                    <th style="padding: 12px 15px; text-align: center;">Quantity</th>
+                    <th style="padding: 12px 15px; text-align: center;">Price</th>
+                    <th style="padding: 12px 15px; text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($results as $row) {
+                    $disableIncrement = ($total_products >= 15) ? "disabled" : "";
+                    echo "<tr style='border-bottom: 1px solid #ddd;'>
+                        <td style='padding: 12px 15px; text-align: center;'><img src='product_image/" . $row['PRODUCT_PICTURE'] . "' alt='" . $row['PRODUCT_NAME'] . "' style='max-width: 50px; border-radius: 5px;'></td>
+                        <td style='padding: 12px 15px; text-align: center;'>" . $row['PRODUCT_NAME'] . "</td>
+                        <td style='padding: 12px 15px; text-align: center;'>
+                            <form method='POST' action='add_qty_to_cart.php' style='display: inline-block;'>
+                                <input type='hidden' name='product_id' value='" . $row['PRODUCT_ID'] . "'>
+                                <input type='hidden' name='cart_id' value='" . $cart_id . "'>
+                                <button type='submit' name='action' value='decrease' class='decrement' id='decrementBtn' style='padding: 5px 10px; border: none; background-color: #dc3545; color: white; cursor: pointer; border-radius: 5px;'>-</button>
+                                <input type='number' min='1' value='" . $row['NO_OF_PRODUCTS'] . "' id='quantityInput' readonly style='width: 50px; text-align: center; border: none; background-color: transparent;'>
+                                <button type='submit' name='action' value='increase' class='increment' id='incrementBtn' $disableIncrement style='padding: 5px 10px; border: none; background-color: #007bff; color: white; cursor: pointer; border-radius: 5px;'>+</button>
+                            </form>
+                        </td>
+                        <td style='padding: 12px 15px; text-align: center;'>&pound;" . $row['PRODUCT_PRICE'] . "</td>
+                        <td style='padding: 12px 15px; text-align: center;'>
+                            <a href='delete_cart_item.php?cart_id=" . $cart_id . "&product_id=" . $row['PRODUCT_ID'] . "' class='delete' style='padding: 8px 12px; border: 1px solid #007bff; background-color: transparent; color: black; text-decoration: none; border-radius: 5px; transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease; font-size: 16px; cursor: pointer;'>Remove</a>
+                        </td>
+                    </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</section>
 
                 <!-- Summary and Discount Section -->
                 <section class="summary-section" id="summary-section">

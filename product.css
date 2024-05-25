@@ -105,18 +105,22 @@
 
 /* General button styles */
 button {
-    padding: 8px 16px; /* Compact look */
-    background-color: #007bff; /* Button background color */
-    color: white; /* Text color */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    font-size: 14px; /* Font size for a professional look */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth transitions for visual effects */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-transform: uppercase; /* Optional: makes text uppercase for a more button-like appearance */
+    font-weight: bold; /* Makes the button text bolder */
 }
 
 button:hover {
-    background-color: #0056b3; /* Hover background color */
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increases shadow to give the impression of lifting */
 }
 
 /* FontAwesome heart icon */
@@ -150,6 +154,7 @@ button:hover {
 
 .add-to-cart-btn:hover {
     background-color: #0056b3; /* Hover background color */
+        transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
 }
 
@@ -158,7 +163,7 @@ button:hover {
     padding: 8px 12px; /* Padding for balanced size */
     border: 1px solid #007bff; /* Border color */
     background-color: transparent; /* Transparent background */
-    color: black; /* Text color */
+    color: white; /* Text color */
     text-align: center; /* Center text */
     text-decoration: none; /* No text decoration */
     cursor: pointer; /* Pointer cursor */
@@ -169,8 +174,7 @@ button:hover {
 }
 
 .wishlist-btn:hover {
-    color: #e34d3b; /* Hover text color */
-    background-color: #f8d7da; /* Hover background color */
+    background-color: #0056b3; /* Hover background color */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
 }
 
@@ -435,8 +439,8 @@ button:hover {
     flex: 0 0 auto;
     padding: 8px 12px; /* Add padding for consistency with add-to-cart button */
     border: 1px solid #007bff;
-    background-color: transparent;
-    color: black;
+    background-color: #007bff; /* Darker shade on hover */
+    color: white;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -447,8 +451,8 @@ button:hover {
 }
 
 .wishlist-btn:hover {
-    color: #e34d3b; /* Change text color to red on hover */
-    background-color: #f8d7da; /* Optional: light red background on hover */
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover for a professional look */
 }
 

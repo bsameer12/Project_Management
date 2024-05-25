@@ -161,7 +161,7 @@ include("../connection/connection.php");
         include("trader_navbar.php");
     ?>
     <div class="container-heading">
-        <h2 class="container-heading">Trader Profile  Details</h2>
+        <h2 class="container-heading">Admin Profile  Details</h2>
         </div>
         <div id="profileDetailsContainer" class="profile-details-container">
     <div class="left-div">

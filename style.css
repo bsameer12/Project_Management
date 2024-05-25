@@ -1,10 +1,12 @@
 /* Home Section Styling */
-section.home {
+body{
+  padding: 25px;
+}
+  section.home {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 70vh;
-  background-image: url('backgroundimage.png');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -602,20 +604,27 @@ textarea {
 }
 
 .add-to-cart-btn {
-  background-color: #007bff;
-  color: #fff;
   padding: 10px 20px;
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  text-decoration-line: none;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  flex: 1;
-  margin-right: 10px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth transitions for visual effects */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  text-transform: uppercase; /* Optional: makes text uppercase for a more button-like appearance */
+  font-weight: bold; /* Makes the button text bolder */
 }
 
+
+
 .add-to-cart-btn:hover {
-  background-color: #007bff;
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increases shadow to give the impression of lifting */
 }
+
 
 .add-to-cart-btn:disabled {
   background-color: #ccc;
@@ -623,15 +632,25 @@ textarea {
 }
 
 .wishlist-btn {
-  color: black;
-  font-size: 1.5em;
-  transition: color 0.3s;
-  flex: 0 0 auto;
+  padding: 10px 20px;
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth transitions for visual effects */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  text-transform: uppercase; /* Optional: makes text uppercase for a more button-like appearance */
+  font-weight: bold; /* Makes the button text bolder */
 }
 
+
 .wishlist-btn:hover {
-  color: #e34d3b;
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increases shadow to give the impression of lifting */
 }
+
 
 .category-section {
   text-align: center;
