@@ -17,8 +17,12 @@
 
     <div class="sidebar">
         <div class="navbar-buttons">
+        <button class="navbar-button" onclick="window.open('http://127.0.0.1:8080/apex/f?p=105:1:12179667841631:::::', '_blank'); return false;">
+    <i class="fas fa-tachometer-alt"></i> 
+    <span class="button-text">Oracel Dashboard</span>
+</button>
+
             <button class="navbar-button" onclick="window.location.href='admin_dashboard.php' ; return false;"><i class="fas fa-tachometer-alt"></i> <span class="button-text">Dashboard</span></button>
-            <button class="navbar-button" onclick="window.location.href='admin_dashboard.php' ; return false;"><i class="fas fa-tachometer-alt"></i> <span class="button-text"> Oracel Dashboard</span></button>
             <button class="navbar-button" onclick="window.location.href='admin_customer.php' ; return false;"><i class="fas fa-shopping-cart"></i> <span class="button-text">Customers</span></button>
             <button class="navbar-button" onclick="window.location.href='admin_trader.php' ; return false;"><i class="fas fa-users"></i> <span class="button-text">Traders</span></button>
             <button class="navbar-button" onclick="window.location.href='admin_shop_detail.php' ; return false;"><i class="fas fa-store"></i> <span class="button-text">Shops</span></button>

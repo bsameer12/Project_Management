@@ -7,7 +7,7 @@ $trader_user_id = $_SESSION["userid"];
 $order_product_id = $_GET['id']; // Assuming you're retrieving this from a form
 
 // Query to select PRODUCT_ID, PRODUCT_QTY, PRODUCT_PRICE from ORDER_DETAILS
-$sql_product_details = "SELECT OD.PRODUCT_ID, OD.PRODUCT_QTY, OD.PRODUCT_PRICE, P.PRODUCT_PICTURE, P.PRODUCT_NAME
+$sql_product_details = "SELECT OD.PRODUCT_ID, OD.PRODUCT_QTY, OD.PRODUCT_PRICE, P.PRODUCT_PICTURE, P.PRODUCT_NAME, P.PRODUCT_PRICE AS ACTUAL_PRICE
 FROM ORDER_DETAILS OD
 JOIN PRODUCT P ON OD.PRODUCT_ID = P.PRODUCT_ID
 WHERE OD.TRADER_USER_ID = :trader_user_id
@@ -218,7 +218,7 @@ function getOrderStatusText($status) {
     </div>
 </div>
 <div id="returnToOrdersContainer" class="return-to-orders-container">
-    <button onclick="window.location.href='trader_order.php'" class="return-to-orders-btn">Return to Orders</button>
+    <button type="button" onclick="window.location.href='trader_order.php'" class="return-to-orders-btn">Return to Orders</button>
 </div>
 <script src="trader_navbar.js"></script>
 </body>

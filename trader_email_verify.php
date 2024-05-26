@@ -86,7 +86,7 @@ if(isset($_GET["user_id"]) && isset($_GET["email"])){
                     echo "<p style='color: red;'>$verification_error</p>";
                 }
                 ?>
-            <input type="text" id="verification_code" name="verification_code" required pattern="[0-9]+" title="Please enter only numeric characters">><br>
+            <input type="text" id="verification_code" name="verification_code" required pattern="[0-9]+" title="Please enter only numeric characters"><br>
             <input type="submit" value="Verify" id="verify" name="verify">
         </form>
     </div>
