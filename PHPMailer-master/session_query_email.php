@@ -78,4 +78,3 @@ function sendQueryReceivedEmail($to_email, $name, $query_id) {
     }
 }
 ?>
-

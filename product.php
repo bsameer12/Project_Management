@@ -9,17 +9,32 @@ include("connection/connection.php");
 
 // Prepare the SQL statement
 $sql = "SELECT 
-            PRODUCT_ID, 
-            PRODUCT_NAME, 
-            PRODUCT_DESCRIPTION, 
-            PRODUCT_PRICE, 
-            ALLERGY_INFORMATION, 
-            USER_ID, 
-            PRODUCT_PICTURE 
-        FROM 
-            PRODUCT 
-        WHERE 
-            PRODUCT_ID = :product_id";
+p.PRODUCT_ID, 
+p.PRODUCT_NAME, 
+p.PRODUCT_DESCRIPTION, 
+p.PRODUCT_PRICE, 
+p.ALLERGY_INFORMATION, 
+p.USER_ID, 
+p.PRODUCT_PICTURE,
+COALESCE(d.DISCOUNT_PERCENT, '') AS DISCOUNT_PERCENT
+FROM 
+PRODUCT p
+LEFT JOIN 
+discount d ON p.PRODUCT_ID = d.PRODUCT_ID
+WHERE 
+p.PRODUCT_ID = :product_id
+GROUP BY 
+p.PRODUCT_ID, 
+p.PRODUCT_NAME, 
+p.PRODUCT_DESCRIPTION, 
+p.PRODUCT_PRICE, 
+p.ALLERGY_INFORMATION, 
+p.USER_ID, 
+p.PRODUCT_PICTURE, 
+d.DISCOUNT_PERCENT
+";
+            
+
 
 // Parse the SQL statement
 $stmt = oci_parse($conn, $sql);
@@ -41,6 +56,7 @@ $productPrice = $row['PRODUCT_PRICE'];
 $allergyInformation = $row['ALLERGY_INFORMATION'];
 $userId = $row['USER_ID'];
 $productPicture = $row['PRODUCT_PICTURE'];
+$discount_percent = $row["DISCOUNT_PERCENT"];
 
 // Free statement resources
 oci_free_statement($stmt);
@@ -80,11 +96,14 @@ oci_free_statement($stmt);
 
 $sql = "SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE, 
                AVG(r.REVIEW_SCORE) AS AVG_REVIEW_SCORE,
-               COUNT(r.REVIEW_ID) AS REVIEW_COUNT
+               COUNT(r.REVIEW_ID) AS REVIEW_COUNT,
+               COALESCE(d.DISCOUNT_PERCENT, '') AS DISCOUNT_PERCENT
         FROM product p
         LEFT JOIN review r ON p.PRODUCT_ID = r.PRODUCT_ID
+        LEFT JOIN 
+        discount d ON p.PRODUCT_ID = d.PRODUCT_ID
         WHERE p.IS_DISABLED = 1 AND p.USER_ID = :user_id AND ADMIN_VERIFIED=1
-        GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE";
+        GROUP BY p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.PRODUCT_PICTURE, d.DISCOUNT_PERCENT,r.REVIEW_SCORE, r.REVIEW_ID";
 
 
 // Prepare the SQL statement
@@ -152,9 +171,14 @@ oci_free_statement($stmt);
     <div id="product_details">
         <h2><?php echo $productName; ?></h2>
         <div id="price_container">
+            <?php
+            $original_price = $productPrice;
+            $discount_amount = ($original_price * $discount_percent) / 100;
+            $discount_price = $original_price - $discount_amount;
+            ?>
             <div id="original_price"><?php echo $productPrice; ?> </div>
-            <div id="discount">-20%</div>
-            <div id="discount_price">€<?php echo $productPrice; ?></div>
+            <div id="discount">-<?php echo $discount_percent; ?>%</div>
+            <div id="discount_price">€<?php echo $discount_price; ?></div>
         </div>
         <p><?php echo $productDescription; ?></p>
         <div id="actions">
@@ -265,7 +289,7 @@ oci_free_statement($stmt);
     foreach ($products as $product):
 ?>
         <!-- Product Card 1 -->
-        <div class="product-card">
+        <div class="product-card" onclick="redirectToProductPage(<?php echo $product['PRODUCT_ID']; ?>)">
             <div class="product-details">
             <div class="product-image">
                 <img src="product_image/<?php echo $product['PRODUCT_PICTURE']; ?>" alt="<?php echo $product['PRODUCT_NAME']; ?>">
@@ -286,10 +310,16 @@ oci_free_statement($stmt);
                             </span>
                     <span class="total-reviews">(<?php echo $product['REVIEW_COUNT']; ?>)</span>
                 </div>
+                <?php
+                        $original_price = number_format($product['PRODUCT_PRICE'], 2);
+                        $discount_percent = number_format($product['DISCOUNT_PERCENT'], 2);
+                        $discount_amount = ($original_price * $discount_percent) / 100;
+                        $discount_price = $original_price - $discount_amount;
+            ?>
                 <div id="price_container">
-                    <div id="original_price"><?php echo '€' . number_format($product['PRODUCT_PRICE'], 2); ?></div>
-                    <div id="discount">-20%</div>
-                    <div id="discount_price"><?php echo '€' . number_format($product['PRODUCT_PRICE'], 2); ?></div>
+                    <div id="original_price"><?php echo '€' . $original_price; ?></div>
+                    <div id="discount">-<?php echo $discount_percent; ?>%</div>
+                    <div id="discount_price"><?php echo '€' . $discount_price; ?></div>
                 </div>
                 <div class="button-container">
                     <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">add to cart</a> 
@@ -321,6 +351,11 @@ function addToWishlist(productId, userId, searchText) {
     // Redirect to add_to_wishlist.php with the productId, userId, and searchText parameters
     window.location.href = 'add_to_wishlist.php?produt_id=' + productId + '&user_id=' + userId + '&searchtext=' + searchText;
 }
+
+function redirectToProductPage(productId) {
+        // Redirect to the product page with the specific product ID
+        window.location.href = "product.php?productId=" + productId;
+    }
 </script>
 </body>
 </html>

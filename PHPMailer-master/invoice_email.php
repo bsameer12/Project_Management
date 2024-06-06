@@ -19,7 +19,7 @@ function sendInvoiceEmail($order_id, $user_id) {
         $mail->Host       = 'smtp.gmail.com';       // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                   // Enable SMTP authentication
         $mail->Username   = 'hudderfoods@gmail.com'; // SMTP username
-        $mail->Password   = 'mhcf uqbb fcsh sqxc';  // SMTP password
+        $mail->Password   = 'nwdn aldk rwao gxbc';  // SMTP password
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 

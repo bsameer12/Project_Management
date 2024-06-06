@@ -11,7 +11,7 @@ require_once 'src/SMTP.php';
 function sendOrderConfirmationEmail($to_email, $order_no, $total_amount, $no_of_products, $pickup_date, $pickup_time, $pickup_location) {
     // Gmail SMTP configuration
     $smtp_username = "hudderfoods@gmail.com"; // Your Gmail address
-    $smtp_password = "mhcf uqbb fcsh sqxc"; // Your Gmail password
+    $smtp_password = "nwdn aldk rwao gxbc"; // Your Gmail password
 
     // Create a PHPMailer instance
     $mail = new PHPMailer(true);

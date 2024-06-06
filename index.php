@@ -492,7 +492,7 @@ if (count($products_review) >= 8) {
                 </div>
                 <div class="button-container">
                     <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">Add to Cart</a> 
-                    <a href="add_to_wishlist.php?product_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+                    <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
                 </div>
             </div>
         </div>
@@ -536,7 +536,7 @@ if (count($products_review) >= 8) {
                 </div>
                 <div class="button-container">
                     <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">Add to Cart</a> 
-                    <a href="add_to_wishlist.php?product_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
+                    <a href="add_to_wishlist.php?produt_id=<?php echo $product['PRODUCT_ID']; ?>&user_id=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="wishlist-btn"><i class="fas fa-heart"></i></a>
                 </div>
             </div>
         </div>

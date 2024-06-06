@@ -12,7 +12,7 @@ require 'src/SMTP.php';
 function sendApprovalEmail($to_email, $name, $shop_id, $trader_id, $SHOP_NAME, $TRADER_TYPE) {
     // Gmail SMTP configuration
     $smtp_username = "hudderfoods@gmail.com"; // Your Gmail address
-    $smtp_password = "mhcf uqbb fcsh sqxc"; // Your Gmail password
+    $smtp_password = "nwdn aldk rwao gxbc"; // Your Gmail password
 
     // Create a PHPMailer instance
     $mail = new PHPMailer(true);

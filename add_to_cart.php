@@ -68,7 +68,7 @@ if ($row) {
         if ($rowCountProducts) {
             $totalProducts = $rowCountProducts['TOTAL_PRODUCTS'];
 
-            if ($totalProducts < 15) {
+            if ($totalProducts < 20) {
                 $sqlCartItemCheck = "SELECT * FROM cart_item WHERE cart_id = :cart_id AND product_id = :product_id";
                 $stmtCartItemCheck = oci_parse($conn, $sqlCartItemCheck);
                 oci_bind_by_name($stmtCartItemCheck, ':cart_id', $cart_id);

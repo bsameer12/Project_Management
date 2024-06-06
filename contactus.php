@@ -81,7 +81,7 @@ if(isset($_POST["query"])){
             // Execute the SQL statement
             if (oci_execute($stmt_insert_contactus)) {
                 
-                    require("PHPMailer-master/query_email.php");
+                    require_once("PHPMailer-master/query_email.php");
                     $name = $first_name . " " . $last_name;
                     sendQueryReceivedEmail($email, $name, $query_id);
             } else {
