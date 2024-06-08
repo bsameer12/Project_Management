@@ -213,7 +213,7 @@ $availability = getUpcomingAvailability();
                                 $slotLabel = $slot;
                                 $radioId = 'time-' . str_replace([':', '-'], '', $slotLabel);
                                 $checked = ($slotLabel == $selectedTime) ? 'checked' : '';
-                                echo "<label for='$radioId'><input type='radio' id='$radioId' name='time' value='$slotLabel' $checked>$slotLabel</label><br>";
+                                echo "<label for='$radioId'><input type='radio' id='$radioId' name='time' value='$slotLabel' $checked required>$slotLabel</label><br>";
                             }
                             break;
                         }
@@ -233,7 +233,7 @@ $availability = getUpcomingAvailability();
             <?php if(isset($_POST['submit'])): ?>
                 <form class="bottom-form" id="payment-form">
                     <h3>Select Payment Option:</h3>
-                    <input type='radio' id='paypal' name='payment' value='PayPal'>
+                    <input type='radio' id='paypal' name='payment' value='PayPal' required checked>
                     <label for='paypal'>PayPal</label><br>
                     <button type='button' id='paypal-button'>Proceed to PayPal</button>
                 </form>

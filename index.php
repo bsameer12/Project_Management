@@ -480,7 +480,7 @@ if (count($products_review) >= 8) {
                     <span class="total-reviews">(<?php echo number_format($product['TOTAL_REVIEWS']); ?>)</span>
                 </div>
                 <div id="price_container">
-                    <div id="original_price">$<?php echo number_format($product['PRODUCT_PRICE'], 2); ?></div>
+                    <div id="original_price">€<?php echo number_format($product['PRODUCT_PRICE'], 2); ?></div>
                     <div id="discount"><?php echo number_format($product['DISCOUNT_PERCENT'], 2); ?>%</div>
                     <?php
                         $original_price = $product['PRODUCT_PRICE'];
@@ -488,7 +488,7 @@ if (count($products_review) >= 8) {
                         $discount_amount = ($original_price * $discount_percent) / 100;
                         $discount_price = $original_price - $discount_amount;
                         ?>
-                    <div id="discount_price">$<?php echo number_format($discount_price, 2); ?></div>
+                    <div id="discount_price">€<?php echo number_format($discount_price, 2); ?></div>
                 </div>
                 <div class="button-container">
                     <a href="add_to_cart.php?productid=<?php echo $product['PRODUCT_ID']; ?>&userid=<?php echo $user_id; ?>&searchtext=<?php echo $searchText; ?>" class="add-to-cart-btn">Add to Cart</a> 

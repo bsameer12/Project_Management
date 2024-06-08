@@ -172,11 +172,12 @@ oci_free_statement($stmt);
         <h2><?php echo $productName; ?></h2>
         <div id="price_container">
             <?php
+            $discount_percent = number_format($discount_percent, 2);
             $original_price = $productPrice;
             $discount_amount = ($original_price * $discount_percent) / 100;
             $discount_price = $original_price - $discount_amount;
             ?>
-            <div id="original_price"><?php echo $productPrice; ?> </div>
+            <div id="original_price">€<?php echo $productPrice; ?> </div>
             <div id="discount">-<?php echo $discount_percent; ?>%</div>
             <div id="discount_price">€<?php echo $discount_price; ?></div>
         </div>

@@ -148,25 +148,6 @@ if(isset($_POST["saveChangesBtn"])){
          }
 
 
-         $profile_upload_error="";
-         if(isset($_FILES["productImage"]) && $_FILES["productImage"]["error"] == 0){
-            // File is uploaded, proceed with image upload logic
-            require("../input_validation/image_upload.php");
-            $result = uploadImage("../product_image/", "productImage");
-            // Check the result
-            if ($result["success"] === 1) {
-                // If upload was successful, store the new file name in a unique variable
-                $newFileName = $result["fileName"];
-            } else {
-                // If upload failed, display the error message
-                $input_validation_passed = false;
-                $profile_upload_error = $result["message"];
-            }
-        } else {
-            // No file uploaded, use the existing product picture
-            $newFileName =  $productDetails['PRODUCT_PICTURE'];
-        }
-
         $update_date = date('Y-m-d'); // Format: YYYY-MM-DD
         $user_id = $_SESSION["userid"];
         if ($input_validation_passed) {
@@ -178,8 +159,7 @@ if(isset($_POST["saveChangesBtn"])){
                     PRODUCT_DESCRIPTION = :productDescription, 
                     PRODUCT_PRICE = :productPrice, 
                     PRODUCT_QUANTITY = :productQuantity, 
-                    ALLERGY_INFORMATION = :allergyInformation, 
-                    PRODUCT_PICTURE = :productPicture, 
+                    ALLERGY_INFORMATION = :allergyInformation,  
                     PRODUCT_UPDATE_DATE = TO_DATE(:productUpdateDate, 'YYYY-MM-DD'), 
                     CATEGORY_ID = :categoryID,
                     IS_DISABLED = :status
@@ -195,7 +175,6 @@ if(isset($_POST["saveChangesBtn"])){
                 oci_bind_by_name($stmt_update_product, ':productPrice', $product_price);
                 oci_bind_by_name($stmt_update_product, ':productQuantity', $product_quantity);
                 oci_bind_by_name($stmt_update_product, ':allergyInformation', $product_allergy);
-                oci_bind_by_name($stmt_update_product, ':productPicture', $newFileName);
                 oci_bind_by_name($stmt_update_product, ':productUpdateDate', $update_date);
                 oci_bind_by_name($stmt_update_product, ':categoryID', $category);
                 oci_bind_by_name($stmt_update_product, ':status', $status);
@@ -337,15 +316,6 @@ if(isset($_POST["saveChangesBtn"])){
                 <label for="productdate" class="form-label">Product Added On:</label>
                 <input type="date" id="productdate" name="productdate" class="form-input" placeholder="Enter product status" value="<?php echo date('Y-m-d', strtotime($productDetails['PRODUCT_ADDED_DATE']));?>" readonly>
             </div>
-            <div class="form-row">
-                    <label for="productImage">Upload Product Image:</label>
-                    <input type="file" id="productImage" name="productImage" accept="image/*" onchange="previewProductImage()">
-                    <?php
-                    if(isset($profile_upload_error)){
-                        echo "<p style='color: red;'>$profile_upload_error</p>";
-                    }
-                    ?>
-                </div>
             <div class="form-row">
                 <input type="submit" id="saveChangesBtn" name ="saveChangesBtn" class="submit-btn" value="Save Changes">
                 <button id="cancelBtn" class="cancel-btn" onclick="window.location.href='admin_product.php' ; return false;">Cancel</button>

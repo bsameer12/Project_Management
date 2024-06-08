@@ -107,7 +107,7 @@ include("connection/connection.php");
 
 
                             $profile_upload_error="";
-                            if(isset($_POST["profile-pic"])){
+                            if(isset($_FILES["profile-pic"]) && $_FILES["profile-pic"]["error"] == 0){
                             require("input_validation\image_upload.php");
                             $result = uploadImage("profile_image/", "profile-pic");
                                 // Check the result
@@ -308,7 +308,7 @@ oci_free_statement($stid);
     <div class="left-side">
         <div class="profile-picture">
             <!-- Placeholder for profile picture -->
-            <img src="profile_image/<?php echo  $_SESSION["picture"] ; ?>" alt="Profile Picture">
+            <img src="profile_image/<?php echo  $user_profile_picture ; ?>" alt="Profile Picture">
         </div>
         <div class="navigation">
             <button class="nav-btn active">Profile</button>
@@ -381,10 +381,10 @@ oci_free_statement($stid);
         <div class="form-row">
             <div class="input-group">
                 <label for="gender">Gender</label>
-                <select id="gender" name="gender" required style="border: none !important; outline: none !important;">
-                    <option value="male"  <?php echo ($user_gender === 'male') ? 'selected' : ''; ?>>Male</option>
-                    <option value="female"  <?php echo ($user_gender === 'female') ? 'selected' : ''; ?>>Female</option>
-                    <option value="other"  <?php echo ($user_gender === 'other') ? 'selected' : ''; ?>>Other</option>
+                <select name="gender" id="gender" name="gender" required style="border: none !important; outline: none !important;">
+                <option value="male" <?php echo (trim(strtolower($user_gender)) == 'male') ? 'selected' : ''; ?>>Male</option>
+    <option value="female" <?php echo (trim(strtolower($user_gender)) == 'female') ? 'selected' : ''; ?>>Female</option>
+    <option value="other" <?php echo (trim(strtolower($user_gender)) == 'other') ? 'selected' : ''; ?>>Other</option>
                 </select>
                 <?php
             if (!empty($gender_error)) {

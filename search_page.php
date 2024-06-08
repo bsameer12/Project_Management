@@ -169,18 +169,18 @@ while ($row = oci_fetch_assoc($stmt)) {
             <h3>Price</h3>
             <label for="min-price">Min:</label>
             <select name="min-price" id="min-price">
-                <option value="0">0</option>
-                <option value="10">$10</option>
-                <option value="20">$20</option>
-                <option value="30">$30</option>
+                <option value="0">€0</option>
+                <option value="10">€10</option>
+                <option value="20">€20</option>
+                <option value="30">€30</option>
                 <!-- Add more options as needed -->
             </select>
             <label for="max-price">Max:</label>
             <select name="max-price" id="max-price">
-                <option value="50">$50</option>
-                <option value="100">$100</option>
-                <option value="200">$200</option>
-                <option value="500">$500</option>
+                <option value="50">€50</option>
+                <option value="100">€100</option>
+                <option value="200">€200</option>
+                <option value="500">€500</option>
                 <!-- Add more options as needed -->
             </select>
         
@@ -248,13 +248,13 @@ while ($row = oci_fetch_assoc($stmt)) {
                         echo "<span class='total-reviews'>( " . $row['TOTAL_REVIEWS'] . ")</span>";
                         echo"</div>";
                         echo"<div id='price_container'>";
-                            echo"<div id='original_price'>". $row['PRODUCT_PRICE'] . "</div>";
+                            echo"<div id='original_price'>€". $row['PRODUCT_PRICE'] . "</div>";
                             $original_price = $row['PRODUCT_PRICE'];
                             $discount_percent = $row['DISCOUNT_PERCENT'];
                             $discount_amount = ($original_price * $discount_percent) / 100;
                             $discount_price = $original_price - $discount_amount;
                             echo "<div id='discount'>-" . ($row['DISCOUNT_PERCENT'] ?? '0') . "%</div>";
-                            echo"<div id='discount_price'>" . $discount_price . "</div>";
+                            echo"<div id='discount_price'>€" . $discount_price . "</div>";
                         echo "</div>";
                         echo"<div class='button-container'>";
                         if ($row['PRODUCT_QUANTITY'] <= 0) {

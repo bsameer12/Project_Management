@@ -200,7 +200,7 @@ if(isset($_POST['checkout'])) {
             <tbody>
                 <?php
                 foreach ($results as $row) {
-                    $disableIncrement = ($total_products >= 15) ? "disabled" : "";
+                    $disableIncrement = ($total_products > 19) ? "disabled" : "";
                     echo "<tr style='border-bottom: 1px solid #ddd;'>
                         <td style='padding: 12px 15px; text-align: center;'><img src='product_image/" . $row['PRODUCT_PICTURE'] . "' alt='" . $row['PRODUCT_NAME'] . "' style='max-width: 50px; border-radius: 5px;'></td>
                         <td style='padding: 12px 15px; text-align: center;'>" . $row['PRODUCT_NAME'] . "</td>

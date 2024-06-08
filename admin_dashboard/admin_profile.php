@@ -75,9 +75,9 @@ include("../connection/connection.php");
                                 }
                             
                             $profile_upload_error="";
-                            if(isset($_POST["profilePicture"])){
+                            if(isset($_FILES["profilePicture"]) && $_FILES["profilePicture"]["error"] == 0){
                             require("../input_validation/image_upload.php");
-                            $result = uploadImage("profile_image/", "profilePicture");
+                            $result = uploadImage("../profile_image/", "profilePicture");
                                 // Check the result
                                 if ($result["success"] === 1) {
                                     // If upload was successful, store the new file name in a unique variable
@@ -161,7 +161,7 @@ include("../connection/connection.php");
         include("admin_navbar.php");
     ?>
     <div class="container-heading">
-        <h2 class="container-heading">Trader Profile  Details</h2>
+        <h2 class="container-heading">Admin Profile  Details</h2>
         </div>
         <div id="profileDetailsContainer" class="profile-details-container">
     <div class="left-div">
@@ -220,7 +220,7 @@ include("../connection/connection.php");
             </div>
             <div class="form-row">
                 <input type="submit" id="saveChangesBtn" class="submit-btn" value="Save Changes" name="saveChangesBtn">
-                <button id="cancelBtn" class="cancel-btn"  onclick="window.location.href='trader_dashboard.php' ; return false;">Cancel</button>
+                <button id="cancelBtn" class="cancel-btn"  onclick="window.location.href='admin_dashboard.php' ; return false;">Cancel</button>
             </div>
         </form>
     </div>
