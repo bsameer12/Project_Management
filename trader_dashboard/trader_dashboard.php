@@ -342,7 +342,7 @@ oci_close($conn);
         </div>
         <div class="card">
             <div class="icon"><i class="fas fa-star"></i></div>
-            <div class="text">Rating: <span class="number"><?php echo $avg_review_score; ?></span></div>
+            <div class="text">Rating: <span class="number"><?php echo round($avg_review_score,2); ?></span></div>
         </div>
         <div class="card">
             <div class="icon"><i class="fas fa-calendar-alt"></i></div>

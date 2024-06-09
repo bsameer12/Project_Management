@@ -33,7 +33,7 @@ $productDescription = "Purchased " . $_GET["total_products"] . " Products From H
 
 // Set up PayPal API endpoints for sandbox
 $apiEndpoint = 'https://api.sandbox.paypal.com';
-$redirectUrl = 'http://localhost/team/payment_order.php'; // Replace with your thank you page URL
+$redirectUrl = 'http://localhost/payment_order.php'; // Replace with your thank you page URL
 
 // Set up PayPal API request headers
 $headers = [

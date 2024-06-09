@@ -10,7 +10,7 @@ $sql = "SELECT r.REVIEW_ID, r.REVIEW_SCORE, r.REVIEW_DATE, r.FEEDBACK,
         FROM review r
         JOIN product p ON r.PRODUCT_ID = p.PRODUCT_ID
         JOIN hudder_user u ON r.USER_ID = u.USER_ID
-        WHERE p.USER_ID = :user_id";
+        WHERE p.USER_ID = :user_id AND r.REVIEW_PROCIDED = 1";
 
 $stmt = oci_parse($conn, $sql);
 if (!$stmt) {
