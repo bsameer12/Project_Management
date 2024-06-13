@@ -295,3 +295,55 @@ body, ul {
 .icons .icon i {
     color: black; /* Change the color to black */
   }
+
+/* Media query for maximum width of 768px */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem; /* Adjust padding */
+    }
+
+    .nav-links ul {
+        flex-direction: column; /* Change to column layout */
+        align-items: center; /* Center items */
+    }
+
+    .nav-links li {
+        margin: 0.5rem 0;
+    }
+
+    .nav-links li:last-child {
+        margin-bottom: 1rem; /* Add extra margin to the last item */
+    }
+
+    .menu-toggle {
+        display: block; /* Show menu toggle */
+    }
+
+    .nav-links,
+    .icons {
+        display: none; /* Hide navigation links and icons by default */
+    }
+
+    .submenu {
+        position: static; /* Reset position */
+        width: auto; /* Reset width */
+        display: none; /* Hide submenu */
+    }
+}
+
+/* Media query for maximum width of 450px */
+@media (max-width: 450px) {
+    .logo img {
+        height: 60px; /* Reduce logo height */
+        width: 60px; /* Reduce logo width */
+    }
+
+    .search input[type="text"],
+    .search input[type="submit"] {
+        padding: 0.4rem 0.8rem; /* Adjust input and submit button padding */
+    }
+
+    .icon i {
+        font-size: 16px; /* Decrease icon size */
+    }
+}

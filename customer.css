@@ -134,25 +134,51 @@
 
 .save-btn,
 .delete-account-btn {
-    background-color: #627754;
     color: #fff;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
     margin-left: 30px;
     text-align: center;
-    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
 }
 
-.save-btn:hover{
-    background-color: #46563c;
+.save-btn {
+    background-color: #1E90FF;
+}
+
+.save-btn:hover {
+    background-color: #1C86EE; /* Slightly darker blue on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.save-btn:active {
+    background-color: #1A7FDB; /* Even darker blue on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Return to original shadow on click */
+    transform: translateY(0); /* Remove lift on click */
+}
+
+.delete-account-btn {
+    background-color: #B22222;
 }
 
 .delete-account-btn:hover {
-    background-color: red;
+    background-color: #A52A2A; /* Slightly darker red on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
+
+.delete-account-btn:active {
+    background-color: #8B0000; /* Even darker red on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Return to original shadow on click */
+    transform: translateY(0); /* Remove lift on click */
+}
+
+
+
 
 /* Hide the dummy tables by default */
 .my-orders-table,
