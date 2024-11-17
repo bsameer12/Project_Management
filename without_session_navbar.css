@@ -1,15 +1,22 @@
 /* Reset some default browser styles */
+
 body, ul {
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif; /* Consistent font family */
 }
+
 
 .container {
     display: flex;
+    border-radius: 15px;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background-color: #f8f9fa; /* Light background color */
+    padding: 1rem 2rem; /* Maintain good horizontal padding */
+    background-color: #DFE6DA; /* Crisp white background for a clean look */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Soft shadow to lift the navbar off the page */
+    border-bottom: 1px solid #e0e0e0; /* Subtle border to define the lower edge */
+    transition: all 0.3s ease; /* Smooth transition for hover effects and resizing */
 }
 
 .logo img {
@@ -23,14 +30,24 @@ body, ul {
     font: bold;
 }
 
-.nav-links ul li:hover {
-    background-color: #f0f8ff; /* Light blue background color on hover */
-    font: bold;
+
+.nav-links li:hover {
+    background-color: #9CAF88; /* Light green for hover background */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    transform: translateY(-3px); /* Lift the item slightly on hover for a subtle 3D effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
 }
 
-.nav-links ul li a:hover {
-    color: #007bff; /* Change text color on hover */
+.nav-links ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 15px; /* Padding for better click area */
+    border-radius: 5px; /* Rounded corners for aesthetic look */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions for color and transform */
+
 }
+
 
 .nav-links li {
     margin-right: 1rem;
@@ -49,39 +66,78 @@ body, ul {
 .search {
     display: flex;
     align-items: center;
+
 }
 
-.search input {
+.search form {
+    display: flex;
+    flex-grow: 1;
+}
+
+.search input[type="text"] {
+    flex-grow: 1;
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 0.4rem;
-    width: 100%;
+    border-radius: 10px;
+    transition: border-color 0.3s ease-in-out; /* Smooth transition for border color */
 }
 
-.search button {
+.search input[type="submit"] {
     padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
+    background: linear-gradient(180deg, #DFE6DA, #758467); /* Subtle gradient from lighter to darker blue */
+    color: black;
+    font-weight: bold; /* Make the text bold for better visibility */
+    text-transform: uppercase; /* Capitalize button text for more professional look */
+    letter-spacing: 0.05em; /* Increase letter spacing for readability */
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
+    margin-left: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for 3D effect */
+    transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
 }
+
+.search input[type="submit"]:hover {
+    background: linear-gradient(180deg, #CBD5C0, #758467); /* Darker gradient on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover for a "lifting" effect */
+}
+
+.search input[type="text"]:focus {
+    border-color: #0056b3; /* Highlight input border when focused */
+}
+
 
 .icons {
     display: flex;
-    align-items: center;
-}
-
-.icon:hover{
-    background-color: #f0f8ff; /* Light blue background color on hover */
-    color: #007bff; /* Change text color on hover */
+    align-items: center;  /* Align icons vertically in the middle */
+    justify-content: center; /* Center icons if they are the only elements */
 }
 
 .icon {
     cursor: pointer;
-    margin-right: 1rem;
+    margin-right: 1rem; /* Spacing between icons */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions for interaction */
 }
+
+.icon:last-child {
+    margin-right: 0; /* No margin on the last icon */
+}
+
+.icon i {
+    font-size: 20px; /* Appropriate size for icons */
+    color: #555; /* Professional, subdued color */
+    transition: color 0.2s ease-in-out; /* Smooth color transition */
+}
+
+.icon:hover i,
+.icon:focus i {
+    color: #007bff; /* Highlight color on hover/focus */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+
+
 
 .menu-toggle {
     display: none; /* Hidden by default */
@@ -239,3 +295,55 @@ body, ul {
 .icons .icon i {
     color: black; /* Change the color to black */
   }
+
+/* Media query for maximum width of 768px */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem; /* Adjust padding */
+    }
+
+    .nav-links ul {
+        flex-direction: column; /* Change to column layout */
+        align-items: center; /* Center items */
+    }
+
+    .nav-links li {
+        margin: 0.5rem 0;
+    }
+
+    .nav-links li:last-child {
+        margin-bottom: 1rem; /* Add extra margin to the last item */
+    }
+
+    .menu-toggle {
+        display: block; /* Show menu toggle */
+    }
+
+    .nav-links,
+    .icons {
+        display: none; /* Hide navigation links and icons by default */
+    }
+
+    .submenu {
+        position: static; /* Reset position */
+        width: auto; /* Reset width */
+        display: none; /* Hide submenu */
+    }
+}
+
+/* Media query for maximum width of 450px */
+@media (max-width: 450px) {
+    .logo img {
+        height: 60px; /* Reduce logo height */
+        width: 60px; /* Reduce logo width */
+    }
+
+    .search input[type="text"],
+    .search input[type="submit"] {
+        padding: 0.4rem 0.8rem; /* Adjust input and submit button padding */
+    }
+
+    .icon i {
+        font-size: 16px; /* Decrease icon size */
+    }
+}

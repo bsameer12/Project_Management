@@ -1,3 +1,63 @@
+<?php
+ include("admin_session.php");
+include("../connection/connection.php");
+
+// SQL query to select the required fields
+$sql = "SELECT 
+    S.SHOP_ID, 
+    S.SHOP_NAME, 
+    S.SHOP_DESCRIPTION, 
+    S.REGISTRATION_NO, 
+    S.SHOP_CATEGORY_ID, 
+    S.SHOP_PROFILE, 
+    S.VERIFIED_SHOP,
+    H.FIRST_NAME, 
+    H.LAST_NAME AS NAME,
+    PC.CATEGORY_TYPE
+FROM 
+    SHOP S
+JOIN 
+    HUDDER_USER H ON S.USER_ID = H.USER_ID
+JOIN 
+    PRODUCT_CATEGORY PC ON S.SHOP_CATEGORY_ID = PC.CATEGORY_ID
+WHERE 
+    S.VERIFIED_SHOP = 1
+";
+
+// Prepare the OCI statement
+$stmt = oci_parse($conn, $sql);
+
+// Execute the statement
+if (oci_execute($stmt)) {
+    // Array to hold the results
+    $results = [];
+
+    // Fetch all the results
+    while ($row = oci_fetch_assoc($stmt)) {
+        $results[] = [
+            'SHOP_ID' => $row["SHOP_ID"],
+            'SHOP_NAME' => $row['SHOP_NAME'],
+            'SHOP_DESCRIPTION' => $row['SHOP_DESCRIPTION'],
+            'REGISTRATION_NO' => $row['REGISTRATION_NO'],
+            'SHOP_CATEGORY_ID' => $row['CATEGORY_TYPE'],
+            'SHOP_PROFILE' => $row['SHOP_PROFILE'],
+            'VERIFIED_SHOP' => $row['VERIFIED_SHOP'],
+            'FIRST_NAME' => $row['FIRST_NAME'],
+            'NAME' => $row['NAME']
+        ];
+    }
+
+} else {
+    // Handle SQL execution error
+    $error = oci_error($stmt);
+    echo "Error executing SQL statement: " . $error['message'];
+}
+
+// Free the statement and close the connection
+oci_free_statement($stmt);
+oci_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,46 +83,42 @@
         include("admin_navbar.php");
     ?>
     <h1 class="page-title">Shop Details</h1>
-    <div class="product-container">
-    <div class="sort-container">
-            <form id="sortForm">
-                <label for="sort">Sort:</label>
-                <select id="sort" onchange="submitForm()">
-                    <option value="new_to_old">New to Old</option>
-                    <option value="old_to_new">Old to New</option>
-                    <option value="alpha_asc">Alphabetically Increasing</option>
-                    <option value="alpha_desc">Alphabetically Decreasing</option>
-                    <option value="price_high_low">Price High to Low</option>
-                    <option value="price_low_high">Price Low to High</option>
-                </select>
-            </form>
-        </div>
-    </div>
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
         <tr> 
-                    <th> Order ID </th> 
-                    <th> Total Amount </th>
-                    <th> Order Date</th>
-                    <th> Customer Id </th>
-                    <th> Pick Up Date </th>
-                    <th> Status</th>
+                    <th> Shop ID </th> 
+                    <th> Shop Profile </th>
+                    <th> Shop Name</th>
+                    <th> Shop Description </th>
+                    <th> Shop Regritation Number </th>
+                    <th> Shop Category</th>
+                    <th> Shop Owner </th>
+                    <th> Shop Status </th>
                     <!-- Add more headers for product details -->
                     <th> Actions </th> 
         </tr>
         </thead>
         <tbody>
-        
-            <tr>
-            <td> 1001 </td>
-            <td>15000</td>
-            <td> 2024-04-28</td>
-            <td>1223</td>
-            <td>2025-03-04</td>
-            <td>Ready to be delivered!!!</td>
-            <td> <a href=admin_view_shop_detail.php?id=$id&action=edit > View </a> | <a href=admin_view_shop_detail.php?id=$id&action=edit > Delete </a></td>
-            </tr>
+        <?php
+            foreach ($results as $index => $shop) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($shop['SHOP_ID']) . "</td>"; // Assuming Shop ID is auto-increment or use $shop['SHOP_ID'] if exists
+                echo "<td><img src='../shop_profile_image/" . $shop['SHOP_PROFILE'] . "' alt='Shop Profile' width='50' height='50'></td>";
+                echo "<td>" . htmlspecialchars($shop['SHOP_NAME']) . "</td>";
+                echo "<td>" . htmlspecialchars($shop['SHOP_DESCRIPTION']) . "</td>";
+                echo "<td>" . htmlspecialchars($shop['REGISTRATION_NO']) . "</td>";
+                echo "<td>" . htmlspecialchars($shop['SHOP_CATEGORY_ID']) . "</td>";
+                echo "<td>" . htmlspecialchars($shop['FIRST_NAME'] . " " . $shop['NAME']) . "</td>";
+                echo "<td>" . ($shop['VERIFIED_SHOP'] ? 'Verified' : 'Not Verified') . "</td>";
+                echo "<td>
+                        <a href='admin_view_shop_detail.php?id=" .  htmlspecialchars($shop['SHOP_ID']) . "&action=view'>View</a> |
+                        <a href='admin_delte_shop.php?id=" .  htmlspecialchars($shop['SHOP_ID']) . "&action=delete'>Delete</a>
+                      </td>";
+                echo "</tr>";
+            }
+            ?>
+            
         </tbody>
         </table>
     </div>

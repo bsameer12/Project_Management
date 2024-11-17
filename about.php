@@ -15,12 +15,12 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+        require("navbar_switching.php");
+        includeNavbarBasedOnSession();
     ?>
     <!-- about section starts here  -->
 <section class="about" id="about">
     <!-- heding section -->
-    <h3 class="sub-heading"> About us </h3>
     <h1 class="heading"> why choose us? </h1>
     <div class="row">
         <!-- linking image-->

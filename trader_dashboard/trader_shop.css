@@ -1,126 +1,176 @@
+/* Container Styles */
+body{
+    padding: 100px;
+    padding-left: 0px;
+}
 .shop-details-container {
     max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
-
-.left-div {
-    width: 45%;
-    margin-right: 20px;
-    margin-top: 100px;
-}
-
+/* Left and Right Div Styles */
+.left-div,
 .right-div {
     width: 45%;
-    margin-top: 100px;
+}
+
+.left-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    background-color: #fff;
 }
 
 .shop-picture {
-    width: 100%;
-    border-radius: 5px;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
+/* Form Styles */
 .shop-details-form {
-    text-align: left;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-row {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
 }
 
 .form-input,
 .form-textarea {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #DFE6DA;
+    box-shadow: #dfe5db;
+    outline: none;
+}
+
+.form-textarea {
+    height: 100px; /* Set a default height for the textarea */
+}
+
+/* Button Styles */
 .submit-btn,
 .cancel-btn {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 16px;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-btn {
+    background-color: #007bff;
 }
 
 .cancel-btn {
     background-color: #dc3545;
 }
 
-.submit-btn:hover,
-.cancel-btn:hover {
+.submit-btn:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
+.cancel-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Heading Styles */
 .container-heading {
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
+    margin: 20px auto;
+    font-family: 'Georgia', serif;
+    color: #333;
+    font-size: 24px;
 }
 
-.sidebar.collapsed ~ .shop-details-container{
+/* Sidebar Styles */
+.sidebar.collapsed ~ .shop-details-container {
     margin-left: 160px;
 }
-.sidebar:not(.collapsed) ~ .shop-details-container{
-    margin-left: 320px;
 
+.sidebar:not(.collapsed) ~ .shop-details-container {
+    margin-left: 320px;
 }
 
-.sidebar.collapsed ~ .container-heading{
+.sidebar.collapsed ~ .container-heading {
     margin-left: 160px;
 }
-.sidebar:not(.collapsed) ~ .container-heading{
-    margin-left: 320px;
 
+.sidebar:not(.collapsed) ~ .container-heading {
+    margin-left: 320px;
 }
 
-/* Mobile styles */
+/* Mobile Styles */
 @media screen and (max-width: 600px) {
     .shop-details-container {
         flex-direction: column;
+        padding: 20px;
+    }
+
+    .left-div,
+    .right-div {
+        width: 100%;
+        margin-top: 20px;
     }
 
     .left-div {
-        width: 100%;
-        margin-top: 0;
+        margin-right: 0;
+        align-items: flex-start;
     }
 
-    .right-div {
-        width: 100%;
-        margin-top: 20px; /* Adjust margin as needed */
-    }
     .container-heading {
         margin-top: 20%;
     }
-    .sidebar.collapsed ~ .shop-details-container{
+
+    .sidebar.collapsed ~ .shop-details-container {
         margin-left: 45px;
     }
-    .sidebar:not(.collapsed) ~ .shop-details-container{
+
+    .sidebar:not(.collapsed) ~ .shop-details-container {
         margin-left: 140px;
-    
     }
-    
-    .sidebar.collapsed ~ .container-heading{
+
+    .sidebar.collapsed ~ .container-heading {
         margin-left: 45px;
     }
-    .sidebar:not(.collapsed) ~ .container-heading{
+
+    .sidebar:not(.collapsed) ~ .container-heading {
         margin-left: 140px;
-    
     }
 }

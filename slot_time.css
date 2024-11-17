@@ -1,45 +1,88 @@
-
-.confirmation-container {
+/* Container styles */
+.container1 {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    flex-wrap: wrap;
+    max-width: 960px;
+    margin: 20px auto;
+    background-color: #dfe5db;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.confirmation-header {
-    display: flex;
-    align-items: center;
+/* Left container styles */
+.left-container {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
-.confirmation-icon {
-    font-size: 2rem;
+/* Right container styles */
+.right-container {
+    flex: 1;
+    padding: 20px;
+    border-bottom: 1px solid #ccc; /* Add border for mobile layout */
+    box-sizing: border-box;
 }
 
-.confirmation-title {
-    margin-left: 0.5rem;
+/* Form styles */
+form {
+    margin-bottom: 20px;
 }
 
-.confirmation-message {
-    text-align: center;
-    margin-top: 20px;
+label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.return-home {
-    text-align: center;
-    margin-top: 20px;
+select,
+input[type="text"] {
+    width: calc(100% - 20px); /* Adjust width for padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
 }
 
-.return-home-link {
-    text-decoration: none;
-    padding: 10px 20px;
+input[type="text"]:focus,
+select:focus {
+    outline: none;
+    border-color:#dcddda;   
+}
+
+button {
+    width: calc(100% - 20px); /* Adjust width for padding */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
     background-color: #007bff;
     color: #fff;
-    border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.return-home-link:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: #0250a3;
+}
+
+/* Mobile-specific styles */
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-container,
+    .right-container {
+        width: 100%;
+        border: none; /* Remove border for mobile layout */
+    }
+
+    .right-container {
+        border-top: 1px solid #ccc; /* Add border to top of right container for mobile layout */
+    }
 }

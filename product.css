@@ -2,6 +2,7 @@
     margin: 25px;
     display: flex;
     justify-content: space-between;
+    gap: 20px; /* Add gap between product images and details */
 }
 
 #product_images,
@@ -13,6 +14,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center align the images */
 }
 
 #main_image_container {
@@ -23,7 +25,6 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto; /* Center horizontally */
-    display: block; /* Ensure the image fills the container */
 }
 
 #main_image {
@@ -56,6 +57,7 @@
 #price_container {
     display: flex;
     align-items: center;
+    margin-bottom: 20px; /* Add space below the price */
 }
 
 #original_price {
@@ -81,11 +83,11 @@
     font-weight: bold;
 }
 
-
 #actions {
     display: flex;
     align-items: center;
     margin-top: 20px;
+    gap: 10px; /* Add space between action items */
 }
 
 #quantity {
@@ -94,38 +96,87 @@
 }
 
 #quantity_input {
-    width: 25px;
+    width: 40px; /* Increased width for better usability */
     text-align: center;
-    padding: 10px;
+    padding: 5px; /* Reduced padding for a more compact look */
     border-radius: 5px; /* Adjust the border-radius value as needed */
     border: 1px solid #ccc; /* Add border style if needed */
 }
 
+/* General button styles */
 button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #007bff; /* Primary blue color */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth transitions for visual effects */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-transform: uppercase; /* Optional: makes text uppercase for a more button-like appearance */
+    font-weight: bold; /* Makes the button text bolder */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increases shadow to give the impression of lifting */
 }
 
+/* FontAwesome heart icon */
 .fa-heart {
-    font-size: 14px;
+    font-size: 14px; /* Font size for heart icon */
 }
 
+/* Individual element margin adjustments */
 #add_to_wishlist {
-    margin-left: 25px;
+    margin-left: 15px; /* Margin adjustment */
 }
 
 #add_to_cart {
-    margin-top: 25px;
+    margin-top: 25px; /* Margin adjustment */
 }
 
+/* Specific button styles to match general button styles */
+.add-to-cart-btn {
+    flex: 1;
+    padding: 8px 12px; /* Padding for balanced size */
+    border: 1px solid #007bff; /* Border color */
+    background-color: #007bff; /* Background color */
+    color: #fff; /* Text color */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No text decoration */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    font-size: 16px; /* Font size for professional look */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3; /* Hover background color */
+        transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
+}
+
+.wishlist-btn {
+    flex: 0 0 auto;
+    padding: 8px 12px; /* Padding for balanced size */
+    border: 1px solid #007bff; /* Border color */
+    background-color: transparent; /* Transparent background */
+    color: white; /* Text color */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No text decoration */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 5px; /* Rounded corners */
+    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease; /* Smooth transition */
+    font-size: 16px; /* Font size for professional look */
+    margin-left: 10px; /* Space between buttons */
+}
+
+.wishlist-btn:hover {
+    background-color: #0056b3; /* Hover background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
+}
 
 /* Media query for mobile devices */
 @media (max-width: 768px) {
@@ -137,7 +188,16 @@ button:hover {
     #product_details {
         width: 100%; /* Take up full width */
     }
+
+    #actions {
+        flex-direction: column;
+    }
+
+    #add_to_cart {
+        margin-top: 10px; /* Adjust margin for better stacking on mobile */
+    }
 }
+
 #product_info_container {
     max-width: 800px; /* Adjust max width as needed */
     margin: 20px auto; /* Center the container */
@@ -161,8 +221,6 @@ button:hover {
     cursor: pointer;
     margin: 0 5px; /* Adjust spacing between buttons */
     color: black;
-    margin-right: 5px;
-    margin-left: 5px;
 }
 
 .nav_btn:hover {
@@ -183,7 +241,6 @@ button:hover {
     display: block;
 }
 
-
 /* Flex layout for customer comment */
 .comment-container {
     overflow: hidden; /* Hide overflow content */
@@ -197,8 +254,6 @@ button:hover {
     align-items: center;
     margin-bottom: 20px; /* Add margin between comments */
     overflow-x: hidden; /* Hide horizontal overflow */
-    
-
 }
 
 /* Style the profile image */
@@ -289,7 +344,6 @@ button:hover {
     cursor: pointer;
 }
 
-
 #other_products_container {
     text-align: center;
     margin-top: 30px;
@@ -299,18 +353,39 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
 }
 
 .product-card {
-    width: 200px; /* Adjust width as needed */
+    width: 200px; /* Ensure consistent width */
     margin: 10px;
-    
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover for a professional look */
+}
+
+.product-image {
+    width: 100%;
+    height: 200px; /* Ensure consistent height */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-image img {
     width: 100%;
     height: auto;
+    transition: transform 0.3s ease;
+}
+
+.product-image img:hover {
+    transform: scale(1.05); /* Slight zoom on hover for better presentation */
 }
 
 .product-details {
@@ -321,47 +396,11 @@ button:hover {
 .product-rating {
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
 .total-reviews {
     margin-left: 5px;
-}
-
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-
-.wishlist-btn {
-    flex: 1;
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    max-width: 30px;
-    margin-left: 10px;
-    align-content: center;
-    margin-right: 10px;
-}
-
-.add-to-cart-btn:hover,
-.wishlist-btn:hover {
-    background-color: #0056b3;
-}
-
-.add-to-cart-btn{
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 .product-name {
@@ -370,3 +409,50 @@ button:hover {
     margin: 0;
     margin-top: 10px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.add-to-cart-btn {
+    flex: 1;
+    padding: 8px 12px; /* Slightly increase padding for a balanced size */
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px; /* Adjust font size for a professional look */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3; /* Slightly darker blue for hover effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover for a professional look */
+}
+
+.wishlist-btn {
+    flex: 0 0 auto;
+    padding: 8px 12px; /* Add padding for consistency with add-to-cart button */
+    border: 1px solid #007bff;
+    background-color: #007bff; /* Darker shade on hover */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease;
+    font-size: 16px; /* Adjust font size for a professional look */
+    margin-left: 10px; /* Ensure some space between the buttons */
+}
+
+.wishlist-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarges the button to indicate it's clickable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover for a professional look */
+}
+

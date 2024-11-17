@@ -1,65 +1,93 @@
-.home{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-/* Define attributes for slider image section */
-.home .home-slider .slide {
+/* Home Section Styling */
+section.home {
   position: relative;
-  height: 650px; /* Adjust height as needed */
+  overflow: hidden;
   width: 100%;
-  background-size:cover;
+  height: 65vh;
+  background-image: url('backgroundimage.png');
+  background-size: cover;
   background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.home .home-slider .slide .content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Slider Container Styling */
+.swiper-container.home-slider {
+  width: 100%;
+  height: 55vh;
+  margin-left: 250px;
+  margin-right: 250px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Slide Content Styling */
+.swiper-slide .content {
+  color: #fff; /* Light text for better readability */
   text-align: center;
-  color: black;
+  padding: 30px;
 }
 
-.home .home-slider .slide .content h3 {
-  font-size: 5rem;
+.swiper-slide .content h3 {
+  font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: black;
+  color: #fff;
 }
 
-.home .home-slider .slide .content p {
-  font-size: 2rem;
+.swiper-slide .content p {
+  font-size: 1.2rem;
   margin-bottom: 2rem;
-  color: black;
+  color: #fff;
 }
 
-.home .home-slider .slide .content .btn {
-  font-size: 1.7rem;
-  color: black;
-  background: var(--black);
-  border-radius: .5rem;
-  padding: .8rem 3rem;
+.swiper-slide .content .btn {
+  position: absolute; /* Make button absolute positioned */
+  bottom: 20px; /* Position 20px from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Offset center position */
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #627754;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  transition: all 0.3s ease-in-out;
 }
 
-.home .home-slider .slide .content .btn:hover {
-  background: grey;
-  letter-spacing: .1rem;
+
+.swiper-slide .content .btn:hover {
+  background-color: #46563c; /* Set default darker green if no primary color defined */
 }
 
+/* Pagination Styling (Optional) */
 .swiper-pagination {
-  display: none;
-  text-align: left;
-  margin-top: 0;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none; /* Hide pagination by default (uncomment if desired) */
 }
 
 .swiper-pagination-bullet {
-  display: block;
-  margin: 10px 0; /* Adjust the margin as needed */
+  background-color: #ccc;
+  opacity: 0.7;
+  transition: all 0.3s ease-in-out;
 }
+
+.swiper-pagination-bullet-active {
+  background-color: var(--primary-color);
+  opacity: 1;
+}
+
+/* Making the Show Now button visible */
+.swiper-slide .content .btn {
+  display: inline-block; /* Make the button visible */
+}
+
+
 @media (max-width: 768px) {
   .home .home-slider .slide {
     height: 230px; /* Adjust height for smaller screens */
@@ -68,6 +96,7 @@
     background-position:center;
     position: relative;
   }
+  
   .swiper-pagination {
     display: none;
     text-align: left;
@@ -276,6 +305,7 @@ img {
   border-left: 2px solid black;
   border-right: 2px solid black;
   border-radius: 55px;
+  background-color: #dfe5db;
 }
 
 .bar {
@@ -290,7 +320,7 @@ img {
 }
 
 .content h3 {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 0.5rem;
   display: inline-block;
   margin-right: 15px;
@@ -303,58 +333,354 @@ img {
 }
 
 
-/* defining attributes  review section in home page */
-.review .slide{
-  padding:2rem;
-  box-shadow:var(--box-shadow);
-  border:.1rem solid rgba(0,0,0,.2);
-  border-radius: .5rem;
-  position: relative;    
+/* Review section styling */
+.review {
+  background-color: #f9f9f9;
+  padding: 30px;
 }
 
-.review .slide .fa-quote-right{
+.review .slide {
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  background-color: #fff;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 600px;
+  margin: 0 auto; /* Center the slide */
+}
+
+.review .slide:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.review .slide .fa-quote-right {
   position: absolute;
-  top:2rem; right:2rem;
-  font-size: 6rem;
-  color:#ccc;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 4rem;
+  color: #eee;
 }
 
-.review .slide .user{
+.review .slide .user {
   display: flex;
-  gap:1.5rem;
+  gap: 1rem;
   align-items: center;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
 }
 
-.review .slide .user img{
-  height: 7rem;
-  width: 7rem;
+.review .slide .user img {
+  height: 5rem;
+  width: 5rem;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid var(--green);
 }
 
-.review .slide .user h3{
-  color:var(--black);
-  font-size: 2rem;
-  padding-bottom: .5rem;
-}
-
-.review .slide .user i{
-  font-size: 1.3rem;
-  color:var(--green);
-}
-
-.review .slide p{
+.review .slide .user h3 {
+  color: #333;
   font-size: 1.5rem;
-  line-height: 1.8;
-  color:var(--light-color);
+  padding-bottom: 0.3rem;
 }
 
-.sub-heading{
+.review .slide .user i {
+  font-size: 1rem;
+  color: var(--green);
+}
+
+.review .slide p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0.8rem 0;
+}
+.form-group{
+  padding: 20px;
+}
+/* Sub-heading styling */
+.sub-heading {
   text-align: center;
-  color:var(--green);
-  font-size: 2rem;
+  color: var(--black);
+  font-size: 1.8rem;
   padding-top: 1rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+/* Additional styling for a consistent look */
+:root {
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --green: #28a745;
+  --black: #333;
+  --light-color: #777;
+}
+
+.review .slide .user h3,
+.review .slide .user i,
+.review .slide p {
+  transition: color 0.3s ease;
+}
+
+.review .slide:hover .user h3 {
+  color: var(--green);
+}
+
+.review .slide:hover p {
+  color: var(--black);
 }
 
 
+
+
+/* CSS for mobile devices */
+@media only screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+}
+
+/* Styles for the profile container */
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+/* Styles for the profile section */
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-info {
+  flex-grow: 1;
+}
+
+.profile-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Styles for the review form */
+.review-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  font-family: Arial, sans-serif;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+#rating {
+  width: 100%;
+  /* Add any other styles you need */
+}
+
+
+.heading {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.product-card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  margin: 20px;
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+}
+
+.product-details {
+  padding: 20px;
+}
+
+.product-image img {
+  width: 100%;
+  height: 300px; /* Set to desired height to make it square */
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-name {
+  font-size: 1.2em;
+  margin: 15px 0;
+  color: #333;
+}
+
+.product-rating {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.product-rating .stars {
+  color: #f4c150;
+  margin-right: 5px;
+}
+
+.product-rating .total-reviews {
+  color: #777;
+}
+
+#price_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#original_price {
+  text-decoration: line-through;
+  color: #777;
+}
+
+#discount {
+  color: red;
+  font-weight: bold;
+}
+
+#discount_price {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff;  /* Primary blue background */
+  color: white;  /* White text for contrast */
+  padding: 10px 20px;  /* Adequate padding for a touch-friendly button */
+  border: none;  /* No border for a cleaner look */
+  border-radius: 10px;  /* Rounded corners for a softer aesthetic */
+  cursor: pointer;  /* Cursor indicates it's clickable */
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;  /* Smooth transitions for interactive feedback */
+  margin-right: 10px;  /* Space to the right */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  /* Subtle shadow for depth */
+  text-transform: uppercase;  /* Capital letters for emphasis */
+  font-weight: bold;  /* Bold font for clear visibility */
+  text-decoration: none;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;  /* Darker shade on hover for tactile feedback */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Enhanced shadow for a 'lifted' effect */
+  transform: translateY(-2px);  /* Slight raise effect on hover */
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #ccc;  /* Grey color indicates it's not clickable */
+  color: #666;  /* Darker text color for better readability */
+  cursor: not-allowed;  /* Cursor indicates the button is disabled */
+  box-shadow: none;  /* No shadow to flatten the appearance */
+}
+
+.wishlist-btn {
+  padding: 8px 12px; /* Add padding for consistency with add-to-cart button */
+  border: 1px solid #007bff;
+  background-color: #007bff; /* Darker shade on hover */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s ease;
+  font-size: 16px; /* Adjust font size for a professional look */
+  margin-left: 10px; /* Ensure some space between the buttons */
+  flex: 0.7;
+}
+
+
+.wishlist-btn:hover {
+transform: scale(1.05); /* Gently enlarges the button on hover */
+}
+
+
+.category-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.category-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.category-item {
+  margin: 10px;
+  text-align: center;
+}
+
+.category-item img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%;
+  object-fit: cover; /* Ensure the image fits inside the circle */
+  transition: transform 0.3s ease;
+}
+
+.category-item p {
+  margin-top: 10px;
+}
+
+.category-item:hover img {
+  transform: scale(1.1); /* Add a zoom effect on hover */
+}

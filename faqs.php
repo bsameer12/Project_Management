@@ -16,7 +16,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+         require("navbar_switching.php");
+         includeNavbarBasedOnSession();
     ?>
     <div class="faq-container" id="faq-container">
     <h2>FAQs</h2>

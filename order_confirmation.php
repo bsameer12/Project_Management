@@ -1,3 +1,35 @@
+<?php
+$order_id = $_GET["order_id"];
+
+
+// Include the database connection
+include("connection/connection.php");
+
+
+ // Prepare SQL statement
+ $sql = "UPDATE PRODUCT 
+ SET STOCK_AVAILABLE = 'no', IS_DISABLED = 0 
+ WHERE PRODUCT_QUANTITY < 1";
+
+// Parse the SQL query
+$stmt = oci_parse($conn, $sql);
+if (!$stmt) {
+$e = oci_error($conn);
+throw new Exception("Failed to prepare statement: " . $e['message']);
+}
+
+// Execute the SQL statement
+$r = oci_execute($stmt);
+if (!$r) {
+$e = oci_error($stmt);
+throw new Exception("Failed to execute statement: " . $e['message']);
+}
+
+
+// Free the statement identifier
+oci_free_statement($stmt);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +47,8 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+        include("session/session.php");
+        include("session_navbar.php");
     ?>
     <div class="confirmation-container">
         <div class="confirmation-header">
@@ -23,10 +56,10 @@
             <h1 class="confirmation-title">Ordered Confirmed</h1>
         </div>
         <div class="confirmation-message">
-            <h2>Your order has been confirmed and your order number is <strong id="order-number">0387392938</strong>.</h2>
+            <h2>Your order has been confirmed and your order number is <strong id="order-number"><?php echo $order_id; ?></strong>.</h2>
         </div>
         <div class="return-home">
-            <a href="index.html" class="return-home-link">Return to Home</a>
+            <a href="index.php" class="return-home-link">Return to Home</a>
         </div>
     </div>
     </div>

@@ -1,103 +1,114 @@
+body{
+    background-image: url('backgroundimage.png');
+}
+
 .sign-up-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 50px;
-    margin-bottom: 25px;
+    max-width: 300px;
+    margin: 2rem auto;
+    padding: 60px;
+    border: 1px solid #d0d0d0; /* Softer border color */
+    border-radius: 15px; /* Slightly larger radius for a modern look */
+    background: #cad4c3; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* More pronounced shadow for depth */
 }
 
+/* Heading Styles */
 .sign-up-container h2 {
+    margin-bottom: 1.5rem; /* Increased bottom margin */
+    color: black; /* Theme color for consistent branding */
     text-align: center;
-    margin-bottom: 20px;
+
 }
 
+.sign-up-container hover{
+    background-color: #bfc9b8; /* Slightly lighter background on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* More pronounced shadow on hover */
+}
+
+/* Form Element Styles */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 1rem; /* Uniform bottom margin */
 }
 
 .form-group label {
-    display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
 }
 
+/* Input Styles */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="tel"],
 .form-group input[type="date"],
-.form-group textarea {
-    width: 90%;
-    padding: 10px;
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
+    background: #f7f7f7; /* Slightly off-white background for the input fields */
 }
 
-.form-group input[type="file"] {
-    width: auto;
-}
-
-.form-group input[type="checkbox"] {
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.forgot-password {
-    text-align: center;
-    font-size: 14px;
-    text-decoration: none;
-    color: #007bff;
-    display: inline-block;
-}
-
-.sign-in-link, .sign-up-link {
-    color: #007bff;
-    text-decoration: none;
-}
-
-input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    text-align: center;
-    margin-left: 200px;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-input[type="text"]:hover,
-input[type="email"]:hover,
-input[type="password"]:hover,
-input[type="tel"]:hover,
-input[type="date"]:hover,
-input[type="file"]:hover,
-textarea:hover,
-input[type="submit"]:hover {
-    border-color: #0056b3;
-    background-color: lightgray;
-}
-
-.action-links {
-    text-align: center; /* Center align the content */
-}
-
-.action-links a {
-    display: inline-block; /* Ensure the elements are displayed in line */
-}
-
+/* Checkbox and Radio Styles */
+.form-group input[type="checkbox"],
 .form-group input[type="radio"] {
-    display: inline-block;
-    margin-right: 10px; /* Adjust spacing between radio buttons */
+    margin-right: 0.5rem; /* Right margin for spacing */
 }
 
-.sign-up-container:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
-    border-color: blue;
+/* Submit Button Styles */
+input[type="submit"] {
+    width: 100%; /* Full width for the button */
+    color:white;
+    padding: 1rem; /* Increased padding for better clickability */
+    margin-top: 1rem; /* Margin top to separate from form elements */
+    background-color: #627754; /* Consistent theme color */
+    border-radius: 10px; /* Rounded borders */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Shadow for depth */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+input[type="submit"]:hover {
+    background-color: #46563c; /* Darker on hover */
+    transform: translateY(-3px); /* Subtle lift effect */
+}
+
+/* Link Styles */
+.action-links a,
+.forgot-password,
+.sign-in-link,
+.sign-up-link {
+    color: #627754;;
+    text-decoration: underline; 
+}
+
+.action-links a:hover,
+.forgot-password:hover,
+.sign-in-link:hover,
+.sign-up-link:hover {
+    text-decoration: underline; /* Underline on hover for clarity */
+}
+
+/* Error Message Styling */
+p {
+    color: black; /* Error messages in red */
+    font-weight: normal; /* Normal weight for less aggressive appearance */
+    margin-top: 0.5rem; /* Top margin for spacing */
+}
+
+/* General Form Adjustments */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #007bff; /* Focus with theme color */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Focus glow for visibility */
+}
+
+/* Enhance the select dropdown */
+select {
+    appearance: none; /* Remove default styling */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Add dropdown arrow */
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 1.5rem;
 }

@@ -1,3 +1,6 @@
+<?php
+include("trader_session.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

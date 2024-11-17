@@ -1,96 +1,92 @@
-/* defining attributes  about section in about page */
-.about .row{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.1rem;
-    align-items: center;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.about .row .image{
-    flex:1 1 15rem;
-}
-
-.about .row .image img{ 
-    width: 100%;
-}
-
-.about .row .content{
-    flex:1 1 45rem;
-}
-
-.about .row .content h3{
-    color: black;
-    font-size: 4rem;
-    padding:.1rem 0;
-}
-
-.about .row .content p{
-    color:var(--light-color);
-    font-size: 1.5rem;
-    padding:.5rem 0;
-    line-height: 2;
-}
-
-.about .row .content .icons-container{
-    display: flex;
-    gap:1rem;
-    flex-wrap: wrap;
-    padding:0.1rem 0;
-    margin-top: .5rem;
-}
-
-.about .row .content .icons-container .icons{
-    background:#eee;
-    border-radius: .5rem;
-    border:.1rem solid rgba(0,0,0,.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap:1rem;
-    flex:1 1 17rem;
-    padding:1.5rem 1rem;
-}
-
-.about .row .content .icons-container .icons i{
-    font-size: 2.5rem;
-    color:var(--green);
-}
-
-.about .row .content .icons-container .icons span{
-    font-size: 1.5rem;
-    color:var(--black);
-}
-
-/* defining attributes of sub-heading section */
-.sub-heading{
-    text-align: center;
-    color:var(--green);
-    font-size: 2rem;
-}
-/* defining attributes of heading section */
-.heading{
-    text-align: center;
-    color:var(--black);
-    font-size: 3rem;
-    padding-bottom: 5px;
-    text-transform: uppercase;
-}
-/* defining attributes for btn class */
-.btn{
-    margin-top: 1rem;
-    display: inline-block;
-    font-size: 1.7rem;
-    color:black;
-    background: var(--black);
-    border-radius: .5rem;
-    cursor: pointer;
-    padding:.8rem 3rem;
-}
-
-.btn:hover{
-    background: blue;
-    letter-spacing: .1rem;
-}
+body {
+    
+    /* Lighter background for softer appearance */
+       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean font style */
+       padding: 25px;
+       background-color: #f8f9f7;
+   }
+   h1{
+       text-align: left;
+   }
+   .about .row {
+       display: flex;
+       flex-wrap: wrap;
+       gap: 2rem; /* Increased gap for better spacing */
+       align-items: center;
+       margin: 10px 10px 10px 10px; /* Streamlined margin notation */
+   }
+   
+   .about .row .image {
+       flex: 1 1 20rem; /* Slightly larger base size for images */
+   }
+   
+   .about .row .image img { 
+       width: 100%;
+       border-radius: 8px; /* Rounded corners for images */
+   }
+   
+   .about .row .content {
+       flex: 1 1 40rem; /* Adjust content area size */
+       padding: 20px; /* Padding for content area */
+   }
+   
+   .about .row .content h3 {
+       color: #333; /* Dark grey for better readability */
+       font-size: 2.5rem; /* Smaller font size for headings */
+       margin-bottom: 0.5rem; /* Space below heading */
+   }
+   
+   .about .row .content p {
+       color: #666; /* Dark grey for paragraph */
+       font-size: 1.2rem; /* Larger font size for readability */
+       line-height: 1.6; /* Improved line spacing */
+   }
+   
+   .about .row .content .icons-container {
+       display: flex;
+       gap: 2rem; /* Larger gap between icons */
+       flex-wrap: wrap;
+   }
+   
+   .about .row .content .icons-container .icons {
+       background: #fff; /* White background for icons */
+       box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+       padding: 1.2rem 1rem; /* Adjusted padding */
+       transition: all 0.3s ease; /* Smooth transition for hover effects */
+        border-radius: 8px; /* Rounded corners for icons */
+       cursor: pointer; /* Change cursor to pointer on hover */
+   }
+   
+   
+   .about .row .content .icons-container .icons:hover {
+       transform: translateY(-5px); /* Move icons up slightly on hover */
+       box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Increase shadow on hover for depth */
+   }
+   
+   
+   .about .row .content .icons-container .icons i {
+       font-size: 3rem; /* Larger icons */
+       color: #4CAF50; /* Soft green color */
+   }
+   
+   .about .row .content .icons-container .icons span {
+       font-size: 1.4rem; /* Readjusted font size for consistency */
+       color: #333; /* Matching text color */
+   }
+   
+   .sub-heading {
+       color: #4CAF50; /* Consistent use of soft green */
+       font-size: 1.8rem; /* Adjusted for balance */
+   }
+   
+   .heading {
+       color: #333; /* Dark grey for main headings */
+       font-size: 2.5rem; /* Larger for impact */
+       text-transform: capitalize; /* Less aggressive than uppercase */
+   }
+   
+   
+   
+   
+   
+   

@@ -1,3 +1,91 @@
+<?php
+ include("admin_session.php");
+include("../connection/connection.php"); // Include the database connection
+
+// Check if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the selected order status from the POST data
+    $order_status = $_POST['order_status'];
+    $order_id = $_POST['order_id'];
+    // Prepare the SQL statement to update the ORDER_STATUS
+$sql = "UPDATE ORDER_PRODUCT SET ORDER_STATUS = :order_status WHERE ORDER_PRODUCT_ID = :order_id";
+
+// Prepare the statement
+$stmt = oci_parse($conn, $sql);
+if (!$stmt) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+// Bind the parameters
+oci_bind_by_name($stmt, ':order_status', $order_status);
+oci_bind_by_name($stmt, ':order_id', $order_id);
+
+// Execute the statement
+$r = oci_execute($stmt);
+if (!$r) {
+    $e = oci_error($stmt);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+} 
+
+// Free the statement
+oci_free_statement($stmt);
+
+
+    
+}
+
+
+$sql = "SELECT 
+            o.ORDER_PRODUCT_ID, 
+            o.NO_OF_PRODUCT, 
+            o.ORDER_STATUS, 
+            o.TOTAL_PRICE, 
+            o.ORDER_DATE, 
+            o.CUSTOMER_ID, 
+            c.SLOT_DATE, 
+            c.SLOT_TIME, 
+            c.SLOT_DAY, 
+            c.LOCATION 
+        FROM 
+            ORDER_PRODUCT o
+        JOIN 
+            COLLECTION_SLOT c 
+        ON 
+            o.SLOT_ID = c.SLOT_ID 
+        WHERE 
+            o.ORDER_PRODUCT_ID IN (SELECT DISTINCT ORDER_PRODUCT_ID FROM ORDER_DETAILS)
+        ORDER BY 
+            c.SLOT_DATE DESC";
+
+$stmt = oci_parse($conn, $sql);
+if (!$stmt) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+
+$r = oci_execute($stmt);
+if (!$r) {
+    $e = oci_error($stmt);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+// Initialize an array to store the order details
+$order_details = array();
+
+// Fetch the results and store them in the array
+while ($row = oci_fetch_assoc($stmt)) {
+    $order_details[] = $row;
+}
+
+// Free the statement
+oci_free_statement($stmt);
+
+// Close the connection
+oci_close($conn);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,21 +111,6 @@
         include("admin_navbar.php");
     ?>
     <h1 class="page-title">Orders Details</h1>
-    <div class="product-container">
-    <div class="sort-container">
-            <form id="sortForm">
-                <label for="sort">Sort:</label>
-                <select id="sort" onchange="submitForm()">
-                    <option value="new_to_old">New to Old</option>
-                    <option value="old_to_new">Old to New</option>
-                    <option value="alpha_asc">Alphabetically Increasing</option>
-                    <option value="alpha_desc">Alphabetically Decreasing</option>
-                    <option value="price_high_low">Price High to Low</option>
-                    <option value="price_low_high">Price Low to High</option>
-                </select>
-            </form>
-        </div>
-    </div>
     <div class="user-details-container">
         <table border=1 id="myTable">
         <thead>
@@ -47,23 +120,43 @@
                     <th> Order Date</th>
                     <th> Customer Id </th>
                     <th> Pick Up Date </th>
-                    <th> Status</th>
                     <!-- Add more headers for product details -->
+                    <th> Order Status </th>
+                    <th> Pick Up Location </th>
+                    <th> Customer Time Slot</th>
                     <th> Actions </th> 
         </tr>
         </thead>
         <tbody>
-        
-            <tr>
-            <td> 1001 </td>
-            <td>15000</td>
-            <td> 2024-04-28</td>
-            <td>1223</td>
-            <td>2025-03-04</td>
-            <td>Ready to be delivered!!!</td>
-            <td> <a href=admin_view_order.php?id=$id&action=edit> View </a></td>
-            </tr>
-        </tbody>
+        <?php foreach ($order_details as $order) { ?>
+                <tr>
+                    <td><?php echo $order['ORDER_PRODUCT_ID']; ?></td>
+                    <td><?php echo $order['TOTAL_PRICE']; ?></td>
+                    <td><?php echo $order['ORDER_DATE']  ; ?></td>
+                    <td><?php echo $order['CUSTOMER_ID']  ?></td>
+                    <td><?php echo $order['SLOT_DATE'] . " ," . $order['SLOT_DAY'] ; ?></td>
+                    <td>
+                    <form id="statusForm" method="post">
+                    <!-- Hidden input field to store the order ID -->
+                    <input type="hidden" name="order_id" value="<?php echo $order['ORDER_PRODUCT_ID']; ?>">
+                    
+                        <select name="order_status" onchange="submitForm(this)">
+                            <option value="0" <?php echo ($order['ORDER_STATUS'] == 0) ? 'selected' : ''; ?>  readonly>Order Incompleted</option>
+                            <option value="1" <?php echo ($order['ORDER_STATUS'] == 1) ? 'selected' : ''; ?> readonly>Payment Complete</option>
+                            <option value="2" <?php echo ($order['ORDER_STATUS'] == 2) ? 'selected' : ''; ?>>Order Prepared</option>
+                            <option value="3" <?php echo ($order['ORDER_STATUS'] == 3) ? 'selected' : ''; ?>>Order Ready to Pick Up</option>
+                            <option value="4" <?php echo ($order['ORDER_STATUS'] == 4) ? 'selected' : ''; ?>>Order Delivered</option>
+                        </select>
+                    </form>
+                </td>
+
+                    <td><?php echo $order['LOCATION']; ?></td>
+                    <td><?php echo $order['SLOT_TIME']; ?></td>
+                    <td>
+                        <a href="admin_view_order.php?id=<?php echo $order['ORDER_PRODUCT_ID']; ?>&action=edit">View</a>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
     </div>
     <script src="admin_product.js"></script>

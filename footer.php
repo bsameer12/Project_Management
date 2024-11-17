@@ -11,8 +11,8 @@
             <ul>
                 <li><a href="about.php">About Us</a></li>
                 <li><a href="contactus.php">Contact Us</a></li>
-                <li><a href="category.php">Category</a></li>
                 <li><a href="faqs.php">FAQs</a></li>
+                <li><a href="admin_signin.php">Admin Sign In</a></li>
             </ul>
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook"></i></a>

@@ -1,3 +1,32 @@
+<?php
+require("trader_session.php");
+include("../connection/connection.php"); // Include the database connection
+
+$user_id = $_SESSION["userid"]; // Example user ID, you can replace it with a dynamic value
+
+$sql = "SELECT r.REVIEW_ID, r.REVIEW_SCORE, r.REVIEW_DATE, r.FEEDBACK, 
+               u.USER_ID, u.FIRST_NAME || ' ' || u.LAST_NAME AS NAME, u.USER_PROFILE_PICTURE, 
+               p.PRODUCT_NAME
+        FROM review r
+        JOIN product p ON r.PRODUCT_ID = p.PRODUCT_ID
+        JOIN hudder_user u ON r.USER_ID = u.USER_ID
+        WHERE p.USER_ID = :user_id AND r.REVIEW_PROCIDED = 1";
+
+$stmt = oci_parse($conn, $sql);
+if (!$stmt) {
+    $e = oci_error($conn);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+oci_bind_by_name($stmt, ':user_id', $user_id);
+
+$r = oci_execute($stmt);
+if (!$r) {
+    $e = oci_error($stmt);
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,77 +48,42 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
-    <?php
-        include("trader_navbar.php");
-    ?>
+    <?php include("trader_navbar.php"); ?>
     <h1 class="page-title">Reviews</h1>
-    <div class="product-container">
-    <div class="sort-container">
-            <form id="sortForm">
-                <label for="sort">Sort:</label>
-                <select id="sort" onchange="submitForm()">
-                    <option value="new_to_old">New to Old</option>
-                    <option value="old_to_new">Old to New</option>
-                    <option value="alpha_asc">Alphabetically Increasing</option>
-                    <option value="alpha_desc">Alphabetically Decreasing</option>
-                    <option value="price_high_low">Price High to Low</option>
-                    <option value="price_low_high">Price Low to High</option>
-                </select>
-            </form>
-        </div>
-    </div>
-    
     <div class="user-details-container">
         <table border=1 id="myTable">
-        <thead>
-        <tr> 
-                    <th> ID </th> 
-                    <th> User Profile </th>
-                    <th> User Name </th>
-                    <th> User Rating </th>
-                    <th> User Review </th>
-                    <th> User Reply </th>
-                    <!-- Add more headers for product details -->
-                    <th> Actions </th> 
-        </tr>
-        </thead>
-        <tbody>
-        
-            <tr>
-            <td> 1001 </td>
-            <td><img src='../profile.jpg' alt='Product Image' style='width:50px;height:50px;'></td>
-            <td> Sameer Basnet</td>
-            <td>4.5</td>
-            <td>Good Product</td>
-            <td>tHANK YOU</td>
-            <td> <a href=trader_qa.php?id=$id&action=edit> Reply </a> </td>
-            </tr>
-        </tbody>
+            <thead>
+                <tr>
+                    <th>Review ID</th>
+                    <th>User Picture</th>
+                    <th>User Name</th>
+                    <th>User Rating</th>
+                    <th>User Review</th>
+                    <th>Product Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = oci_fetch_assoc($stmt)) { ?>
+                    <tr>
+                        <td><?php echo $row['REVIEW_ID']; ?></td>
+                        <td><img src='../profile_image/<?php echo $row['USER_PROFILE_PICTURE']; ?>' alt='<?php echo $row['NAME']; ?>' style='width:50px;height:50px;'></td>
+                        <td><?php echo $row['NAME']; ?></td>
+                        <td><?php echo $row['REVIEW_SCORE']; ?></td>
+                        <td><?php echo $row['FEEDBACK']; ?></td>
+                        <td><?php echo $row['PRODUCT_NAME']; ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
         </table>
     </div>
     <script src="trader_product.js"></script>
     <script src="trader_navbar.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js">
-    </script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script>
         let table = new DataTable('#myTable', {
-        responsive: true,
+            responsive: true,
         });
-        window.onload = function() {
-        var sortSelect = document.getElementById("sort");
-        var selectedValue = localStorage.getItem("selectedSortValue");
-        if (selectedValue) {
-            sortSelect.value = selectedValue;
-        }
-    };
-
-    function submitForm() {
-        var sortSelect = document.getElementById("sort");
-        localStorage.setItem("selectedSortValue", sortSelect.value);
-        document.getElementById("sortForm").submit();
-    }
     </script>
 </body>
 </html>

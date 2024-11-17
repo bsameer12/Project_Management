@@ -1,3 +1,23 @@
+<?php
+include("connection/connection.php");
+// Define an array to store the category data
+$categoryArray = [];
+
+// Query to select CATEGORY_ID and CATEGORY_TYPE from PRODUCT_CATEGORY
+$sql = "SELECT CATEGORY_ID, CATEGORY_TYPE, CATEGORY_IMAGE FROM PRODUCT_CATEGORY";
+
+// Execute the query
+$result = oci_parse($conn, $sql);
+oci_execute($result);
+
+// Fetch the rows and store them in the category array
+while ($row = oci_fetch_assoc($result)) {
+    $categoryArray[] = $row;
+}
+
+// Free the statement resources
+oci_free_statement($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,40 +36,18 @@
 </head>
 <body>
     <?php
-        include("without_session_navbar.php");
+         require("navbar_switching.php");
+         includeNavbarBasedOnSession();
     ?>
     <section class="category-section" id="category-section">
     <h2>Categories</h2>
     <div class="category-container">
+            <?php foreach ($categoryArray as $category): ?>
         <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>fish</p>
+            <a href="search_page?category_id=<?php echo $category['CATEGORY_ID']; ?>"><img src="category_picture/<?php echo $category['CATEGORY_IMAGE']; ?>" alt="<?php echo $category['CATEGORY_TYPE']; ?>"></a>
+            <p><?php echo $category['CATEGORY_TYPE']; ?></p>
         </div>
-        <!-- Repeat the above div for other categories -->
-        <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>Ice</p>
-        </div>
-        <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>Rum</p>
-        </div>
-        <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>Vodka</p>
-        </div>
-        <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>Car</p>
-        </div>
-        <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>Meat</p>
-        </div>
-        <div class="category-item">
-            <a href="page1.html"><img src="logo.png" alt="Category 1"></a>
-            <p>Beer</p>
-        </div>
+        <?php endforeach; ?>
     </div>
 </section>
 <?php

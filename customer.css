@@ -4,7 +4,11 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
+    max-width: 90%; /* Adjust this value as needed to make the container smaller */
+    margin: 0 auto; /* Centers the container horizontally */
+
 }
+
 
 .left-side {
     flex: 1;
@@ -34,7 +38,7 @@
 /* Style for the upload button */
 .update-profile-btn {
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #627754;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -42,11 +46,11 @@
     transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition effect */
     margin-left: auto; /* Add this line */
     margin-right: auto; /* Add this line */
-    display: block; /* Add this line */
+    display: block; /* Add this line */ 
 }
 
 .update-profile-btn:hover {
-    background-color: #0056b3;
+    background-color: #46563c;
     transform: scale(1.05); /* Add zoom in effect on hover */
 }
 
@@ -58,27 +62,37 @@
 .nav-btn {
     display: block;
     margin-bottom: 10px;
-    border: none; /* Remove the border */
-    border-radius: 5px;
-    padding: 10px;
+    border: none; /* Continue to remove the border */
+    border-radius: 5px; /* Subtle rounded corners for a modern look */
+    padding: 10px 15px; /* Reduced padding for a smaller button */
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition effect */
-    background-color: 000;
-    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for interactive feedback */
+    background-color: #627754; /* Professional muted green */
+    width: auto; /* Adjust width to content for a more compact look */
+    color: white; /* High contrast for readability */
+    font-size: 0.9rem; /* Slightly smaller font size */
+    font-weight: bold; /* Bold text to make the buttons stand out */
+    text-transform: uppercase; /* Uppercase text for a more structured appearance */
+    letter-spacing: 0.05em; /* Adding letter-spacing to improve readability of uppercase text */
+    max-width: 200px; /* Max width can limit the button size for very wide containers */
+    margin-left: auto; /* Center the button horizontally if not full width */
+    margin-right: auto;
 }
 
+
+
 .nav-btn.active {
-    background-color: #0095ff;
+    background-color: #627754;
 }
 
 .nav-btn:hover {
-    background-color: #3300ff;
+    background-color: #46563c;
     transform: scale(1.05); /* Add zoom in effect on hover */
 }
 
 .personal-info {
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #f0f3ee;
 }
 
 .personal-info h2 {
@@ -120,26 +134,51 @@
 
 .save-btn,
 .delete-account-btn {
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
     margin-left: 30px;
     text-align: center;
-    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
 }
 
-.save-btn:hover,
-.delete-account-btn:hover {
-    background-color: #0056b3;
+.save-btn {
+    background-color: #1E90FF;
+}
+
+.save-btn:hover {
+    background-color: #1C86EE; /* Slightly darker blue on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.save-btn:active {
+    background-color: #1A7FDB; /* Even darker blue on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Return to original shadow on click */
+    transform: translateY(0); /* Remove lift on click */
 }
 
 .delete-account-btn {
-    background-color: #ff3333;
+    background-color: #B22222;
 }
+
+.delete-account-btn:hover {
+    background-color: #A52A2A; /* Slightly darker red on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.delete-account-btn:active {
+    background-color: #8B0000; /* Even darker red on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Return to original shadow on click */
+    transform: translateY(0); /* Remove lift on click */
+}
+
+
+
 
 /* Hide the dummy tables by default */
 .my-orders-table,
@@ -170,15 +209,12 @@
 
 .my-orders-table table th,
 .my-reviews-table table th {
-    background-color: #00eaff;
+    background-color: #CBD5C0;
     font-weight: bold;
     text-align: left;
 }
 
-.my-orders-table table tbody tr:nth-child(even),
-.my-reviews-table table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+
 
 /* Show the dummy tables when clicked */
 .my-orders.active,
@@ -201,6 +237,10 @@
 .nav-btn.active ~ .right-side .personal-info {
     display: block;
 }
+
+
+
+
 
 /* Media query for smaller screens */
 @media only screen and (max-width: 768px) {

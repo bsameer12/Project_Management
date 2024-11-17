@@ -1,8 +1,64 @@
 <?php
-if(isset($_POST["submit"]))
+if(isset($_POST["forgot"]))
 {
-    header("Location:password_reset_email.php");
-    exit;
+    // Input Sanizatization 
+    require("input_validation\input_sanitization.php");
+    $email = sanitizeEmail($_POST["verification_email"]);
+
+    // Input Validation
+    require("input_validation\input_validation.php");
+    $email_error = "";
+    // Check if email exists
+        if (emailExists($email) === "true") {
+            include("connection/connection.php");
+            // Prepare the SQL statement
+            $sql = "SELECT user_id, first_name, last_name FROM HUDDER_USER WHERE user_email = :email";
+
+            // Prepare the OCI statement
+            $stmt = oci_parse($conn, $sql);
+
+            // Bind the email parameter
+            oci_bind_by_name($stmt, ':email', $email);
+
+            // Execute the statement
+            oci_execute($stmt);
+
+            // Fetch the result
+            if ($row = oci_fetch_assoc($stmt)) {
+                $name = $row["FIRST_NAME"] . " " . $row["LAST_NAME"];
+                $user_id = $row['USER_ID'];
+                require("otp\otp_genearator.php");
+                $verification_code = generateRandomCode();
+                // Prepare the SQL statement
+                    $sql = "UPDATE CUSTOMER 
+                    SET VERIFICATION_CODE = :verification_code,
+                        DATE_UPDATED = CURRENT_DATE
+                    WHERE USER_ID = :userid";
+
+                    // Prepare the OCI statement
+                    $stmt = oci_parse($conn, $sql);
+                    // Bind the parameters
+                    oci_bind_by_name($stmt, ':verification_code', $verification_code);
+                    oci_bind_by_name($stmt, ':userid', $user_id);
+
+                    // Execute the statement
+                    if (oci_execute($stmt)) {
+                        require("PHPMailer-master/forgot_password_email.php");
+                        sendForgotPasswordVerificationEmail($email, $verification_code, $name);
+                        header("Location:password_reset_email.php?email=$email&userid=$user_id");
+                        exit;
+                    } else {
+                    $error = oci_error($stmt);
+                    echo "Error updating row: " . $error['message'];
+                    }
+                     // Free the statement and close the connection
+                        oci_free_statement($stmt);
+                        oci_close($conn);
+                                } 
+        } else {
+            $email_error = "This Email is not regristered in our platform.";
+        }
+
 }
 ?>
 <!DOCTYPE html>
@@ -27,10 +83,15 @@ if(isset($_POST["submit"]))
     <div class="email-container">
         <h2>Forgot Your Password?</h2>
         <p>Please enter the email associated with your account. We'll send you a verification code to reset your password</p>
-        <form method="post">
+        <form action="" method="post" name="email_verify" id="email_verify" enctype="multipart/form-data">
             <label for="verification_email">Email</label><br>
             <input type="email" id="verification_email" name="verification_email" required><br>
-            <input type="submit" value="Verify" name="submit" id="submit">
+            <?php
+            if (!empty($email_error)) {
+                    echo "<p style='color: red;'>$email_error</p>";
+                }
+                ?>
+            <input type="submit" value="Verify" name="forgot" id="forgot">
         </form>
     </div>
     <?php

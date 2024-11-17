@@ -1,13 +1,17 @@
+/* Basic Styling for the Footer */
 footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #f8f9fa;
+    background-color: #DFE6DA; /* Soft background color for a modern look */
     padding: 20px 0;
     text-align: center;
     margin-top: 20px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to lift footer off the page */
+    font-family: 'Arial', sans-serif; /* Ensuring font consistency */
 }
 
+/* Styling for Back-to-Top and Text Container */
 .back-to-top-container {
     display: flex;
     flex-direction: column;
@@ -16,11 +20,12 @@ footer {
 
 .back-to-top-text {
     font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin: 20px 0 30px; /* Simplified margin declaration */
+    font-size: 1.1rem; /* Slightly larger text for emphasis */
+    color: #555; /* Softer text color for better readability */
 }
 
+/* Back-to-Top Button Enhancements */
 .back-to-top button {
     background-color: #007bff;
     color: #fff;
@@ -28,12 +33,17 @@ footer {
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    
+    transition: background-color 0.2s, box-shadow 0.2s; /* Adding smooth transitions for interaction */
 }
 
+.back-to-top button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
+}
+
+/* Footer Links Styling */
 .footer-links {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .footer-links ul {
@@ -52,10 +62,37 @@ footer {
 }
 
 .footer-links ul li a {
-    text-decoration: none;
-    color: #333;
+    text-decoration: none; /* Remove any default underline */
+    color: #232b1e; /* Default text color */
+    position: relative; /* Position relative to allow absolute positioning of pseudo-elements */
+    transition: color 0.3s ease; /* Smooth transition for color change */
 }
 
+.footer-links ul li a:hover,
+.footer-links ul li a:focus { /* Ensure accessibility by including focus */
+ color: #232b1e; /* Highlight color on hover and focus */
+}
+
+/* Animated underline on hover */
+.footer-links ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px; /* Positioning the underline slightly below the text */
+    height: 2px; /* Height of the underline */
+    background-color: #232b1e; /* Color of the underline */
+    transition: transform 0.3s ease; /* Smooth transition for the transformation */
+    transform: scaleX(0); /* Start with the underline scaled to 0 */
+    transform-origin: left; /* Start the transformation from the left */
+}
+
+.footer-links ul li a:hover::after,
+.footer-links ul li a:focus::after { /* Include focus for accessibility */
+    transform: scaleX(1); /* Scale the underline to full width on hover/focus */
+}
+
+/* Social Icons Enhancements */
 .social-icons {
     margin-top: 10px;
 }
@@ -64,30 +101,35 @@ footer {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background-color: #007bff;
+    background-color: #758467;
     color: #fff;
     border-radius: 50%;
     margin-right: 10px;
     line-height: 40px;
     text-align: center;
     text-decoration: none;
+    transition: background-color 0.2s; /* Smooth transition for background color */
 }
 
-.social-icons a:last-child {
-    margin-right: 0;
+.social-icons a:hover {
+    background-color: #232b1e; /* Darker green on hover */
 }
 
 .social-icons i {
     font-size: 20px;
 }
 
+/* Styling for Copyright Text */
 .copyright {
-    color: #333;
+    color: #666; /* Softer color for less strain */
+    font-size: 0.9rem; /* Smaller text size for subtlety */
+    padding-top: 10px; /* Additional padding for visual separation */
 }
 
+/* Horizontal Line Styling */
 .line {
     width: 80%;
     border: none;
-    border-top: 2px solid black;
-    margin-bottom: 10px;
+    border-top: 2px solid #ddd; /* Lighter border color for a less invasive look */
+    margin: 10px auto; /* Centering and spacing the line */
 }
